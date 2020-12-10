@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import { auth } from '../../utils/firebase';
 
 import Form from '../../form/Form';
 
-import { auth } from '../../utils/firebase';
+import './SignupPage.scss';
 
 const fieldProps = [
   {
@@ -17,18 +18,25 @@ const fieldProps = [
     id: 'password',
     label: 'Password',
   },
+
+  {
+    name: 'password-confirmation',
+    type: 'password',
+    id: 'password-confirmation',
+    label: 'Confirm Password',
+  },
 ];
 
 const formFooterComponent = (
   <div className="field footer">
-    Don't have an account? <Link to="/sign-up">Sign up</Link>
+    Already have an account? <Link to="/sign-in">Sign in</Link>
   </div>
 );
 
-const SignIn = () => {
+const SignUp = () => {
   const onSubmit = ({ email, password }) => {
     auth
-      .signInWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(email, password)
       .then(console.log)
       .catch(e => console.log(e));
   };
@@ -42,4 +50,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
