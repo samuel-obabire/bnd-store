@@ -1,0 +1,68 @@
+@import '../../../variables';
+
+.form {
+  width: 90%;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 1rem;
+  font-size: 1.06rem;
+  transform: translate(-50%, -60%);
+  padding: 2rem var(--default_padding);
+  box-shadow: map-get($map: $shadows, $key: soft);
+
+  .field {
+    margin-bottom: var(--default_margin);
+
+    &.footer {
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    a {
+      font-weight: 400;
+      color: rgb(23, 135, 143);
+    }
+  }
+
+  .field-error {
+    color: var(--primary-red);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.7rem 0.5rem;
+    border: 1px solid rgb(201, 199, 199);
+    border-radius: 0.3rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    position: relative;
+    margin-bottom: 1rem;
+
+    &.disabled {
+      background-color: rgb(243, 237, 237);
+    }
+
+    &:active {
+      top: 1px;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
