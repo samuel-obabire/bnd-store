@@ -10,10 +10,10 @@ const HomePage = () => {
         style={{
           backgroundImage: `url(${homeBackground})`,
         }}>
-        <h1 className="shop-name">
+        <h2 className="shop-name">
           Bnd
           <span>Clothings</span>
-        </h1>
+        </h2>
 
         <div className="shop-now">
           <em>...shop quality products</em>
