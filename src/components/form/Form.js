@@ -1,5 +1,7 @@
 import { Field, reduxForm } from 'redux-form';
 
+import './Form.scss';
+
 const renderError = ({ error, touched }) => {
   if (touched && error) {
     return <div className="field-error">{error}</div>;

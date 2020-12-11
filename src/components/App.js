@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.scss';
 
@@ -10,7 +11,7 @@ import SigninPage from './pages/sign-in-page/SignInPage';
 
 import { auth, createUserProfileDoc } from './utils/firebase';
 import { setUser } from '../redux/actions';
-import { connect } from 'react-redux';
+import Header from './header/Header';
 
 const App = ({ setUser }) => {
   useEffect(() => {
@@ -31,6 +32,7 @@ const App = ({ setUser }) => {
 
   return (
     <BrowserRouter>
+      <Header />
       <Route exact path="/" component={HomePage} />
       <Route path="/shop" component={ShopPage} />
       <Route path="/sign-in" component={SigninPage} />

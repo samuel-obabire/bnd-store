@@ -3,8 +3,6 @@ import { auth } from '../../utils/firebase';
 
 import Form from '../../form/Form';
 
-import './SignupPage.scss';
-
 const fieldProps = [
   {
     name: 'email',
