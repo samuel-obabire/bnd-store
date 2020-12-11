@@ -1,0 +1,30 @@
+.mobile-menu {
+  position: absolute;
+  background-color: white;
+  z-index: 3;
+  padding: 2rem;
+  width: 80%;
+  max-width: 25rem;
+  min-height: 100%;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.mobile-menu-overlay {
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-color: black;
+  min-height: 100vh;
+  opacity: 0.8;
+  cursor: pointer;
+}
