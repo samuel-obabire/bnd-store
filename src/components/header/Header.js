@@ -10,14 +10,14 @@ import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
 import SearchBar from '../../components/search-bar/SearchBar';
 import { setMobileMenuVisiblity } from '../../redux/actions';
 import MobileMenu from '../../components/mobile-menu/MobileMenu';
-import { useEffect } from 'react';
+import Categories from '../categories/Categories';
 
 const Header = ({ setMobileMenuVisiblity }) => {
   return (
     <div className="container">
       <nav className="header-nav">
         <Breakpoint small down>
-          <div className="nav-icon  menu-bar">
+          <div className="nav-item  menu-bar">
             <MenuBar
               className="icon"
               onClick={() => setMobileMenuVisiblity()}
@@ -29,11 +29,18 @@ const Header = ({ setMobileMenuVisiblity }) => {
           <Logo className="store-logo" />
         </Breakpoint>
         <SearchBar className="icon" />
-        <div className="nav-icon  cart-icon">
-          <CartIcon />
-        </div>
-        <div className="nav-icon  user-icon">
-          <UserIcon className="icon" />
+        <div className="right-sided-nav-items">
+          <Breakpoint medium up>
+            <div className="nav-item shop-categories">
+              <Categories isMobileScreen={false} />
+            </div>
+          </Breakpoint>
+          <div className="nav-item  cart-icon">
+            <CartIcon />
+          </div>
+          <div className="nav-item  user-icon">
+            <UserIcon className="icon" />
+          </div>
         </div>
       </nav>
     </div>

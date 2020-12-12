@@ -8,6 +8,7 @@ import './MobileMenu.scss';
 import { getMobileMenuVisibility } from '../../redux/selectors';
 import { setMobileMenuVisiblity } from '../../redux/actions';
 import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
+import Categories from '../categories/Categories';
 
 const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
   const history = useHistory();
@@ -21,7 +22,7 @@ const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
         onClick={() => setMobileMenuVisiblity()}></div>
       <div className={`mobile-menu ${visible}`}>
         <div
-          className="logo"
+          className="mobile-logo"
           onClick={() => {
             setMobileMenuVisiblity();
 
@@ -30,17 +31,7 @@ const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
           <Logo />
         </div>
         <hr />
-        <header>
-          <h3>Categories</h3>
-        </header>
-        <ul>
-          <li>Clothings</li>
-          <li>Shoes</li>
-          <li>Slippers</li>
-          <li>Fabrics</li>
-          <li>Hair Accessories</li>
-          <li>Bags</li>
-        </ul>
+        <Categories isMobileScreen={true} />
         <hr />
       </div>
     </>,

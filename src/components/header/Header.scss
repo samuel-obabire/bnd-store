@@ -9,7 +9,7 @@
   z-index: 1;
   background-color: white;
 
-  .nav-icon {
+  .nav-item {
     width: 25px;
     margin: 0 1rem;
     cursor: pointer;
@@ -20,16 +20,25 @@
     }
   }
 
-  .nav-icon.cart-icon {
+  .shop-categories {
+    width: min-content;
+    margin: 0 2rem;
+  }
+
+  .right-sided-nav-items {
     margin-left: auto;
+    display: flex;
   }
 
   .user-icon {
     width: 50px;
   }
 
+  .cart-icon {
+    margin-left: auto;
+  }
+
   .store-logo {
     margin: 0 1rem;
-    // font-family: 'Lato', sans-serif;
   }
 }

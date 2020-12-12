@@ -27,12 +27,12 @@
 
     @keyframes shop-intro {
       0% {
-        letter-spacing: -0.1rem;
+        letter-spacing: -0.3rem;
         transform: translateZ(-45rem);
         opacity: 0;
       }
-      40% {
-        opacity: 0.6;
+      60% {
+        opacity: 0.7;
       }
       100% {
         transform: translateZ(0);

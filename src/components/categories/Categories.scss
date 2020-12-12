@@ -1,0 +1,49 @@
+.shop-categories {
+  font-weight: 400;
+  position: relative;
+  z-index: inherit;
+
+  .categories-wrapper {
+    position: absolute;
+    background-color: white;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    cursor: default;
+
+    &.not-mobile {
+      visibility: hidden;
+
+      li {
+        opacity: 0.2;
+        transform: translateY(60px);
+        transition: transform 300ms cubic-bezier(0.55, 0.82, 0.28, 0.61),
+          opacity 500ms ease;
+      }
+
+      &.visible {
+        visibility: visible;
+
+        li {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+.categories-header {
+  font-weight: 500;
+}
+
+.categories-list {
+  list-style-type: none;
+  padding: 0 1rem;
+
+  li {
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+}
