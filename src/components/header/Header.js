@@ -10,6 +10,7 @@ import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
 import SearchBar from '../../components/search-bar/SearchBar';
 import { setMobileMenuVisiblity } from '../../redux/actions';
 import MobileMenu from '../../components/mobile-menu/MobileMenu';
+import { useEffect } from 'react';
 
 const Header = ({ setMobileMenuVisiblity }) => {
   return (
@@ -25,8 +26,6 @@ const Header = ({ setMobileMenuVisiblity }) => {
           </div>
         </Breakpoint>
         <Breakpoint medium up>
-          {/* <h1 className="store-name">Beulah & Daniel Fashion Palaace</h1> */}
-          {/* <h1 className="store-name">Bnd</h1> */}
           <Logo className="store-logo" />
         </Breakpoint>
         <SearchBar className="icon" />

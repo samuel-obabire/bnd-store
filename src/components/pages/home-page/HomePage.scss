@@ -15,13 +15,29 @@
   }
 
   .shop-name {
-    margin: -4rem 0 0 1rem;
+    animation: shop-intro 0.8s cubic-bezier(0.3, 0.56, 0.5, 1) both;
+    margin: 1rem 0 0 1rem;
     color: white;
     letter-spacing: 2px;
     font-size: 3rem;
 
     > span {
       display: block;
+    }
+
+    @keyframes shop-intro {
+      0% {
+        letter-spacing: -0.1rem;
+        transform: translateZ(-45rem);
+        opacity: 0;
+      }
+      40% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateZ(0);
+        opacity: 1;
+      }
     }
   }
 
@@ -32,6 +48,7 @@
 
     .shop-now-button {
       width: 50%;
+      cursor: pointer;
       max-width: 20rem;
       padding: 0.5rem;
       margin: 5px auto -4rem;
@@ -39,6 +56,7 @@
       text-align: center;
       color: black;
       background-color: #ff8100;
+      position: relative;
     }
   }
 }

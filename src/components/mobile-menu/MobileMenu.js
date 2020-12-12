@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import './MobileMenu.scss';
 // import { Link } from 'react-router-dom';
@@ -8,16 +9,24 @@ import { getMobileMenuVisibility } from '../../redux/selectors';
 import { setMobileMenuVisiblity } from '../../redux/actions';
 import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
 
-const MobileMenu = ({ visible, setMobileMenuVisiblity }) => {
-  if (!visible) return null;
+const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
+  const history = useHistory();
+
+  const visible = visibility ? 'visible' : '';
 
   return createPortal(
     <>
       <div
-        className="mobile-menu-overlay"
+        className={`mobile-menu-overlay ${visible}`}
         onClick={() => setMobileMenuVisiblity()}></div>
-      <div className="mobile-menu">
-        <div className="logo">
+      <div className={`mobile-menu ${visible}`}>
+        <div
+          className="logo"
+          onClick={() => {
+            setMobileMenuVisiblity();
+
+            history.push('/');
+          }}>
           <Logo />
         </div>
         <hr />
@@ -41,7 +50,7 @@ const MobileMenu = ({ visible, setMobileMenuVisiblity }) => {
 
 const mapState = state => {
   return {
-    visible: getMobileMenuVisibility(state),
+    visibility: getMobileMenuVisibility(state),
   };
 };
 
