@@ -1,3 +1,9 @@
+@mixin font-size($min, $val, $max, $default) {
+  $clamp: #{'clamp(#{$min}, #{$val}, #{$max})'};
+  font-size: $default;
+  font-size: $clamp;
+}
+
 .home-background {
   width: 100%;
   display: flex;
@@ -20,11 +26,11 @@
     margin: 1rem 0 0 var(--container-padding);
     color: white;
     letter-spacing: 2px;
-    font-size: 2rem;
     font-family: 'Roboto', sans-serif;
+    @include font-size(2rem, 10vw, 4rem, 2rem);
 
     @media screen and (min-width: 48rem) {
-      font-size: 4rem;
+      @include font-size(3rem, 10vw, 5rem, 6rem);
     }
 
     > span {
@@ -51,6 +57,7 @@
     color: white;
     text-align: center;
     margin-top: 3rem;
+    z-index: 1;
 
     .shop-now-button {
       width: 50%;
