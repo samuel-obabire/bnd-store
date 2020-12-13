@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ import { setSearchTerm } from '../../redux/actions/';
 
 const SearchBar = ({ setSearchTerm }) => {
   const [term, setTerm] = useState('');
+  const inputRef = useRef();
   const history = useHistory();
 
   const onSubmit = e => {
@@ -18,6 +19,7 @@ const SearchBar = ({ setSearchTerm }) => {
 
     setSearchTerm(term.toLowerCase());
     setTerm('');
+    inputRef.current.blur();
 
     history.push('/shop');
   };
@@ -25,6 +27,7 @@ const SearchBar = ({ setSearchTerm }) => {
   return (
     <form onSubmit={onSubmit} className="search-bar">
       <input
+        ref={inputRef}
         placeholder="Search for a product"
         type="search"
         value={term}

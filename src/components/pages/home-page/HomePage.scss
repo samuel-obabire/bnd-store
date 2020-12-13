@@ -9,6 +9,7 @@
   background-position: center;
   background-size: cover;
   position: relative;
+  background-blend-mode: difference;
 
   @media screen and (min-width: 48rem) {
     min-height: 34.375rem;
@@ -16,10 +17,15 @@
 
   .shop-name {
     animation: shop-intro 0.8s cubic-bezier(0.3, 0.56, 0.5, 1) both;
-    margin: 1rem 0 0 1rem;
+    margin: 1rem 0 0 var(--container-padding);
     color: white;
     letter-spacing: 2px;
-    font-size: 3rem;
+    font-size: 2rem;
+    font-family: 'Roboto', sans-serif;
+
+    @media screen and (min-width: 48rem) {
+      font-size: 4rem;
+    }
 
     > span {
       display: block;

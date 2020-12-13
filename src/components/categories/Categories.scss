@@ -11,9 +11,28 @@
     flex-direction: column;
     padding: 0 1rem;
     cursor: default;
+    border: 2px solid rgba(214, 209, 209, 0.651);
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
 
     &.not-mobile {
       visibility: hidden;
+      top: 3rem;
+
+      &::after {
+        --top: 2rem;
+        z-index: 1;
+        content: '';
+        transform: scale(0);
+        background: black;
+        width: var(--top);
+        height: var(--top);
+        position: absolute;
+        z-index: 8;
+        top: calc(var(--top) * -1);
+        left: 0;
+        clip-path: polygon(50% 28%, 0% 100%, 100% 100%);
+      }
 
       li {
         opacity: 0.2;
@@ -24,6 +43,10 @@
 
       &.visible {
         visibility: visible;
+
+        &::after {
+          transform: scale(1);
+        }
 
         li {
           opacity: 1;

@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { makeUniqueGetShopCategories } from '../../redux/selectors';
+
 import './Categories.scss';
+
+import { makeUniqueGetShopCategories } from '../../redux/selectors';
 
 const Categories = ({ categories, isMobileScreen }) => {
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
+  const ref = useRef();
 
   useEffect(() => {
-    const onBodyClick = () => {
+    const onBodyClick = e => {
+      // if element clicked is inside of ref and it's nodeName is not LI,
+      // don't do anything
+
+      if (ref.current.contains(e.target) && e.target.nodeName !== 'LI') return;
+
       setDropdownVisibility(false);
     };
 
@@ -30,6 +38,7 @@ const Categories = ({ categories, isMobileScreen }) => {
         Categories
       </div>
       <div
+        ref={ref}
         className={`categories-wrapper ${!isMobileScreen ? 'not-mobile' : ''} ${
           dropdownVisibility ? 'visible' : ''
         }`}>
@@ -44,7 +53,7 @@ const Categories = ({ categories, isMobileScreen }) => {
 const makeMapState = state => {
   const getShopCategories = makeUniqueGetShopCategories(state);
 
-  // if a fun is returned from mapState connect automatically calls it
+  // if a func is returned from mapState connect automatically calls it
 
   const mapState = () => ({
     categories: getShopCategories(state),
