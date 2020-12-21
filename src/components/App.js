@@ -6,9 +6,12 @@ import './App.scss';
 
 import SigninPage from './pages/sign-in-page/SignInPage';
 
-import { auth, createUserProfileDoc } from './utils/firebase';
+import { auth, createUserProfileDoc, firestore } from './utils/firebase';
 import { setUser } from '../redux/actions';
 import Header from './header/Header';
+import shopdata from './pages/shop-page/shop-data';
+import { generateId } from './utils/generateId';
+import Jimp from 'jimp/es';
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'));
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'));
@@ -17,6 +20,37 @@ const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'));
 const App = ({ setUser }) => {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // const batch = firestore.batch();
+      // const fun = async () => {
+      //   // map will return a promise
+      //   const promises = shopdata.map(async product => {
+      //     const image = product.image;
+      //     const p = { ...product };
+
+      //     const img = await Jimp.read(image);
+
+      //     const uri = await img
+      //       .resize(10, Jimp.AUTO)
+      //       .blur(2)
+      //       .getBase64Async(Jimp.AUTO);
+
+      //     p.uri = uri;
+
+      //     return p;
+      //   });
+
+      //   Promise.all(promises).then(arr => {
+      //     arr.forEach(data => {
+      //       const ref = firestore.collection('products').doc(`${generateId()}`);
+      //       batch.set(ref, data);
+      //     });
+
+      //     batch.commit().then(console.log);
+      //   });
+      // };
+
+      // fun();
+
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth);
 

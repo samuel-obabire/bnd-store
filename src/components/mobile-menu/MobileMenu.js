@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import './MobileMenu.scss';
-// import { Link } from 'react-router-dom';
 
 import { getMobileMenuVisibility } from '../../redux/selectors';
 import { setMobileMenuVisiblity } from '../../redux/actions';

@@ -1,7 +1,14 @@
-@mixin font-size($min, $val, $max, $default) {
+@mixin font-size($min, $val, $max, $default-m: $min, $default-l: $max) {
   $clamp: #{'clamp(#{$min}, #{$val}, #{$max})'};
-  font-size: $default;
-  font-size: $clamp;
+  font-size: $default-m;
+
+  @media screen and (min-width: 48rem) {
+    font-size: $default-l;
+  }
+
+  @supports (font-size: clamp(2px, 2px, 2px)) {
+    font-size: $clamp;
+  }
 }
 
 .home-background {
@@ -11,11 +18,11 @@
   justify-content: center;
   min-height: 30rem;
   background-color: black;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  // background-repeat: no-repeat;
+  // background-position: center;
+  // background-size: cover;
   position: relative;
-  background-blend-mode: difference;
+  // background-blend-mode: difference;
 
   @media screen and (min-width: 48rem) {
     min-height: 34.375rem;
@@ -27,11 +34,7 @@
     color: white;
     letter-spacing: 2px;
     font-family: 'Roboto', sans-serif;
-    @include font-size(2rem, 10vw, 4rem, 2rem);
-
-    @media screen and (min-width: 48rem) {
-      @include font-size(3rem, 10vw, 5rem, 6rem);
-    }
+    @include font-size(2rem, 10vw, 4rem);
 
     > span {
       display: block;

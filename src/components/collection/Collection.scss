@@ -1,0 +1,26 @@
+.collection-wrapper {
+  .collection-header {
+    width: 100%;
+  }
+
+  .collection-products {
+    display: flex;
+
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+
+    @media screen and (min-width: 48rem) {
+      overflow-x: unset;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-auto-rows: min-content;
+    }
+
+    .collection-product {
+      flex: 0 auto 0;
+      scroll-snap-align: start;
+      margin-right: 2rem;
+    }
+  }
+}

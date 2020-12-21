@@ -41,3 +41,15 @@ export const createUserProfileDoc = async userAuth => {
 
   return userRef;
 };
+
+export const getShopCollection = async categoryName => {
+  return await firestore
+    .collection('products')
+    .where('category', '==', categoryName)
+    .limit(4)
+    .get()
+    .then(querySnapshot => {
+      console.log(querySnapshot.docs.map(doc => doc.data()));
+      return querySnapshot.docs.map(doc => doc.data());
+    });
+};
