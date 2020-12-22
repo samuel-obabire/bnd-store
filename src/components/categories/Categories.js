@@ -27,7 +27,7 @@ const Categories = ({ categories, isMobileScreen }) => {
   }, [dropdownVisibility]);
 
   const renderCategories = categories.map(category => {
-    return <li>{category}</li>;
+    return <li key={category}>{category}</li>;
   });
 
   return (

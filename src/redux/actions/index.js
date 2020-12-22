@@ -39,6 +39,12 @@ export const getCollections = () => async dispatch => {
     getShopCollection('footwear'),
   ]);
 
+  if (!electronics.length)
+    return dispatch({
+      type: SET_CATEGORIES,
+      payload: {},
+    });
+
   dispatch({
     type: SET_CATEGORIES,
     payload: {

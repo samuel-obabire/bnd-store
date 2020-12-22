@@ -1,11 +1,6 @@
-.collectionoverview {
-  // display: flex;
-  // gap: 10px;
-  // width: 800px;
-  // flex-wrap: wrap;
-  width: 100%;
+.collection-overview {
+  margin: 2rem auto;
   overflow: auto;
-  margin: 0 auto;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {

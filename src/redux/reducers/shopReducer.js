@@ -8,12 +8,7 @@ const INITIAL_STATE = {
     'Hair Accessories',
     'Bags',
   ],
-  collections: {
-    electronics: [],
-    menClothing: [],
-    womenClothing: [],
-    footWear: [],
-  },
+  collections: {},
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {

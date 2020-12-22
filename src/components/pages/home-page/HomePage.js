@@ -3,6 +3,7 @@ import './HomePage.scss';
 
 import homeBackground from '../../../asset/home-background.jpg';
 import CollectionOverview from '../../collection-overview/CollectionOverview';
+import CollectionOverviewWithSpinner from '../../hoc/CollectionOverviewWithSpinner';
 import LazyImage from '../../lazy-image/LazyImage';
 
 const HomePage = () => {
@@ -32,7 +33,7 @@ const HomePage = () => {
           </h2>
         </div>
       </div>
-      <CollectionOverview />
+      <CollectionOverviewWithSpinner Component={CollectionOverview} />
     </>
   );
 };
