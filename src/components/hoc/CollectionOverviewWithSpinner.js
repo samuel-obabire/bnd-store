@@ -2,13 +2,14 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
 import { getCollections } from '../../redux/actions';
-import { getShopCollections } from '../../redux/selectors';
+import { makeGetShopCollections } from '../../redux/selectors';
 import Spinner from '../spinner/Spinner';
 
 const CollectionOverviewWithSpinner = ({
   Component,
   getCollections,
   collections,
+  ...props
 }) => {
   useEffect(() => {
     getCollections();
@@ -21,12 +22,14 @@ const CollectionOverviewWithSpinner = ({
   );
 };
 
-const mapState = state => {
+const makeMapState = state => {
+  const getShopCollections = makeGetShopCollections();
+
   return {
     collections: getShopCollections(state),
   };
 };
 
-export default connect(mapState, { getCollections })(
+export default connect(makeMapState, { getCollections })(
   CollectionOverviewWithSpinner
 );

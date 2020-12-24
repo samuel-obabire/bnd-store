@@ -12,9 +12,7 @@ export const getMobileMenuVisibility = createSelector(
 export const makeUniqueGetShopCategories = () =>
   createSelector(selectShopCategories, categories => categories);
 
-export const getShopCollections = createSelector(
-  selectShopCollections,
-  collections => {
+export const makeGetShopCollections = () =>
+  createSelector(selectShopCollections, collections => {
     return collections;
-  }
-);
+  });

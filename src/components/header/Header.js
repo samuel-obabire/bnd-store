@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Breakpoint } from 'react-socks';
 
 import './Header.scss';
@@ -8,11 +9,17 @@ import { ReactComponent as CartIcon } from '../../asset/cart-icon.svg';
 import { ReactComponent as UserIcon } from '../../asset/user-icon.svg';
 import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
 import SearchBar from '../../components/search-bar/SearchBar';
-import { setMobileMenuVisiblity } from '../../redux/actions';
+import { setMobileMenuVisiblity, getProducts } from '../../redux/actions';
 import MobileMenu from '../../components/mobile-menu/MobileMenu';
 import Categories from '../categories/Categories';
 
-const Header = ({ setMobileMenuVisiblity }) => {
+const Header = ({ getProducts, setMobileMenuVisiblity }) => {
+  const history = useHistory();
+
+  const onSearchSubmit = term => {
+    history.push(`/shop?field=indexes&q=${term.toUpperCase()}`);
+  };
+
   return (
     <div className="container">
       <nav className="header-nav">
@@ -28,7 +35,7 @@ const Header = ({ setMobileMenuVisiblity }) => {
         <Breakpoint medium up>
           <Logo className="store-logo" />
         </Breakpoint>
-        <SearchBar className="icon" />
+        <SearchBar className="icon" onSearchSubmit={onSearchSubmit} />
         <div className="right-sided-nav-items">
           <Breakpoint medium up>
             <div className="nav-item shop-categories">
@@ -47,4 +54,4 @@ const Header = ({ setMobileMenuVisiblity }) => {
   );
 };
 
-export default connect(null, { setMobileMenuVisiblity })(Header);
+export default connect(null, { setMobileMenuVisiblity, getProducts })(Header);

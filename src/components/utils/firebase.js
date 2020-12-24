@@ -42,13 +42,21 @@ export const createUserProfileDoc = async userAuth => {
   return userRef;
 };
 
-export const getShopCollection = async categoryName => {
-  return await firestore
+export const getCollection = async ({ field, operator, value, limit = 4 }) => {
+  console.log(field, value, operator, limit);
+
+  const items = {};
+
+  await firestore
     .collection('products')
-    .where('category', '==', categoryName)
-    .limit(5)
+    .where(field, operator, value)
+    .limit(limit)
     .get()
     .then(querySnapshot => {
-      return querySnapshot.docs.map(doc => doc.data());
+      return querySnapshot.forEach(doc => {
+        items[doc.id] = doc.data();
+      });
     });
+
+  return items;
 };

@@ -6,11 +6,11 @@ import './MobileMenu.scss';
 
 import { getMobileMenuVisibility } from '../../redux/selectors';
 import { setMobileMenuVisiblity } from '../../redux/actions';
-import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
+// import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
 import Categories from '../categories/Categories';
 
 const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
-  const history = useHistory();
+  // const history = useHistory();
 
   const visible = visibility ? 'visible' : '';
 
@@ -20,7 +20,7 @@ const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
         className={`mobile-menu-overlay ${visible}`}
         onClick={() => setMobileMenuVisiblity()}></div>
       <div className={`mobile-menu ${visible}`}>
-        <div
+        {/* <div
           className="mobile-logo"
           onClick={() => {
             setMobileMenuVisiblity();
@@ -28,8 +28,8 @@ const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
             history.push('/');
           }}>
           <Logo />
-        </div>
-        <hr />
+        </div> */}
+        {/* <hr /> */}
         <Categories isMobileScreen={true} />
         <hr />
       </div>

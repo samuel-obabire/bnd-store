@@ -5,6 +5,7 @@ import homeBackground from '../../../asset/home-background.jpg';
 import CollectionOverview from '../../collection-overview/CollectionOverview';
 import CollectionOverviewWithSpinner from '../../hoc/CollectionOverviewWithSpinner';
 import LazyImage from '../../lazy-image/LazyImage';
+import CollectionOverviewErrorBoundary from '../../error-boundaries/CollectionOverviewErrorBoundary';
 
 const HomePage = () => {
   const history = useHistory();
@@ -33,7 +34,10 @@ const HomePage = () => {
           </h2>
         </div>
       </div>
-      <CollectionOverviewWithSpinner Component={CollectionOverview} />
+      <CollectionOverviewErrorBoundary key={Math.random() + 0.5345639}>
+        <CollectionOverviewWithSpinner Component={CollectionOverview} />
+      </CollectionOverviewErrorBoundary>
+      <footer></footer>
     </>
   );
 };

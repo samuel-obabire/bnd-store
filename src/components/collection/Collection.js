@@ -1,28 +1,31 @@
+import { Link } from 'react-router-dom';
+
 import './Collection.scss';
 
-import LazyImage from '../lazy-image/LazyImage';
-import { generateId } from '../utils/generateId';
+import Product from '../product/Product';
 
 const Collection = ({ products, title }) => {
-  const renderProducts = products.map(({ uri, image, price, title }) => {
+  const renderCollections = Object.values(products).map(({ ...props }) => {
     return (
-      <div className="collection-product" key={generateId()}>
-        <LazyImage uri={uri} src={image} height={'80%'} width={'100%'} />
-        <div style={{ height: '20%' }}>
-          <div className="product-title">{title}</div>
-          <b>{price}</b>
-        </div>
+      <div className="collection-product" key={props.id}>
+        <Product {...props} />
       </div>
     );
   });
 
   return (
-    <div className="collection-wrapper">
+    <section className="collection-wrapper">
       <header className="collection-header">
         <h4>{title}</h4>
+        <Link
+          to={`/shop?field=category&q=${title
+            .toLowerCase()
+            .replace(/ /g, '+')}`}>
+          Explore
+        </Link>
       </header>
-      <div className="collection-products">{renderProducts}</div>
-    </div>
+      <div className="collection-products">{renderCollections}</div>
+    </section>
   );
 };
 

@@ -35,14 +35,16 @@ const App = ({ setUser }) => {
       //       .getBase64Async(Jimp.AUTO);
 
       //     p.uri = uri;
+      //     p.indexes = product.title.toUpperCase().split(' ');
+      //     p.id = generateId();
 
       //     return p;
       //   });
 
       //   Promise.all(promises).then(arr => {
-      //     arr.forEach(data => {
-      //       const ref = firestore.collection('products').doc(`${generateId()}`);
-      //       batch.set(ref, data);
+      //     arr.forEach(product => {
+      //       const ref = firestore.collection('products').doc(product.id);
+      //       batch.set(ref, product);
       //     });
 
       //     batch.commit().then(console.log);

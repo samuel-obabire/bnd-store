@@ -1,0 +1,14 @@
+.shop-collecction-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+  justify-items: center;
+
+  @media screen {
+  }
+
+  .shop-collection {
+    height: 210px;
+    width: 145px;
+  }
+}
