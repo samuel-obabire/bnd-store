@@ -1,6 +1,25 @@
-.product-title {
-  padding: 0.5rem 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+@import '../../variables';
+
+.product {
+  display: flex;
+  flex-direction: column;
+  height: 14.625rem;
+  width: 10.0625rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: transform 100ms ease;
+  border-radius: 0.3rem;
+
+  &:hover {
+    transform: scale(1.013);
+    box-shadow: map-get($shadows, 'hover');
+  }
+
+  .product-title {
+    padding: 0.5rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.9rem;
+    text-overflow: ellipsis;
+  }
 }

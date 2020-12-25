@@ -28,11 +28,7 @@ const ShopCollection = ({ getProducts, products, params }) => {
     );
   });
 
-  return (
-    <div className="shop-collecction-container container">
-      {renderShopProducts}
-    </div>
-  );
+  return <div className="shop-collection-container">{renderShopProducts}</div>;
 };
 
 const mapState = state => {

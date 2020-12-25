@@ -20,7 +20,7 @@ html {
   --default-border: #{$default-border};
   --default-border-color: #{$default-ouline-color};
   --element-margin: #{$element-margin};
-  --container-padding: 1rem;
+  --container-padding: 0.5rem;
 
   @media screen and (min-width: 48rem) {
     --container-padding: 4rem;

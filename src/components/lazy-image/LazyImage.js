@@ -11,8 +11,8 @@ const style = {
 const LazyImage = ({
   uri = '',
   src = '',
-  width,
-  height,
+  width = '',
+  height = '',
   position = 'relative',
 }) => {
   const ref = useRef(),

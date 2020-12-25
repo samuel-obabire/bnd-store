@@ -1,8 +1,9 @@
+@import '../../variables';
+
 .collection-wrapper {
   padding: 0.5rem;
-  background-color: #f8f8f8;
   margin-bottom: 1rem;
-
+  box-shadow: map-get($shadows, 'separator');
   .collection-header {
     display: flex;
     justify-content: space-between;
@@ -14,7 +15,6 @@
 
   .collection-products {
     display: flex;
-    background-color: white;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding: 1rem;
@@ -29,10 +29,8 @@
       margin-bottom: 1rem;
       cursor: pointer;
       flex: 1 0 170px;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 260px;
       margin-right: 0.4rem;
       scroll-snap-align: start;
       @media screen and (min-width: 48rem) {
