@@ -3,6 +3,7 @@ import {
   SET_MOBILE_MENU_VISIBILITY,
   SET_CATEGORIES,
   SET_PRODUCTS,
+  SET_SELECTED_PRODUCT,
 } from './types';
 import { getCollection } from '../../components/utils/firebase';
 
@@ -74,4 +75,11 @@ export const getProducts = (field, operator, q) => async dispatch => {
     type: SET_PRODUCTS,
     payload: products,
   });
+};
+
+export const setSelectedProduct = product => {
+  return {
+    type: SET_SELECTED_PRODUCT,
+    payload: product,
+  };
 };

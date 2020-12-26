@@ -23,7 +23,7 @@ const Header = ({ getProducts, setMobileMenuVisiblity }) => {
   return (
     <div className="container">
       <nav className="header-nav">
-        <Breakpoint small down>
+        <Breakpoint className="menu-bar" small down>
           <div className="nav-item  menu-bar">
             <MenuBar
               className="icon"

@@ -12,6 +12,10 @@ a {
   color: rgb(24, 162, 187);
 }
 
+hr {
+  border-color: rgba(216, 214, 214, 0.473);
+}
+
 html {
   --c-black_100: #{$black};
   --default_padding: #{$default-padding};
@@ -22,8 +26,8 @@ html {
   --element-margin: #{$element-margin};
   --container-padding: 0.5rem;
 
-  @media screen and (min-width: 48rem) {
-    --container-padding: 4rem;
+  @media screen and (min-width: 50rem) {
+    --container-padding: 6rem;
   }
 }
 
@@ -32,7 +36,7 @@ body {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  scroll-margin-top: 100px;
+  max-width: 1300rem;
 }
 
 button {

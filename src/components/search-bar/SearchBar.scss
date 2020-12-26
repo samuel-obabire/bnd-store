@@ -1,28 +1,27 @@
 .search-bar {
-  width: 85%;
-  max-width: 30rem;
+  width: 100%;
   position: absolute;
-  top: 130%;
+  top: 100%;
   left: 0;
   right: 0;
   margin: 0 auto;
   transition-property: background-color, top;
   transition-duration: 400ms;
   transition-timing-function: cubic-bezier(1, 0.44, 0, 1.71);
-  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
-  border-radius: 1.5rem;
+  border: 1px solid rgb(214, 211, 211);
 
   @media screen and (min-width: 48rem) {
+    max-width: 30rem;
+    border-radius: 1.5rem;
     position: relative;
     top: 0;
     max-width: 40rem;
     left: unset;
     transform: none;
-    border-radius: 1.5rem;
     margin: 0 1rem;
     background-color: whitesmoke;
   }

@@ -1,0 +1,36 @@
+.product-detail {
+  line-height: 1.3rem;
+  .product-gallery {
+    display: flex;
+    overflow-x: auto;
+    margin: 0;
+    margin-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .preview-images {
+      width: 100%;
+      cursor: pointer;
+      height: 250px;
+      scroll-snap-align: start;
+      border: 1px solid rgb(224, 222, 222);
+      margin-right: 0.5rem;
+      border-radius: 0.3rem;
+
+      > img {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+
+  .product-description {
+    line-height: 1.5rem;
+  }
+}

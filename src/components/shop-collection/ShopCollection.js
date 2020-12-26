@@ -9,7 +9,6 @@ import Product from '../product/Product';
 const ShopCollection = ({ getProducts, products, params }) => {
   useEffect(() => {
     if (!params.field) return;
-
     switch (params.field) {
       case 'indexes':
         getProducts(params.field, 'array-contains', params.q);

@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.scss';
@@ -37,6 +37,7 @@ const App = ({ setUser }) => {
       //     p.uri = uri;
       //     p.indexes = product.title.toUpperCase().split(' ');
       //     p.id = generateId();
+      //     p.imageCollection = Array.from({ length: 5 }, _ => image);
 
       //     return p;
       //   });
@@ -71,15 +72,16 @@ const App = ({ setUser }) => {
     <BrowserRouter>
       <Header />
       <Suspense fallback={<div>Loading...</div>}>
-        <Route exact path="/" component={HomePage} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route path="/sign-up" component={SignupPage} />
+          <Route path="/sign-in" component={SigninPage} />
+          <Route path="*">
+            <div style={{ height: 200, width: 400, background: 'red' }} />
+          </Route>
+        </Switch>
       </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Route path="/shop" component={ShopPage} />
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Route path="/sign-up" component={SignupPage} />
-      </Suspense>
-      <Route path="/sign-in" component={SigninPage} />
     </BrowserRouter>
   );
 };

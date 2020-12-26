@@ -5,6 +5,7 @@
   z-index: 5;
   padding: 5rem 2rem;
   width: 80%;
+  top: 0;
   max-width: 25rem;
   min-height: 100vh;
   transition: transform 100ms ease-in-out;
@@ -12,10 +13,6 @@
   &.visible {
     transform: translateX(0);
   }
-
-  // .mobile-logo {
-  //   width: min-content;
-  // }
 }
 
 .mobile-menu-overlay {
@@ -24,7 +21,7 @@
   width: 100%;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 5;
   background-color: black;
   min-height: 100vh;
   opacity: 0.8;

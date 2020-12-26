@@ -15,11 +15,22 @@ const CollectionOverviewWithSpinner = ({
     getCollections();
   }, [getCollections]);
 
-  return !Object.entries(collections).length ? (
-    <Spinner />
-  ) : (
-    <Component collections={collections} />
-  );
+  // console.log(JSON.stringify(Object.values(collections)[1]));
+
+  if (
+    !Object.entries(collections).length ||
+    JSON.stringify(Object.values(collections)[0]) === '{}'
+  )
+    return <Spinner />;
+
+  return <Component collections={collections} />;
+
+  //   return !Object.entries(collections).length ||
+  //     (JSON.stringify(Object.values(collections)[0]) = '{}') ? (
+  //     <Spinner />
+  //   ) : (
+  //     <Component collections={collections} />
+  //   );
 };
 
 const makeMapState = state => {
