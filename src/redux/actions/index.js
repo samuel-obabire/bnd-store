@@ -4,44 +4,46 @@ import {
   SET_CATEGORIES,
   SET_PRODUCTS,
   SET_SELECTED_PRODUCT,
-} from './types';
-import { getCollection } from '../../components/utils/firebase';
+  CLEAR_PRODUCTS,
+  ADD_PRODUCT_TO_CART
+} from './types'
+import { getCollection } from '../../components/utils/firebase'
 
 export const setUser = user => {
   return {
     type: SET_USER,
-    payload: user,
-  };
-};
+    payload: user
+  }
+}
 
 export const setMobileMenuVisiblity = () => {
   return {
-    type: SET_MOBILE_MENU_VISIBILITY,
-  };
-};
+    type: SET_MOBILE_MENU_VISIBILITY
+  }
+}
 
 export const getCollections = () => async dispatch => {
-  const limit = 4;
+  const limit = 4
   const [electronics, menClothing, womenClothing, footWear] = await Promise.all(
     [
       getCollection({
         field: 'category',
         operator: '==',
-        value: 'electronics',
+        value: 'electronics'
       }),
       getCollection({
         field: 'category',
         operator: '==',
-        value: 'men clothing',
+        value: 'men clothing'
       }),
       getCollection({
         field: 'category',
         operator: '==',
-        value: 'women clothing',
+        value: 'women clothing'
       }),
-      getCollection({ field: 'category', operator: '==', value: 'footwear' }),
+      getCollection({ field: 'category', operator: '==', value: 'footwear' })
     ]
-  );
+  )
 
   dispatch({
     type: SET_CATEGORIES,
@@ -49,37 +51,46 @@ export const getCollections = () => async dispatch => {
       electronics,
       menClothing,
       womenClothing,
-      footWear,
-    },
-  });
-};
+      footWear
+    }
+  })
+}
 
 export const setQuery = params => {
   return {
     type: 'SET_QUERY',
-    payload: params,
-  };
-};
+    payload: params
+  }
+}
+
+export const clearProducts = () => ({ type: CLEAR_PRODUCTS })
 
 export const getProducts = (field, operator, q) => async dispatch => {
+  dispatch(clearProducts())
+
   const products = await getCollection({
     field,
     operator,
     value: q,
-    limit: 21,
-  });
-
-  console.log(products);
+    limit: 21
+  })
 
   dispatch({
     type: SET_PRODUCTS,
-    payload: products,
-  });
-};
+    payload: products
+  })
+}
 
 export const setSelectedProduct = product => {
   return {
     type: SET_SELECTED_PRODUCT,
-    payload: product,
-  };
-};
+    payload: product
+  }
+}
+
+export const addToCart = product => {
+  return {
+    type: ADD_PRODUCT_TO_CART,
+    payload: product
+  }
+}

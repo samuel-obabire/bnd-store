@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 
-import setUserReducer from './setUserReducer';
-import setSearchTermReducer from './setSearchTermReducer';
-import setMobileMenuVisiblity from './setMobileMenuVisibilityReducer';
-import shopReducer from './shopReducer';
+import userReducer from './userReducer'
+import setSearchTermReducer from './setSearchTermReducer'
+import setMobileMenuVisiblity from './setMobileMenuVisibilityReducer'
+import shopReducer from './shopReducer'
 
 export default combineReducers({
   form: formReducer,
-  user: setUserReducer,
+  user: userReducer,
   searchTerm: setSearchTermReducer,
   mobileMenuVisibility: setMobileMenuVisiblity,
-  shop: shopReducer,
-});
+  shop: shopReducer
+})

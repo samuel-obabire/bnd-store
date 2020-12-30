@@ -1,25 +1,35 @@
-import { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { lazy, Suspense, useEffect } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import './App.scss';
+import './App.scss'
 
-import SigninPage from './pages/sign-in-page/SignInPage';
+import SigninPage from './pages/sign-in-page/SignInPage'
 
-import { auth, createUserProfileDoc, firestore } from './utils/firebase';
-import { setUser } from '../redux/actions';
-import Header from './header/Header';
-import shopdata from './pages/shop-page/shop-data';
-import { generateId } from './utils/generateId';
-import Jimp from 'jimp/es';
+import { auth, createUserProfileDoc, firestore } from './utils/firebase'
+import { setUser } from '../redux/actions'
+import Header from './header/Header'
+import shopdata from './pages/shop-page/shop-data'
+import { generateId } from './utils/generateId'
+import Jimp from 'jimp/es'
+import { image } from 'faker'
 
-const HomePage = lazy(() => import('./pages/home-page/HomePage'));
-const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'));
-const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'));
+const HomePage = lazy(() => import('./pages/home-page/HomePage'))
+const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
+const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'))
 
 const App = ({ setUser }) => {
   useEffect(() => {
+    // window.addEventListener('error', console.log)
+
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // Jimp.read('https://i.imgur.com/6u9kO9d.jpg')
+      //   .then(image => Jimp.intToRGBA(image.getPixelColor(10, 10)))
+      //   .then(
+      //     rgba =>
+      //       (document.body.style.background = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`)
+      //   );
+
       // const batch = firestore.batch();
       // const fun = async () => {
       //   // map will return a promise
@@ -55,18 +65,18 @@ const App = ({ setUser }) => {
       // fun();
 
       if (userAuth) {
-        const userRef = await createUserProfileDoc(userAuth);
+        const userRef = await createUserProfileDoc(userAuth)
 
-        userRef.onSnapshot(snapshot => console.log(snapshot.data()));
+        userRef.onSnapshot(snapshot => console.log(snapshot.data()))
 
-        return setUser(userAuth);
+        return setUser(userAuth)
       }
 
-      return setUser(userAuth);
-    });
+      return setUser(userAuth)
+    })
 
-    return () => unsubscribeFromAuth();
-  }, []);
+    return () => unsubscribeFromAuth()
+  }, [])
 
   return (
     <BrowserRouter>
@@ -83,7 +93,7 @@ const App = ({ setUser }) => {
         </Switch>
       </Suspense>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default connect(null, { setUser })(App);
+export default connect(null, { setUser })(App)

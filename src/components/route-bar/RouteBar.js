@@ -11,6 +11,7 @@ const RouteBar = ({ location, ...props }) => {
     const path = location.pathname.split('/').filter(Boolean);
     setPath(path);
   }, [location.pathname]);
+
   console.log(path);
 
   const renderPath = path.map((url, index) => {

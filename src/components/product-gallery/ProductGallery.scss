@@ -1,9 +1,33 @@
+@mixin font-size($min, $val, $max, $default-m: $min, $default-l: $max) {
+  $clamp: #{'clamp(#{$min}, #{$val}, #{$max})'};
+  font-size: $default-m;
+
+  @media screen and (min-width: 48rem) {
+    font-size: $default-l;
+  }
+
+  @supports (font-size: clamp(2px, 2px, 2px)) {
+    font-size: $clamp;
+  }
+}
+
 .product-detail {
-  line-height: 1.3rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  &.not-mobile {
+    display: flex;
+
+    @media screen and (max-width: 920px) {
+      flex-direction: column;
+    }
+  }
+
   .product-gallery {
     display: flex;
-    overflow-x: auto;
     margin: 0;
+    overflow: auto;
     margin-bottom: 1rem;
     scroll-snap-type: x mandatory;
     scroll-padding: 1rem;
@@ -14,10 +38,24 @@
       height: 0;
     }
 
+    &.not-mobile {
+      overflow: unset;
+      display: grid;
+      grid-template-columns: 3rem 400px;
+      grid-column-gap: 0.5rem;
+      height: 400px;
+      width: max-content;
+      margin-right: 2rem;
+
+      .product-thumbnails {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
     .preview-images {
-      width: 100%;
       cursor: pointer;
-      height: 250px;
+      height: 200px;
       scroll-snap-align: start;
       border: 1px solid rgb(224, 222, 222);
       margin-right: 0.5rem;
@@ -29,8 +67,25 @@
       }
     }
   }
+}
 
-  .product-description {
-    line-height: 1.5rem;
+.product-header {
+  .product-header_info {
+    margin: 2rem 0;
+    color: gray;
+    font-size: 1.2rem;
   }
+}
+
+.product-description-container {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+}
+
+.product-description {
+  background-color: white;
+  @include font-size(1rem, 7vw, 1.2rem);
+  line-height: 1.7rem;
 }

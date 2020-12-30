@@ -1,35 +1,82 @@
-import { connect } from 'react-redux';
-import { getUserSelectedProduct } from '../../redux/selectors';
+import { connect } from 'react-redux'
+import { useEffect, useRef, useState } from 'react'
+import { getUserSelectedProduct } from '../../redux/selectors'
+import { addToCart } from '../../redux/actions'
 
-import './ProductGallery.scss';
+import './ProductGallery.scss'
+import CustomBtn from '../custom-btn/CustomBtn'
 
-const ProductGallery = ({ product }) => {
-  if (!product) return null;
+const style = {
+  height: '3rem',
+  margin: 0,
+  width: '100%',
+  overflow: 'hidden'
+}
 
-  const onClick = e => {
+const additionalStyles = {
+  width: '100%',
+  maxWidth: 'unset',
+  margin: '0 auto'
+}
+
+const ProductGallery = ({ product, addToCart }) => {
+  const [mobile, setMobile] = useState()
+  const [src, setSrc] = useState()
+
+  const imageRef = useRef()
+
+  const mql = window.matchMedia('(max-width: 33.5rem)')
+
+  useEffect(() => {
+    const isMobile = e => {
+      setMobile(e.matches)
+    }
+
+    mql.addEventListener('change', isMobile)
+
+    return () => mql.removeEventListener('change', isMobile)
+  })
+
+  const onClick = (e, image) => {
+    if (!mobile && !mql.matches) {
+      return setSrc(image)
+    }
+
     if (!document.fullscreenElement) {
       e.currentTarget.children[0].requestFullscreen().catch(err => {
         alert(
           `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
-        );
-      });
+        )
+      })
     } else {
-      document.exitFullscreen();
+      document.exitFullscreen()
     }
-  };
+  }
+
+  const onButtonClick = () => {
+    addToCart(product)
+  }
+
+  if (!product) return null
 
   const renderImages = product.imageCollection.map(image => {
     return (
       <div
-        key={434343 * Math.random() + Math.random - 34.4934 + 2323 + 0.43 * 5}
         className="preview-images"
-        onClick={onClick}>
-        <img src={image} alt="" />
+        style={!mobile && !mql.matches ? { ...style, marginBottom: 4 } : {}}
+        onClick={e => onClick(e, image)}>
+        <img
+          style={
+            !mobile && !mql.matches ? { width: '100%', height: '100%' } : {}
+          }
+          src={image}
+          alt=""
+        />
       </div>
-    );
-  });
+    )
+  })
 
-  return (
+  return mobile || mql.matches ? (
     <section className="product-detail">
       <figure className="product-gallery">
         <div className="preview-images" onClick={onClick}>
@@ -38,21 +85,66 @@ const ProductGallery = ({ product }) => {
         {renderImages}
       </figure>
       <header className="product-header">
-        <div>{product.title}</div>
+        <h2>{product.title}</h2>
         <b style={{ fontSize: '1.1rem' }}>&#8358; {product.price}</b>
+        <div className="product-header_info">Fabric - crepe</div>
+        <CustomBtn
+          onClick={onButtonClick}
+          additionalStyles={additionalStyles}
+          text="Add to cart"
+        />
       </header>
-      <hr />
-      <div className="product-description">
-        <b>Description</b>
-        <div>{product.description}</div>
+      <div>
+        <h3>Description</h3>
+        <hr />
+        <div className="product-description">{product.description}</div>
       </div>
     </section>
-  );
-};
+  ) : (
+    <section>
+      <div className="product-detail not-mobile">
+        <figure className="product-gallery not-mobile">
+          <div className="product-thumbnails">{renderImages}</div>
+          <div
+            className="preview-images"
+            style={{ ...style, height: '100%', width: '100%' }}
+            onClick={onClick}>
+            <img
+              ref={imageRef}
+              id="image"
+              style={{ width: '100%', height: '100%' }}
+              src={src || product.image}
+              alt={product.description}
+            />
+          </div>
+        </figure>
+        <div style={{ maxWidth: 'max-content' }}>
+          <header className="product-header">
+            <h1 style={{ marginTop: 0, fontWeight: 'normal' }}>
+              {product.title}
+            </h1>
+            <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
+            <div className="product-header_info">Fabric - crepe</div>
+            <CustomBtn
+              onClick={onButtonClick}
+              additionalStyles={additionalStyles}
+              text="Add to cart"
+            />
+          </header>
+        </div>
+      </div>
+      <div className="product-description-container">
+        <h2>Description</h2>
+        <hr />
+        <div className="product-description">{product.description}</div>
+      </div>
+    </section>
+  )
+}
 
 const mapState = state => {
   return {
-    product: getUserSelectedProduct(state),
-  };
-};
-export default connect(mapState)(ProductGallery);
+    product: getUserSelectedProduct(state)
+  }
+}
+export default connect(mapState, { addToCart })(ProductGallery)

@@ -1,4 +1,9 @@
-import { SET_CATEGORIES, SET_PRODUCTS, SET_QUERY } from '../actions/types';
+import {
+  SET_CATEGORIES,
+  SET_PRODUCTS,
+  SET_QUERY,
+  CLEAR_PRODUCTS
+} from '../actions/types'
 const INITIAL_STATE = {
   categories: [
     'Women Clothing',
@@ -6,30 +11,32 @@ const INITIAL_STATE = {
     'Slippers',
     'Fabrics',
     'Hair Accessories',
-    'Bags',
+    'Bags'
   ],
   collections: {},
   products: {},
   query: {
     q: '',
-    field: '',
-  },
-};
+    field: ''
+  }
+}
 
 const shopReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_CATEGORIES:
       return {
         ...state,
-        collections: action.payload,
-      };
+        collections: action.payload
+      }
+    case CLEAR_PRODUCTS:
+      return { ...state, products: {} }
     case SET_PRODUCTS:
-      return { ...state, products: action.payload };
+      return { ...state, products: action.payload }
     case SET_QUERY:
-      return { ...state, query: action.payload };
+      return { ...state, query: action.payload }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default shopReducer;
+export default shopReducer

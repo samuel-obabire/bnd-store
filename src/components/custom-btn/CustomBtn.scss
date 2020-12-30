@@ -1,0 +1,25 @@
+.custom-btn {
+  width: 50%;
+  cursor: pointer;
+  max-width: 25rem;
+  line-height: 18.4px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 0.7rem;
+  display: block;
+  margin: 0px auto;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: black;
+  background-color: rgb(255, 129, 0);
+  position: relative;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: rgb(238, 123, 9);
+    outline: none;
+  }
+}

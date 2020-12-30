@@ -1,27 +1,26 @@
-import { Route, Switch } from 'react-router-dom';
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
 
-import './ShopPage.scss';
+import './ShopPage.scss'
 
-import { setQuery } from '../../../redux/actions';
+import { setQuery } from '../../../redux/actions'
 
-import ShopCollection from '../../shop-collection/ShopCollection';
+import ShopCollection from '../../shop-collection/ShopCollection'
 // import RouteBar from '../../route-bar/RouteBar';
 // import { Breakpoint } from 'react-socks';
-import ProductPage from '../../product-page/ProductPage';
-import useQuery from '../../../hooks/useQuery';
+import ProductPage from '../../product-page/ProductPage'
+import useQuery from '../../../hooks/useQuery'
 
 const ShopPage = ({ setQuery, match, location }) => {
-  const query = useQuery();
-  console.log('shop');
+  const query = useQuery()
 
   useEffect(() => {
-    if (!query.toString()) return;
+    if (!query.toString()) return
 
-    const [field, q] = [query.get('field'), query.get('q')];
-    setQuery({ field, q });
-  }, [setQuery, location.search]);
+    const [field, q] = [query.get('field'), query.get('q')]
+    setQuery({ field, q })
+  }, [setQuery, location.search])
 
   return (
     <main className="shop-container container">
@@ -40,7 +39,7 @@ const ShopPage = ({ setQuery, match, location }) => {
         </Route>
       </Switch>
     </main>
-  );
-};
+  )
+}
 
-export default connect(null, { setQuery })(ShopPage);
+export default connect(null, { setQuery })(ShopPage)

@@ -13,7 +13,7 @@ a {
 }
 
 hr {
-  border-color: rgba(216, 214, 214, 0.473);
+  border-color: rgba(216, 214, 214, 0.24);
 }
 
 html {
@@ -26,8 +26,12 @@ html {
   --element-margin: #{$element-margin};
   --container-padding: 0.5rem;
 
-  @media screen and (min-width: 50rem) {
-    --container-padding: 6rem;
+  @media screen and (min-width: 30rem) {
+    --container-padding: 3rem;
+  }
+
+  @media screen and (min-width: 48rem) {
+    --container-padding: 5rem;
   }
 }
 
@@ -36,7 +40,9 @@ body {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  max-width: 1300rem;
+  max-width: 1200rem;
+  direction: ltr;
+  background-color: #f3f1f1;
 }
 
 button {
