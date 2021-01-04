@@ -4,6 +4,7 @@
   grid-auto-rows: min-content;
   grid-gap: 0.5rem 0;
   justify-items: center;
+  background: white;
 
   @media screen and (min-width: 38rem) {
     grid-gap: 4rem;

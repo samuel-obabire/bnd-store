@@ -19,9 +19,17 @@ const additionalStyles = {
   margin: '0 auto'
 }
 
+const clampStyle = {
+  '-webkit-line-clamp': 'unset',
+  maxHeight: 'unset'
+}
+
 const ProductGallery = ({ product, addToCart }) => {
   const [mobile, setMobile] = useState()
   const [src, setSrc] = useState()
+  const [hasMore, setHasMore] = useState(false)
+  const [show, setShow] = useState(false)
+  const ref = useRef()
 
   const imageRef = useRef()
 
@@ -36,6 +44,11 @@ const ProductGallery = ({ product, addToCart }) => {
 
     return () => mql.removeEventListener('change', isMobile)
   })
+
+  useEffect(() => {
+    if (ref.current.scrollHeight > ref.current.clientHeight + 3)
+      setHasMore(true)
+  }, [])
 
   const onClick = (e, image) => {
     if (!mobile && !mql.matches) {
@@ -81,7 +94,17 @@ const ProductGallery = ({ product, addToCart }) => {
       <div className="product-description-container">
         <h3>Description</h3>
         <hr />
-        <div className="product-description">{product.description}</div>
+        <div
+          style={show ? clampStyle : {}}
+          ref={ref}
+          className="product-description">
+          {product.description}
+        </div>
+        <span
+          onClick={() => setShow(true)}
+          style={{ color: 'rgb(24, 162, 187)', float: 'right' }}>
+          {hasMore && 'read more'}
+        </span>
       </div>
     )
   }

@@ -4,7 +4,7 @@ import './Collection.scss'
 
 import Product from '../product/Product'
 
-const Collection = ({ products, title }) => {
+const Collection = ({ products, title, url }) => {
   const renderCollections = Object.values(products).map(({ ...props }) => {
     return (
       <div className="collection-product" key={props.id}>
@@ -18,9 +18,9 @@ const Collection = ({ products, title }) => {
       <header className="collection-header">
         <h4>{title}</h4>
         <Link
-          to={`/shop?field=category&q=${title
-            .toLowerCase()
-            .replace(/ /g, '+')}`}>
+          to={`/shop?field=category&q=${
+            url || title.toLowerCase().replace(/ /g, '+')
+          }`}>
           Explore
         </Link>
       </header>

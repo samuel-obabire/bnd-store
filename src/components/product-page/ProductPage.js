@@ -67,7 +67,11 @@ const ProductPage = ({ setSelectedProduct }) => {
   const renderSimilarProducts = () => {
     return similarProd.length ? (
       <div style={{ marginTop: '2rem' }}>
-        <Collection products={similarProd} title="Similar Products" />
+        <Collection
+          products={similarProd}
+          title="Similar Products"
+          url="electronics"
+        />
       </div>
     ) : null
   }
