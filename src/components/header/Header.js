@@ -13,7 +13,7 @@ import { setMobileMenuVisiblity, getProducts } from '../../redux/actions'
 import MobileMenu from '../../components/mobile-menu/MobileMenu'
 import Categories from '../categories/Categories'
 
-const Header = ({ getProducts, setMobileMenuVisiblity, productCount }) => {
+const Header = ({ setMobileMenuVisiblity, productCount }) => {
   const history = useHistory()
 
   const onSearchSubmit = term => {
@@ -33,7 +33,7 @@ const Header = ({ getProducts, setMobileMenuVisiblity, productCount }) => {
           </div>
         </Breakpoint>
         <Breakpoint medium up>
-          <Logo className="store-logo" />
+          <Logo className="store-logo" onClick={() => history.push('/')} />
         </Breakpoint>
         <SearchBar className="icon" onSearchSubmit={onSearchSubmit} />
         <div className="right-sided-nav-items">
@@ -42,7 +42,9 @@ const Header = ({ getProducts, setMobileMenuVisiblity, productCount }) => {
               <Categories isMobileScreen={false} />
             </div>
           </Breakpoint>
-          <div className="nav-item  cart-icon">
+          <div
+            className="nav-item  cart-icon"
+            onClick={() => history.push('/cart')}>
             <CartIcon />
             {productCount ? (
               <span className="item-count">{productCount}</span>
@@ -57,12 +59,12 @@ const Header = ({ getProducts, setMobileMenuVisiblity, productCount }) => {
   )
 }
 
-const mapState = state => {
-  return {
-    productCount: state.user.cart.reduce((acc, curr) => {
-      return acc + curr.quantity
-    }, 0)
-  }
+const mapState = ({ user: { cart } }) => {
+  const productCount = cart.reduce((acc, curr) => {
+    return acc + curr.quantity
+  }, 0)
+
+  return { productCount }
 }
 
 export default connect(mapState, { setMobileMenuVisiblity, getProducts })(

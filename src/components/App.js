@@ -16,6 +16,7 @@ import Jimp from 'jimp/es'
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
 const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'))
+const CartPage = lazy(() => import('./pages/cart-page/CartPage'))
 
 const App = ({ setUser }) => {
   useEffect(() => {
@@ -84,6 +85,7 @@ const App = ({ setUser }) => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route exact path="/cart" component={CartPage} />
           <Route path="/sign-up" component={SignupPage} />
           <Route path="/sign-in" component={SigninPage} />
           <Route path="*">

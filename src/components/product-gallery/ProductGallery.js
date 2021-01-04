@@ -100,11 +100,18 @@ const ProductGallery = ({ product, addToCart }) => {
           className="product-description">
           {product.description}
         </div>
-        <span
-          onClick={() => setShow(true)}
-          style={{ color: 'rgb(24, 162, 187)', float: 'right' }}>
-          {hasMore && 'read more'}
-        </span>
+        <div className="show-more">
+          <span
+            onClick={() => setShow(!show)}
+            style={{
+              color: 'rgb(24, 162, 187)',
+              marginTop: '.5rem',
+              marginLeft: 'auto',
+              cursor: 'pointer'
+            }}>
+            {hasMore && 'read more'}
+          </span>
+        </div>
       </div>
     )
   }
