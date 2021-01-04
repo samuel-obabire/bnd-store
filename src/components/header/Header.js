@@ -59,7 +59,7 @@ const Header = ({ setMobileMenuVisiblity, productCount }) => {
   )
 }
 
-const mapState = ({ user: { cart } }) => {
+const mapState = ({ cart: { cartItems: cart } }) => {
   const productCount = cart.reduce((acc, curr) => {
     return acc + curr.quantity
   }, 0)

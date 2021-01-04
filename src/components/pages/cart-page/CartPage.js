@@ -4,8 +4,13 @@ import './CartPage.scss'
 import { ReactComponent as DeleteIcon } from '../../../asset/delete.svg'
 import { ReactComponent as PlusIcon } from '../../../asset/plus.svg'
 import { ReactComponent as MinusIcon } from '../../../asset/minus.svg'
+import {
+  deleteFromCart,
+  addToCart,
+  removeFromCart
+} from '../../../redux/actions'
 
-const CartPage = ({ cart }) => {
+const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
   const renderCart = () => {
     if (!cart.length) return <h1>You have no items selected</h1>
 
@@ -18,14 +23,21 @@ const CartPage = ({ cart }) => {
           <div>{item.title}</div>
         </div>
         <div className="item-controls">
-          <div className="icon">
+          <div className="icon" onClick={() => deleteFromCart(item)}>
             <DeleteIcon />
           </div>
-          <div className="icon">
+          <div
+            className="icon"
+            style={item.quantity === 1 ? { opacity: '0.2' } : {}}
+            onClick={() => item.quantity > 1 && removeFromCart(item)}>
             <MinusIcon />
           </div>
-          <div>{item.quantity}</div>
-          <div className="icon">
+          <div className="icon">{item.quantity}</div>
+          <div
+            className="icon"
+            onClick={() => {
+              addToCart(item)
+            }}>
             <PlusIcon />
           </div>
         </div>
@@ -36,8 +48,10 @@ const CartPage = ({ cart }) => {
   return <main className="container cart-page">{renderCart()}</main>
 }
 
-const mapState = ({ user: { cart } }) => {
+const mapState = ({ cart: { cartItems: cart } }) => {
   return { cart }
 }
 
-export default connect(mapState)(CartPage)
+export default connect(mapState, { deleteFromCart, addToCart, removeFromCart })(
+  CartPage
+)

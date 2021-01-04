@@ -5,11 +5,13 @@ import userReducer from './userReducer'
 import setSearchTermReducer from './setSearchTermReducer'
 import setMobileMenuVisiblity from './setMobileMenuVisibilityReducer'
 import shopReducer from './shopReducer'
+import cartReducer from './cartReducer'
 
 export default combineReducers({
   form: formReducer,
   user: userReducer,
   searchTerm: setSearchTermReducer,
   mobileMenuVisibility: setMobileMenuVisiblity,
-  shop: shopReducer
+  shop: shopReducer,
+  cart: cartReducer
 })

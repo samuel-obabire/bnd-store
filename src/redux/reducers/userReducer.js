@@ -1,14 +1,8 @@
-import { reduceCartItems } from '../../components/utils/cartUtils'
-import {
-  SET_USER,
-  SET_SELECTED_PRODUCT,
-  ADD_PRODUCT_TO_CART
-} from '../actions/types'
+import { SET_USER, SET_SELECTED_PRODUCT } from '../actions/types'
 
 const INITIAL_STATE = {
   currentUser: null,
-  lastProductSelected: null,
-  cart: []
+  lastProductSelected: null
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -17,8 +11,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return { ...state, currentUser: action.payload }
     case SET_SELECTED_PRODUCT:
       return { ...state, lastProductSelected: action.payload }
-    case ADD_PRODUCT_TO_CART:
-      return reduceCartItems(state, action.payload)
     default:
       return state
   }

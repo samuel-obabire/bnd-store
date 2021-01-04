@@ -5,8 +5,11 @@ import {
   SET_PRODUCTS,
   SET_SELECTED_PRODUCT,
   CLEAR_PRODUCTS,
-  ADD_PRODUCT_TO_CART
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_FROM_CART,
+  DELETE_PRODUCT_FROM_CART
 } from './types'
+
 import { getCollection } from '../../components/utils/firebase'
 
 export const setUser = user => {
@@ -88,11 +91,27 @@ export const setSelectedProduct = product => {
   }
 }
 
-export const addToCart = product => {
-  product.quantity = 1
+export const addToCart = item => {
+  const product = { ...item, quantity: 1 }
 
   return {
     type: ADD_PRODUCT_TO_CART,
+    payload: product
+  }
+}
+
+export const deleteFromCart = product => {
+  return {
+    type: DELETE_PRODUCT_FROM_CART,
+    payload: product
+  }
+}
+
+export const removeFromCart = item => {
+  const product = { ...item, quantity: item.quantity - 1 }
+
+  return {
+    type: REMOVE_PRODUCT_FROM_CART,
     payload: product
   }
 }

@@ -39,12 +39,17 @@
       width: 100%;
       max-width: 18px;
       height: auto;
-      margin: auto;
-      cursor: pointer;
-    }
 
-    .icon:nth-of-type(1) {
-      margin-right: auto;
+      @for $i from 1 to 4 {
+        @if $i == 1 {
+          &:nth-of-type(#{$i}) {
+            margin-right: auto;
+          }
+        } @else {
+          margin-right: 1rem;
+        }
+      }
+      cursor: pointer;
     }
   }
 }
