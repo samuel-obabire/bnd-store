@@ -89,6 +89,8 @@ export const setSelectedProduct = product => {
 }
 
 export const addToCart = product => {
+  product.quantity = 1
+
   return {
     type: ADD_PRODUCT_TO_CART,
     payload: product

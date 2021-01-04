@@ -1,24 +1,24 @@
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { Breakpoint } from 'react-socks';
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { Breakpoint } from 'react-socks'
 
-import './Header.scss';
+import './Header.scss'
 
-import { ReactComponent as MenuBar } from '../../asset/3-bars.svg';
-import { ReactComponent as CartIcon } from '../../asset/cart-icon.svg';
-import { ReactComponent as UserIcon } from '../../asset/user-icon.svg';
-import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
-import SearchBar from '../../components/search-bar/SearchBar';
-import { setMobileMenuVisiblity, getProducts } from '../../redux/actions';
-import MobileMenu from '../../components/mobile-menu/MobileMenu';
-import Categories from '../categories/Categories';
+import { ReactComponent as MenuBar } from '../../asset/3-bars.svg'
+import { ReactComponent as CartIcon } from '../../asset/cart-icon.svg'
+import { ReactComponent as UserIcon } from '../../asset/user-icon.svg'
+import { ReactComponent as Logo } from '../../asset/bnd-logo.svg'
+import SearchBar from '../../components/search-bar/SearchBar'
+import { setMobileMenuVisiblity, getProducts } from '../../redux/actions'
+import MobileMenu from '../../components/mobile-menu/MobileMenu'
+import Categories from '../categories/Categories'
 
-const Header = ({ getProducts, setMobileMenuVisiblity }) => {
-  const history = useHistory();
+const Header = ({ getProducts, setMobileMenuVisiblity, productCount }) => {
+  const history = useHistory()
 
   const onSearchSubmit = term => {
-    history.push(`/shop?field=indexes&q=${term.toUpperCase()}`);
-  };
+    history.push(`/shop?field=indexes&q=${term.toUpperCase()}`)
+  }
 
   return (
     <div className="container">
@@ -44,6 +44,9 @@ const Header = ({ getProducts, setMobileMenuVisiblity }) => {
           </Breakpoint>
           <div className="nav-item  cart-icon">
             <CartIcon />
+            {productCount ? (
+              <span className="item-count">{productCount}</span>
+            ) : null}
           </div>
           <div className="nav-item  user-icon">
             <UserIcon className="icon" />
@@ -51,7 +54,17 @@ const Header = ({ getProducts, setMobileMenuVisiblity }) => {
         </div>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default connect(null, { setMobileMenuVisiblity, getProducts })(Header);
+const mapState = state => {
+  return {
+    productCount: state.user.cart.reduce((acc, curr) => {
+      return acc + curr.quantity
+    }, 0)
+  }
+}
+
+export default connect(mapState, { setMobileMenuVisiblity, getProducts })(
+  Header
+)

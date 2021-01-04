@@ -12,7 +12,6 @@ import Header from './header/Header'
 import shopdata from './pages/shop-page/shop-data'
 import { generateId } from './utils/generateId'
 import Jimp from 'jimp/es'
-import { image } from 'faker'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))

@@ -41,5 +41,21 @@
 
   .cart-icon {
     margin-left: auto;
+    position: relative;
+  }
+
+  .item-count {
+    position: absolute;
+    background: rgb(234, 82, 82);
+    color: white;
+    padding: 0.3rem;
+    border-radius: 50%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    top: -15px;
+    left: 15px;
   }
 }

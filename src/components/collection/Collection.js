@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-import './Collection.scss';
+import './Collection.scss'
 
-import Product from '../product/Product';
+import Product from '../product/Product'
 
 const Collection = ({ products, title }) => {
   const renderCollections = Object.values(products).map(({ ...props }) => {
@@ -10,8 +10,8 @@ const Collection = ({ products, title }) => {
       <div className="collection-product" key={props.id}>
         <Product {...props} />
       </div>
-    );
-  });
+    )
+  })
 
   return (
     <section className="collection-wrapper">
@@ -26,7 +26,7 @@ const Collection = ({ products, title }) => {
       </header>
       <div className="collection-products">{renderCollections}</div>
     </section>
-  );
-};
+  )
+}
 
-export default Collection;
+export default Collection

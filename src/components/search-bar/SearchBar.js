@@ -1,29 +1,29 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from 'react'
 
-import './SearchBar.scss';
+import './SearchBar.scss'
 
-import { ReactComponent as SearchIcon } from '../../asset/search-icon.svg';
+import { ReactComponent as SearchIcon } from '../../asset/search-icon.svg'
 
 const SearchBar = ({ onSearchSubmit }) => {
-  const [term, setTerm] = useState('');
-  const inputRef = useRef();
+  const [term, setTerm] = useState('')
+  const inputRef = useRef()
 
   const onSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (term === '') return;
+    if (term === '') return
 
-    onSearchSubmit(term);
+    onSearchSubmit(term)
 
-    setTerm('');
-    inputRef.current.blur();
-  };
+    setTerm('')
+    inputRef.current.blur()
+  }
 
   return (
     <form onSubmit={onSubmit} className="search-bar">
       <input
         ref={inputRef}
-        placeholder="Search product"
+        placeholder="Search product..."
         type="search"
         value={term}
         onChange={e => setTerm(e.target.value)}
@@ -32,7 +32,7 @@ const SearchBar = ({ onSearchSubmit }) => {
         <SearchIcon />
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

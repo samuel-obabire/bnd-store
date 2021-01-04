@@ -70,6 +70,10 @@
 }
 
 .product-header {
+  .product-title {
+    font-size: 1rem;
+    font-weight: 400;
+  }
   .product-header_info {
     margin: 2rem 0;
     color: gray;
@@ -79,13 +83,22 @@
 
 .product-description-container {
   background-color: white;
-  padding: 1rem;
   border-radius: 0.5rem;
   margin-top: 2rem;
+  padding: 0.7rem 0.5rem;
 }
 
 .product-description {
   background-color: white;
-  @include font-size(1rem, 7vw, 1.2rem);
-  line-height: 1.7rem;
+  @include font-size(0.8rem, 7vw, 1rem);
+
+  overflow: hidden;
+  line-height: 1.2rem;
+  max-height: 4.8rem;
+  -webkit-box-orient: vertical;
+  display: block;
+  display: -webkit-box;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
 }

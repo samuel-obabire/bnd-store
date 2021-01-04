@@ -27,7 +27,7 @@ const HomePage = () => {
           position={'absolute'}
         />
         <h2 className="shop-name">
-          Bnd
+          Beulah & Daniel
           <span>Fashion Palaace</span>
         </h2>
 

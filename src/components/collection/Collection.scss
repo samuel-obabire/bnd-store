@@ -4,7 +4,8 @@
   padding: 0.5rem;
   background-color: white;
   margin-bottom: 1rem;
-  box-shadow: map-get($shadows, 'separator');
+  // box-shadow: map-get($shadows, 'separator');
+  border-radius: 0.5rem;
   .collection-header {
     display: flex;
     justify-content: space-between;
@@ -29,13 +30,13 @@
     .collection-product {
       margin-bottom: 1rem;
       cursor: pointer;
-      flex: 1 0 170px;
+      flex: 1 0 150px;
       display: flex;
       flex-direction: column;
       margin-right: 0.4rem;
       scroll-snap-align: start;
       @media screen and (min-width: 48rem) {
-        flex: 1 1 170px;
+        flex: 1 1 150px;
       }
     }
   }

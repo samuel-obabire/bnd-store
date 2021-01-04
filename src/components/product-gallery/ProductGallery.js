@@ -76,6 +76,16 @@ const ProductGallery = ({ product, addToCart }) => {
     )
   })
 
+  const renderDescription = () => {
+    return (
+      <div className="product-description-container">
+        <h3>Description</h3>
+        <hr />
+        <div className="product-description">{product.description}</div>
+      </div>
+    )
+  }
+
   return mobile || mql.matches ? (
     <section className="product-detail">
       <figure className="product-gallery">
@@ -85,7 +95,11 @@ const ProductGallery = ({ product, addToCart }) => {
         {renderImages}
       </figure>
       <header className="product-header">
-        <h2>{product.title}</h2>
+        <h1
+          className="product-title"
+          style={{ marginTop: 0, fontWeight: 'normal' }}>
+          {product.title}
+        </h1>
         <b style={{ fontSize: '1.1rem' }}>&#8358; {product.price}</b>
         <div className="product-header_info">Fabric - crepe</div>
         <CustomBtn
@@ -94,11 +108,7 @@ const ProductGallery = ({ product, addToCart }) => {
           text="Add to cart"
         />
       </header>
-      <div>
-        <h3>Description</h3>
-        <hr />
-        <div className="product-description">{product.description}</div>
-      </div>
+      {renderDescription()}
     </section>
   ) : (
     <section>
@@ -118,11 +128,14 @@ const ProductGallery = ({ product, addToCart }) => {
             />
           </div>
         </figure>
-        <div style={{ maxWidth: 'max-content' }}>
+        <div>
           <header className="product-header">
-            <h1 style={{ marginTop: 0, fontWeight: 'normal' }}>
+            <h1
+              className="product-title"
+              style={{ fontSize: '1.5rem', fontWeight: '400' }}>
               {product.title}
             </h1>
+
             <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
             <div className="product-header_info">Fabric - crepe</div>
             <CustomBtn
@@ -133,11 +146,7 @@ const ProductGallery = ({ product, addToCart }) => {
           </header>
         </div>
       </div>
-      <div className="product-description-container">
-        <h2>Description</h2>
-        <hr />
-        <div className="product-description">{product.description}</div>
-      </div>
+      {renderDescription()}
     </section>
   )
 }
