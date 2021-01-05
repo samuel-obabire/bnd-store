@@ -1,0 +1,43 @@
+$color: #7e7c7c;
+
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  font-size: 0.77rem;
+  border-top: 1.5px solid rgb(187, 182, 182);
+  color: $color;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  transform: scaleY(0);
+  transition: transform 200ms ease;
+  transform-origin: bottom;
+
+  &.visible {
+    transform: scaleY(1);
+  }
+
+  a {
+    color: $color;
+  }
+
+  .icon-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .icon {
+      width: 100%;
+      max-width: 25px;
+      height: auto;
+      text-align: center;
+    }
+  }
+}

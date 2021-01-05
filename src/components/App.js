@@ -12,6 +12,8 @@ import Header from './header/Header'
 import shopdata from './pages/shop-page/shop-data'
 import { generateId } from './utils/generateId'
 import Jimp from 'jimp/es'
+import MobileNav from './mobile-nav/MobileNav'
+import { Breakpoint } from 'react-socks'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
@@ -93,6 +95,9 @@ const App = ({ setUser }) => {
           </Route>
         </Switch>
       </Suspense>
+      <Breakpoint small down>
+        <MobileNav />
+      </Breakpoint>
     </BrowserRouter>
   )
 }
