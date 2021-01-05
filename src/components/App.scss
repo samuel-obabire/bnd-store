@@ -7,9 +7,14 @@
   box-sizing: border-box;
 }
 
-a {
+a,
+.link {
   text-decoration: none;
   color: rgb(24, 162, 187);
+
+  &:hover {
+    color: rgb(236, 84, 84);
+  }
 }
 
 hr {
@@ -43,6 +48,10 @@ body {
   max-width: 1200rem;
   direction: ltr;
   background-color: #f3f1f1;
+}
+
+#root {
+  overflow: hidden;
 }
 
 button {

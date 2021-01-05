@@ -1,6 +1,11 @@
 .cart-page {
-  max-width: 48rem;
-  margin: 8rem auto 0;
+  max-width: 43rem;
+  margin: 8rem auto 8rem;
+
+  > h1 {
+    font-size: 1.3rem;
+    color: #7e7c7c;
+  }
 
   .cart-item {
     background: white;

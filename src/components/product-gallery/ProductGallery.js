@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import { getUserSelectedProduct } from '../../redux/selectors'
 import { addToCart } from '../../redux/actions'
+import { generateId } from '../utils/generateId'
 
 import './ProductGallery.scss'
 import CustomBtn from '../custom-btn/CustomBtn'
@@ -46,7 +47,7 @@ const ProductGallery = ({ product, addToCart }) => {
   })
 
   useEffect(() => {
-    if (ref.current.scrollHeight > ref.current.clientHeight + 3)
+    if (ref.current && ref.current.scrollHeight > ref.current.clientHeight + 3)
       setHasMore(true)
   }, [])
 
@@ -75,6 +76,7 @@ const ProductGallery = ({ product, addToCart }) => {
   const renderImages = product.imageCollection.map(image => {
     return (
       <div
+        key={generateId()}
         className="preview-images"
         style={!mobile && !mql.matches ? { ...style, marginBottom: 4 } : {}}
         onClick={e => onClick(e, image)}>
@@ -132,6 +134,7 @@ const ProductGallery = ({ product, addToCart }) => {
         </h1>
         <b style={{ fontSize: '1.1rem' }}>&#8358; {product.price}</b>
         <div className="product-header_info">Fabric - crepe</div>
+        <div className="link">Add to wishlist</div>
         <CustomBtn
           onClick={onButtonClick}
           additionalStyles={additionalStyles}
@@ -168,6 +171,7 @@ const ProductGallery = ({ product, addToCart }) => {
 
             <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
             <div className="product-header_info">Fabric - crepe</div>
+            <div className="link ">Add to wishlist</div>
             <CustomBtn
               onClick={onButtonClick}
               additionalStyles={additionalStyles}

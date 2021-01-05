@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom'
 import './MobileNav.scss'
 import { ReactComponent as HomeIcon } from '../../asset/home.svg'
-import { ReactComponent as SearchIcon } from '../../asset/search.svg'
+import { ReactComponent as SavedIcon } from '../../asset/saved-icon.svg'
 import { ReactComponent as ShopIcon } from '../../asset/shop.svg'
 import { ReactComponent as CategoryIcon } from '../../asset/category.svg'
 import { Link } from 'react-router-dom'
@@ -29,31 +29,43 @@ const MobileNav = () => {
   useEffect(() => {
     if (!window.IntersectionObserver) return
 
-    if (ref.current) ref.current = ref.current.disconnect()
-
     let options = {
-      rootMargin: '100%',
+      rootMargin: '50%',
       threshold: buildThresholdList()
     }
 
     const intersectionCallback = (entries, observer) => {
+      console.log('ran')
+
       const { y } = entries[0].boundingClientRect
-      if (y < prevScrollValue) {
+
+      if (
+        y < prevScrollValue &&
+        y < -100 &&
+        ref.current.classList.contains('visible')
+      ) {
         setshouldShow(false)
-      } else {
+      } else if (
+        !ref.current.classList.contains('visible') &&
+        y > prevScrollValue
+      ) {
         setshouldShow(true)
       }
+
       prevScrollValue = y
     }
 
     const observer = new IntersectionObserver(intersectionCallback, options)
     observer.observe(document.querySelector('#root'))
 
-    return () => ref.current.disconnect()
+    return () => {
+      console.log('ran')
+      observer.disconnect()
+    }
   }, [])
 
   return createPortal(
-    <div className={`mobile-nav ${shouldShow ? 'visible' : ''}`}>
+    <div ref={ref} className={`mobile-nav ${shouldShow ? 'visible' : ''}`}>
       <Link to="/" className="icon-wrapper">
         <div className="icon">
           <HomeIcon />
@@ -62,9 +74,9 @@ const MobileNav = () => {
       </Link>
       <div className="icon-wrapper">
         <div className="icon">
-          <SearchIcon />
+          <SavedIcon />
         </div>
-        Search
+        Saved
       </div>
       <Link to="/shop" className="icon-wrapper">
         <div className="icon">

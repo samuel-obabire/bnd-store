@@ -12,7 +12,7 @@ import {
 
 const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
   const renderCart = () => {
-    if (!cart.length) return <h1>You have no items selected</h1>
+    if (!cart.length) return null
 
     return cart.map(item => (
       <div className="cart-item" key={item.id}>
@@ -45,7 +45,16 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
     ))
   }
 
-  return <main className="container cart-page">{renderCart()}</main>
+  return (
+    <main className="container cart-page">
+      {cart.length ? (
+        <h1>Your cart:</h1>
+      ) : (
+        <h1 style={{ textAlign: 'center' }}>You have no items selected</h1>
+      )}
+      {renderCart()}
+    </main>
+  )
 }
 
 const mapState = ({ cart: { cartItems: cart } }) => {
