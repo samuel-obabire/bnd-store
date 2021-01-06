@@ -1,12 +1,12 @@
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form'
 
-import './Form.scss';
+import './Form.scss'
 
 const renderError = ({ error, touched }) => {
   if (touched && error) {
-    return <div className="field-error">{error}</div>;
+    return <div className="field-error">{error}</div>
   }
-};
+}
 
 const renderFormComponent = ({ id, type, label, input, meta }) => {
   return (
@@ -15,8 +15,8 @@ const renderFormComponent = ({ id, type, label, input, meta }) => {
       <input id={id} {...input} type={type} />
       {renderError(meta)}
     </>
-  );
-};
+  )
+}
 
 const Form = ({
   fieldProps,
@@ -31,15 +31,15 @@ const Form = ({
         <div className="field" key={props.id}>
           <Field {...props} component={renderFormComponent} />
         </div>
-      );
-    });
+      )
+    })
 
   const onSubmit = formProps => {
-    onFormSubmit(formProps);
-  };
+    onFormSubmit(formProps)
+  }
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form container" onSubmit={handleSubmit(onSubmit)}>
       {renderFormFields(fieldProps)}
       <button
         className={`${
@@ -55,27 +55,27 @@ const Form = ({
       </button>
       {formFooterComponent}
     </form>
-  );
-};
+  )
+}
 
 const validate = values => {
-  const errors = {};
+  const errors = {}
 
   if (!values.email) {
-    errors.email = 'Email is required';
+    errors.email = 'Email is required'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
+    errors.email = 'Invalid email address'
   }
 
   if (!values.password) {
-    errors.password = 'Password is required';
+    errors.password = 'Password is required'
   }
 
   if (values.password !== values['password-confirmation']) {
-    errors['password-confirmation'] = "Passwords don't match";
+    errors['password-confirmation'] = "Passwords don't match"
   }
 
-  return errors;
-};
+  return errors
+}
 
-export default reduxForm({ form: 'Login Information', validate })(Form);
+export default reduxForm({ form: 'Login Information', validate })(Form)

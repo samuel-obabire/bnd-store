@@ -19,10 +19,9 @@ const ProductPage = ({ setSelectedProduct }) => {
 
   const search = useLocation().search
 
-  const productRef = firestore.collection('products').doc(id)
-
   useEffect(() => {
     if (!id) return
+    const productRef = firestore.collection('products').doc(id)
 
     setLoading(true)
     const unsubscribeFromListener = productRef.onSnapshot(
@@ -40,6 +39,8 @@ const ProductPage = ({ setSelectedProduct }) => {
 
   useEffect(() => {
     if (!product) return
+
+    const productRef = firestore.collection('products').doc(id)
 
     firestore
       .collection('products')

@@ -133,7 +133,18 @@ const ProductGallery = ({ product, addToCart }) => {
           {product.title}
         </h1>
         <b style={{ fontSize: '1.1rem' }}>&#8358; {product.price}</b>
-        <div className="product-header_info">Fabric - crepe</div>
+        <div className="product-header_info">
+          <div className="material-type">Fabric - crepe</div>
+          <div className="custom-select">
+            <select class="dropdown">
+              <option value="" disabled selected>
+                Select Size
+              </option>
+              <option value="1">20</option>
+              <option value="0">30</option>
+            </select>
+          </div>
+        </div>
         <div className="link">Add to wishlist</div>
         <CustomBtn
           onClick={onButtonClick}
@@ -170,7 +181,18 @@ const ProductGallery = ({ product, addToCart }) => {
             </h1>
 
             <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
-            <div className="product-header_info">Fabric - crepe</div>
+            <div className="product-header_info">
+              <div className="material-type">Fabric - crepe</div>
+              <div className="custom-select">
+                <select class="dropdown">
+                  <option value="" disabled selected>
+                    Select Size
+                  </option>
+                  <option value="1">20</option>
+                  <option value="0">30</option>
+                </select>
+              </div>
+            </div>
             <div className="link ">Add to wishlist</div>
             <CustomBtn
               onClick={onButtonClick}

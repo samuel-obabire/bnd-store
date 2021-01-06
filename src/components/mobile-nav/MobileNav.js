@@ -35,8 +35,6 @@ const MobileNav = () => {
     }
 
     const intersectionCallback = (entries, observer) => {
-      console.log('ran')
-
       const { y } = entries[0].boundingClientRect
 
       if (

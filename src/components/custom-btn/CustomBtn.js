@@ -1,8 +1,16 @@
 import './CustomBtn.scss'
 
-const CustomBtn = ({ onClick, text, additionalStyles = {} }) => {
+const CustomBtn = ({
+  className = '',
+  onClick,
+  text,
+  additionalStyles = {}
+}) => {
   return (
-    <button className="custom-btn" style={additionalStyles} onClick={onClick}>
+    <button
+      className={`custom-btn ${className}`}
+      style={additionalStyles}
+      onClick={onClick}>
       {text}
     </button>
   )

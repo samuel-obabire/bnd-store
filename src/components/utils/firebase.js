@@ -16,6 +16,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
+const provider = new firebase.auth.GoogleAuthProvider()
+provider.addScope('profile')
+provider.addScope('email')
+provider.addScope('https://www.googleapis.com/auth/userinfo.profile')
+
+provider.setCustomParameters({ prompt: 'select_account' })
+
+export const signInWithGoogle = () => auth.signInWithRedirect(provider)
+
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
 

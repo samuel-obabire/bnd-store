@@ -14,6 +14,7 @@ import { generateId } from './utils/generateId'
 import Jimp from 'jimp/es'
 import MobileNav from './mobile-nav/MobileNav'
 import { Breakpoint } from 'react-socks'
+import Error from './404'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
@@ -89,9 +90,9 @@ const App = ({ setUser }) => {
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/cart" component={CartPage} />
           <Route path="/sign-up" component={SignupPage} />
-          <Route path="/sign-in" component={SigninPage} />
+          <Route path="/login" component={SigninPage} />
           <Route path="*">
-            <div style={{ height: 200, width: 400, background: 'red' }} />
+            <Error />
           </Route>
         </Switch>
       </Suspense>

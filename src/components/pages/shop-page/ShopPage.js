@@ -11,6 +11,7 @@ import ShopCollection from '../../shop-collection/ShopCollection'
 // import { Breakpoint } from 'react-socks';
 import ProductPage from '../../product-page/ProductPage'
 import useQuery from '../../../hooks/useQuery'
+import Error from '../../404'
 
 const ShopPage = ({ setQuery, match, location }) => {
   const query = useQuery()
@@ -34,9 +35,7 @@ const ShopPage = ({ setQuery, match, location }) => {
           path={`${match.path}/:productName`}
           component={ProductPage}
         />
-        <Route path="*">
-          <div style={{ height: 200, width: 400, background: 'red' }} />
-        </Route>
+        <Route path="*" component={Error} />
       </Switch>
     </main>
   )

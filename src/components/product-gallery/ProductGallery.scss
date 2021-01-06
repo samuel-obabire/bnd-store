@@ -75,14 +75,20 @@
     font-weight: 400;
   }
   .product-header_info {
-    margin: 2rem 0;
-    color: gray;
-    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0;
+
+    .material-type {
+      color: gray;
+      font-size: 1.2rem;
+    }
   }
 
   .link {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
+    cursor: pointer;
   }
 }
 
@@ -110,4 +116,10 @@
 
 .show-more {
   display: flex;
+}
+
+select {
+  padding: 0.2rem;
+  border: 2px solid #7e7c7c;
+  border-radius: 0.4rem;
 }

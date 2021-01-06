@@ -15,11 +15,21 @@
   color: black;
   background-color: rgb(255, 129, 0);
   position: relative;
+  transition: all 200ms ease;
+
+  &.black {
+    background-color: rgb(3, 2, 0);
+    color: white;
+
+    &:hover,
+    &:active {
+      background-color: rgb(255, 254, 255);
+      color: black;
+    }
+  }
 
   &:hover,
-  &:active,
-  &:focus {
+  &:active {
     background-color: rgb(238, 123, 9);
-    outline: none;
   }
 }

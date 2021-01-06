@@ -9,8 +9,12 @@ import {
   addToCart,
   removeFromCart
 } from '../../../redux/actions'
+import CustomBtn from '../../custom-btn/CustomBtn'
+import { useHistory } from 'react-router-dom'
 
 const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
+  const history = useHistory()
+
   const renderCart = () => {
     if (!cart.length) return null
 
@@ -45,16 +49,33 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
     ))
   }
 
-  return (
-    <main className="container cart-page">
-      {cart.length ? (
+  const onClick = () => {
+    history.push('/checkout')
+  }
+
+  const render = () => {
+    if (!cart.length)
+      return (
+        <main className="container cart-page">
+          <h1 style={{ textAlign: 'center' }}>You have no items selected</h1>
+        </main>
+      )
+
+    return (
+      <main className="container cart-page">
         <h1>Your cart:</h1>
-      ) : (
-        <h1 style={{ textAlign: 'center' }}>You have no items selected</h1>
-      )}
-      {renderCart()}
-    </main>
-  )
+        {renderCart()}
+        <CustomBtn
+          onClick={onClick}
+          additionalStyles={{ fontWeight: '400' }}
+          text="Go to checkout"
+          className="black"
+        />
+      </main>
+    )
+  }
+
+  return render()
 }
 
 const mapState = ({ cart: { cartItems: cart } }) => {
