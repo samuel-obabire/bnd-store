@@ -28,6 +28,7 @@
 
   .field-error {
     font-size: 0.75rem;
+    margin-top: 0.3rem;
     color: var(--primary-red);
   }
 
@@ -36,11 +37,14 @@
     margin-bottom: 0.3rem;
   }
 
-  input {
+  input,
+  select,
+  textarea {
     width: 100%;
     padding: 0.3rem;
     border: 1px solid var(--default-border-color);
     border-radius: 0.3rem;
+    resize: vertical;
   }
 
   button {
@@ -52,6 +56,7 @@
     border-radius: 0.3rem;
     position: relative;
     margin-bottom: 1rem;
+    text-align: center;
 
     &.disabled {
       background-color: rgb(243, 237, 237);

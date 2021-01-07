@@ -22,7 +22,7 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
       <div className="cart-item" key={item.id}>
         <div className="cart-wrapper">
           <div className="image-wrapper">
-            <img src={item.image} alt="" />
+            <img src={item.image} alt="product image" />
           </div>
           <div>{item.title}</div>
         </div>
@@ -54,6 +54,11 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
   }
 
   const render = () => {
+    const total = cart.reduce(
+      (acc, curr) => acc + curr.price * curr.quantity,
+      0
+    )
+
     if (!cart.length)
       return (
         <main className="container cart-page">
@@ -65,10 +70,13 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
       <main className="container cart-page">
         <h1>Your cart:</h1>
         {renderCart()}
+        <footer>
+          <h3>Total: &#8358; {total}</h3>
+        </footer>
         <CustomBtn
           onClick={onClick}
           additionalStyles={{ fontWeight: '400' }}
-          text="Go to checkout"
+          text="Buy"
           className="black"
         />
       </main>

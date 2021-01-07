@@ -14,12 +14,14 @@ import { generateId } from './utils/generateId'
 import Jimp from 'jimp/es'
 import MobileNav from './mobile-nav/MobileNav'
 import { Breakpoint } from 'react-socks'
-import Error from './404'
+import Spinner from './spinner/Spinner'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
 const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'))
 const CartPage = lazy(() => import('./pages/cart-page/CartPage'))
+const CheckoutPage = lazy(() => import('./pages/checkout-page/CheckoutPage'))
+const Error = lazy(() => import('./404'))
 
 const App = ({ setUser }) => {
   useEffect(() => {
@@ -84,16 +86,15 @@ const App = ({ setUser }) => {
   return (
     <BrowserRouter>
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/cart" component={CartPage} />
           <Route path="/sign-up" component={SignupPage} />
           <Route path="/login" component={SigninPage} />
-          <Route path="*">
-            <Error />
-          </Route>
+          <Route path="/checkout" component={CheckoutPage} />
+          <Route path="*" component={Error} />
         </Switch>
       </Suspense>
       <Breakpoint small down>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as GoogleIcon } from '../../../asset/google.svg'
@@ -29,20 +29,18 @@ const formFooterComponent = (
 )
 
 const SignIn = ({ user }) => {
+  const [loading, setLoading] = useState(false)
   const history = useHistory()
 
   useEffect(() => {
     if (user) history.push('/')
   }, [user])
 
-  const handleGoogleLogin = () => {
-    signInWithGoogle()
-  }
-
   const onSubmit = ({ email, password }) => {
+    setLoading(true)
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(console.log)
+      .then(() => setLoading(false))
       .catch(e => console.log(e))
   }
 
@@ -50,7 +48,7 @@ const SignIn = ({ user }) => {
     <div className="container sign-in" style={{ marginTop: '8rem' }}>
       <h1 style={{ textAlign: 'center' }}>Login!</h1>
       <button
-        onClick={handleGoogleLogin}
+        onClick={signInWithGoogle}
         style={{
           display: 'flex',
           margin: 'var(--element-margin) auto',
@@ -95,6 +93,7 @@ const SignIn = ({ user }) => {
       <Form
         onFormSubmit={onSubmit}
         fieldProps={fieldProps}
+        loading={loading}
         formFooterComponent={formFooterComponent}
       />
     </div>
@@ -104,4 +103,5 @@ const SignIn = ({ user }) => {
 const mapState = state => {
   return { user: state.user.currentUser }
 }
+
 export default connect(mapState)(SignIn)

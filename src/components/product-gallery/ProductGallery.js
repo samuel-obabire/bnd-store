@@ -184,7 +184,7 @@ const ProductGallery = ({ product, addToCart }) => {
             <div className="product-header_info">
               <div className="material-type">Fabric - crepe</div>
               <div className="custom-select">
-                <select class="dropdown">
+                <select className="dropdown">
                   <option value="" disabled selected>
                     Select Size
                   </option>

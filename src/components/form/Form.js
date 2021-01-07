@@ -1,35 +1,30 @@
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 
 import './Form.scss'
 
-const renderError = ({ error, touched }) => {
-  if (touched && error) {
-    return <div className="field-error">{error}</div>
-  }
-}
-
-const renderFormComponent = ({ id, type, label, input, meta }) => {
-  return (
-    <>
-      <label htmlFor={type}>{label}</label>
-      <input id={id} {...input} type={type} />
-      {renderError(meta)}
-    </>
-  )
-}
+import { renderFormComponent, validate } from '../utils/formUtils'
 
 const Form = ({
+  additionalStyles,
   fieldProps,
   onFormSubmit,
+  loading,
   handleSubmit,
   formFooterComponent,
+  selectedState,
   ...otherProps
 }) => {
   const renderFormFields = fieldProps =>
     fieldProps.map(({ ...props }) => {
       return (
         <div className="field" key={props.id}>
-          <Field {...props} component={renderFormComponent} />
+          <Field
+            {...props}
+            component={props =>
+              renderFormComponent({ ...props, selectedState })
+            }
+          />
         </div>
       )
     })
@@ -39,7 +34,10 @@ const Form = ({
   }
 
   return (
-    <form className="form container" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      style={additionalStyles || {}}
+      className="form container"
+      onSubmit={handleSubmit(onSubmit)}>
       {renderFormFields(fieldProps)}
       <button
         className={`${
@@ -51,31 +49,17 @@ const Form = ({
         }`}
         type="submit"
         disabled={otherProps.invalid || otherProps.pristine}>
-        Submit
+        {loading ? '...' : 'Submit'}
       </button>
       {formFooterComponent}
     </form>
   )
 }
 
-const validate = values => {
-  const errors = {}
-
-  if (!values.email) {
-    errors.email = 'Email is required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
+const mapState = state => {
+  return {
+    selectedState: state.form?.form?.values?.state
   }
-
-  if (!values.password) {
-    errors.password = 'Password is required'
-  }
-
-  if (values.password !== values['password-confirmation']) {
-    errors['password-confirmation'] = "Passwords don't match"
-  }
-
-  return errors
 }
 
-export default reduxForm({ form: 'Login Information', validate })(Form)
+export default connect(mapState)(reduxForm({ form: 'form', validate })(Form))
