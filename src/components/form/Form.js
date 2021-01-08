@@ -20,14 +20,13 @@ const Form = ({
 }) => {
   const renderFormFields = fieldProps =>
     fieldProps.map(({ ...props }) => {
+      // had to use enhancedProps in other to solve input loosing focus
+      // after first keystroke
+      const enhancedProps = { ...props, selectedState }
+
       return (
         <div className="field" key={props.id}>
-          <Field
-            {...props}
-            component={props =>
-              renderFormComponent({ ...props, selectedState })
-            }
-          />
+          <Field {...enhancedProps} component={renderFormComponent} />
         </div>
       )
     })
