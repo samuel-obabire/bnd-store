@@ -2,9 +2,10 @@ import './CheckoutPage.scss'
 
 import Form from '../../../components/form/Form'
 import { connect } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import NaijaStates from 'naija-state-local-government'
+import Paystack from '../../Paystack'
 
 const fieldProps = [
   {
@@ -46,12 +47,6 @@ const fieldProps = [
     options: ['Select LGA', ...NaijaStates.lgas('Ondo').lgas]
   },
   {
-    name: 'city',
-    type: 'text',
-    id: 'city',
-    label: 'City'
-  },
-  {
     name: 'addtional notes',
     type: 'textarea',
     id: 'addtional-notes',
@@ -59,10 +54,15 @@ const fieldProps = [
   }
 ]
 
-const onFormSubmit = props => console.log(props)
+const formHeader = (
+  <header>
+    <h3>Shipping Details</h3>
+  </header>
+)
 
 const CheckoutPage = ({ user }) => {
   const history = useHistory()
+  const [showNext, setshowNext] = useState(false)
 
   useEffect(() => {
     if (!user) history.push('/login')
@@ -72,20 +72,41 @@ const CheckoutPage = ({ user }) => {
 
   const { displayName, email, phoneNumber } = user
 
-  return (
-    <div className="checkout-page">
-      <Form
-        initialValues={{
-          email,
-          'full name': displayName,
-          'phone number': phoneNumber
-        }}
-        additionalStyles={{ maxWidth: '30rem' }}
-        onFormSubmit={onFormSubmit}
-        fieldProps={fieldProps}
-      />
-    </div>
-  )
+  const onFormSubmit = props => {
+    console.log(props)
+    setshowNext(true)
+  }
+
+  const render = () => {
+    if (!showNext)
+      return (
+        <>
+          <header>
+            <h3>You're almost there! Complete your order</h3>
+          </header>
+          <Form
+            buttonText="Proceed"
+            formHeader={formHeader}
+            // initialValues={{
+            //   email,
+            //   'full name': displayName,
+            //   'phone number': phoneNumber
+            // }}
+            additionalStyles={{ maxWidth: '30rem' }}
+            onFormSubmit={onFormSubmit}
+            fieldProps={fieldProps}
+          />
+        </>
+      )
+
+    return (
+      <div>
+        <Paystack email="samuelobabire6@gmail.com" />
+      </div>
+    )
+  }
+
+  return <div className="checkout-page">{render()}</div>
 }
 
 const mapState = ({ user }) => ({ user: user.currentUser })

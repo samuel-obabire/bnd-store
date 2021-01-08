@@ -1,10 +1,25 @@
 @import '../../variables';
 
+.form-wrapper {
+  background-color: white;
+  max-width: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: var(--element-margin) auto;
+
+  h3,
+  h4 {
+    color: var(--heading-color);
+    margin-bottom: 0.5rem;
+  }
+}
+
 .form {
   background-color: white;
+  margin: var(--element-margin) 0;
   width: 90%;
-  max-width: 17rem;
-  margin: var(--element-margin) auto;
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
@@ -35,6 +50,10 @@
   label {
     display: block;
     margin-bottom: 0.3rem;
+  }
+
+  h4 {
+    color: var(--heading-color);
   }
 
   input,

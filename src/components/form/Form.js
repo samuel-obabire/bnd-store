@@ -4,15 +4,18 @@ import { Field, reduxForm } from 'redux-form'
 import './Form.scss'
 
 import { renderFormComponent, validate } from '../utils/formUtils'
+import { getUserSelectedState } from '../../redux/selectors'
 
 const Form = ({
   additionalStyles,
   fieldProps,
+  formHeader,
+  buttonText = 'Submit',
   onFormSubmit,
   loading,
   handleSubmit,
   formFooterComponent,
-  selectedState,
+  selectedState = '',
   ...otherProps
 }) => {
   const renderFormFields = fieldProps =>
@@ -34,31 +37,31 @@ const Form = ({
   }
 
   return (
-    <form
-      style={additionalStyles || {}}
-      className="form container"
-      onSubmit={handleSubmit(onSubmit)}>
-      {renderFormFields(fieldProps)}
-      <button
-        className={`${
-          otherProps.invalid
-            ? 'disabled'
-            : otherProps.pristine
-            ? 'disabled'
-            : ''
-        }`}
-        type="submit"
-        disabled={otherProps.invalid || otherProps.pristine}>
-        {loading ? '...' : 'Submit'}
-      </button>
-      {formFooterComponent}
-    </form>
+    <div style={additionalStyles || {}} className="form-wrapper">
+      {formHeader}
+      <form className="form container" onSubmit={handleSubmit(onSubmit)}>
+        {renderFormFields(fieldProps)}
+        <button
+          className={`${
+            otherProps.invalid
+              ? 'disabled'
+              : otherProps.pristine
+              ? 'disabled'
+              : ''
+          }`}
+          type="submit"
+          disabled={otherProps.invalid || otherProps.pristine}>
+          {loading ? '...' : buttonText}
+        </button>
+        {formFooterComponent}
+      </form>
+    </div>
   )
 }
 
 const mapState = state => {
   return {
-    selectedState: state.form?.form?.values?.state
+    selectedState: getUserSelectedState(state)
   }
 }
 

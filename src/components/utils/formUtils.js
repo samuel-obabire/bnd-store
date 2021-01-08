@@ -46,6 +46,7 @@ export const renderFormComponent = ({
       </>
     )
   }
+
   if (type === 'select')
     return (
       <>
@@ -101,10 +102,6 @@ export const validate = values => {
 
   if (!values['full name']) {
     errors['full name'] = 'Name is required'
-  }
-
-  if (!values.city) {
-    errors.city = 'City is required'
   }
 
   if (!values.state) {
