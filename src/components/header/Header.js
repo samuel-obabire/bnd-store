@@ -9,7 +9,7 @@ import { ReactComponent as CartIcon } from '../../asset/cart-icon.svg'
 import { ReactComponent as UserIcon } from '../../asset/user-icon.svg'
 import { ReactComponent as Logo } from '../../asset/bnd-logo.svg'
 import SearchBar from '../../components/search-bar/SearchBar'
-import { setMobileMenuVisiblity, getProducts } from '../../redux/actions'
+import { setMobileMenuVisiblity } from '../../redux/actions'
 import MobileMenu from '../../components/mobile-menu/MobileMenu'
 import Categories from '../categories/Categories'
 
@@ -67,6 +67,4 @@ const mapState = ({ cart: { cartItems: cart } }) => {
   return { productCount }
 }
 
-export default connect(mapState, { setMobileMenuVisiblity, getProducts })(
-  Header
-)
+export default connect(mapState, { setMobileMenuVisiblity })(Header)

@@ -62,20 +62,11 @@ export const setQuery = params => {
 
 export const clearProducts = () => ({ type: CLEAR_PRODUCTS })
 
-export const getProducts = (field, operator, q) => async dispatch => {
-  dispatch(clearProducts())
-
-  const products = await getCollection({
-    field,
-    operator,
-    value: q,
-    limit: 21
-  })
-
-  dispatch({
+export const setProducts = products => {
+  return {
     type: SET_PRODUCTS,
     payload: products
-  })
+  }
 }
 
 export const setSelectedProduct = product => {

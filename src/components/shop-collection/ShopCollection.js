@@ -1,25 +1,92 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
 import './ShopCollection.scss'
 
-import { getProducts } from '../../redux/actions'
+import { clearProducts, setProducts } from '../../redux/actions'
 import Product from '../product/Product'
 import Spinner from '../spinner/Spinner'
+import { firestore } from '../utils/firebase'
 
-const ShopCollection = ({ getProducts, products, params }) => {
+const ShopCollection = ({ setProducts, clearProducts, products, params }) => {
+  const [beforeLastVisible, setBeforeLastVisible] = useState(null)
+  const [lastVisible, setLastVisible] = useState(null)
+  const [pageNo, setPageNo] = useState(0)
+
+  const getProducts = async (field, operator, value, limit = 20) => {
+    setBeforeLastVisible(lastVisible)
+    const items = {}
+
+    const pageRef = !lastVisible
+      ? firestore
+          .collection('products')
+          .where(field, operator, value)
+          .limit(limit)
+      : firestore
+          .collection('products')
+          .where(field, operator, value)
+          .limit(limit)
+          .startAfter(lastVisible)
+
+    const documentSnapshots = await pageRef.get()
+    documentSnapshots.forEach(doc => {
+      items[doc.id] = doc.data()
+    })
+
+    setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+
+    return items
+  }
+
   useEffect(() => {
     if (!params.field) return
 
-    switch (params.field) {
-      case 'indexes':
-        getProducts(params.field, 'array-contains', params.q)
-        break
-      default:
-        getProducts(params.field, '==', params.q)
-        break
+    clearProducts()
+
+    const s = async () => {
+      switch (params.field) {
+        case 'indexes':
+          setProducts(
+            await getProducts(params.field, 'array-contains', params.q)
+          )
+          break
+        default:
+          setProducts(await getProducts(params.field, '==', params.q))
+          break
+      }
     }
-  }, [params])
+
+    s()
+
+    // return () => setLastVisible(null)
+  }, [params, pageNo])
+
+  // useEffect(() => {
+  //   const paginate = async () => {
+  //     const items = {}
+  //     const pageRef = firestore.collection('products').limit(20)
+
+  //     const documentSnapshots = await pageRef.get()
+  //     documentSnapshots.forEach(doc => {
+  //       items[doc.id] = doc.data()
+  //     })
+
+  //     console.log(items)
+
+  //     setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+  //     // console.log('last', lastVisible.data())
+
+  //     // const next = db
+  //     //   .collection('cities')
+  //     //   .where(params.field, 'array-contains', params.q)
+  //     //   .startAfter(lastVisible)
+  //     //   .limit(20)
+  //   }
+
+  //   paginate()
+  // }, [])
+
+  const onClick = () => setPageNo(pageNo + 1)
 
   const shopProducts = Object.values(products).map(({ ...props }) => {
     return (
@@ -30,7 +97,12 @@ const ShopCollection = ({ getProducts, products, params }) => {
   })
 
   const renderShopProducts = () => {
-    return <div className="shop-collection-container">{shopProducts}</div>
+    return (
+      <div className="shop-collection-container">
+        {shopProducts}
+        <button onClick={onClick}>next</button>
+      </div>
+    )
   }
 
   return shopProducts.length ? renderShopProducts() : <Spinner />
@@ -43,4 +115,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState, { getProducts })(ShopCollection)
+export default connect(mapState, { setProducts, clearProducts })(ShopCollection)

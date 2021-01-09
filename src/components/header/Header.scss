@@ -3,12 +3,13 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem 0;
-  border-bottom: 1px solid var(--default-border-color);
   position: fixed;
   left: 0;
   top: 0;
   z-index: 4;
   background-color: white;
+  box-shadow: 0px 1px 2px 0px rgba(60, 64, 67, 0.3),
+    0px 1px 3px 1px rgba(60, 64, 67, 0.15);
 
   @media screen and (min-width: 48rem) {
     padding: 1rem var(--container-padding);
