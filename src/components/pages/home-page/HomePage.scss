@@ -27,7 +27,7 @@
   .shop-name {
     animation: shop-intro 0.8s cubic-bezier(0.3, 0.56, 0.5, 1) both;
     margin: 4rem 0 0 var(--container-padding);
-    color: white;
+    color: rgba(255, 255, 255, 0.932);
     letter-spacing: 2px;
     font-family: 'Roboto', sans-serif;
     @include font-size(2rem, 10vw, 3rem);
@@ -57,5 +57,7 @@
     text-align: center;
     margin-top: 3rem;
     z-index: 1;
+    font-weight: 400;
+    font-size: 1rem;
   }
 }

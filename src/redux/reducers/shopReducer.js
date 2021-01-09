@@ -6,14 +6,14 @@ import {
 } from '../actions/types'
 const INITIAL_STATE = {
   categories: [
-    'Women Clothing',
-    'Electronics',
-    'Slippers',
-    'Fabrics',
-    'Hair Accessories',
-    'Bags'
+    // 'Women Clothing',
+    // 'Electronics',
+    // 'Slippers',
+    // 'Fabrics',
+    // 'Hair Accessories',
+    // 'Bags'
   ],
-  collections: {},
+  categories: {},
   products: {},
   query: {
     q: '',
@@ -24,9 +24,13 @@ const INITIAL_STATE = {
 const shopReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_CATEGORIES:
+      const category = action.payload.category
       return {
         ...state,
-        collections: action.payload
+        categories: {
+          ...state.categories,
+          [category]: action.payload[category]
+        }
       }
     case CLEAR_PRODUCTS:
       return { ...state, products: {} }

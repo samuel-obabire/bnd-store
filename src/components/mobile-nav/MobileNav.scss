@@ -17,6 +17,8 @@ $color: #7e7c7c;
   transform: scaleY(0);
   transition: transform 200ms ease;
   transform-origin: bottom;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 
   &.visible {
     transform: scaleY(1);
@@ -35,7 +37,7 @@ $color: #7e7c7c;
 
     .icon {
       width: 100%;
-      max-width: 25px;
+      max-width: 22px;
       height: auto;
       text-align: center;
     }

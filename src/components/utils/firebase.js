@@ -3,8 +3,10 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/analytics'
 
+const apiKey = process.env.REACT_APP_FIREBASE_API_KEY
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyCNOMFWx_rUwR4gnJ8s2-pXuV8b7hkWxv0',
+  apiKey,
   authDomain: 'bnd-store.firebaseapp.com',
   projectId: 'bnd-store',
   storageBucket: 'bnd-store.appspot.com',
@@ -19,11 +21,11 @@ firebase.analytics()
 const provider = new firebase.auth.GoogleAuthProvider()
 provider.addScope('profile')
 provider.addScope('email')
-provider.addScope('https://www.googleapis.com/auth/userinfo.profile')
 
 provider.setCustomParameters({ prompt: 'select_account' })
 
-export const signInWithGoogle = () => auth.signInWithRedirect(provider)
+export const signInWithGoogle = () =>
+  auth.signInWithRedirect(provider).catch(e => alert(e.message))
 
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()

@@ -7,8 +7,6 @@ import './ShopPage.scss'
 import { setQuery } from '../../../redux/actions'
 
 import ShopCollection from '../../shop-collection/ShopCollection'
-// import RouteBar from '../../route-bar/RouteBar';
-// import { Breakpoint } from 'react-socks';
 import ProductPage from '../../product-page/ProductPage'
 import useQuery from '../../../hooks/useQuery'
 import Error from '../../404'
@@ -25,11 +23,11 @@ const ShopPage = ({ setQuery, match, location }) => {
 
   return (
     <main className="shop-container container">
-      {/* <Breakpoint medium up>
-        {/* <Route path={`${match.path}`} component={RouteBar} /> */}
-      {/* </Breakpoint> */}
       <Switch>
-        <Route exact path="/shop" component={ShopCollection} />
+        <Route exact path="/shop">
+          <div>Collections</div>
+        </Route>
+        <Route exact path="/shop/collection" component={ShopCollection} />
         <Route
           exact
           path={`${match.path}/:productName`}

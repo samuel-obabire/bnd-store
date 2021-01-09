@@ -21,7 +21,7 @@ const additionalStyles = {
 }
 
 const clampStyle = {
-  '-webkit-line-clamp': 'unset',
+  WebkitLineClamp: 'unset',
   maxHeight: 'unset'
 }
 
@@ -136,8 +136,8 @@ const ProductGallery = ({ product, addToCart }) => {
         <div className="product-header_info">
           <div className="material-type">Fabric - crepe</div>
           <div className="custom-select">
-            <select class="dropdown">
-              <option value="" disabled selected>
+            <select className="dropdown" defaultValue="">
+              <option value="" disabled>
                 Select Size
               </option>
               <option value="1">20</option>
@@ -184,8 +184,8 @@ const ProductGallery = ({ product, addToCart }) => {
             <div className="product-header_info">
               <div className="material-type">Fabric - crepe</div>
               <div className="custom-select">
-                <select className="dropdown">
-                  <option value="" disabled selected>
+                <select className="dropdown" defaultValue="Size">
+                  <option value="" disabled>
                     Select Size
                   </option>
                   <option value="1">20</option>

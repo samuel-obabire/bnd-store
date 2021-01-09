@@ -1,34 +1,59 @@
-import { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { useEffect, useRef, useState } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { getCollections, setMobileMenuVisiblity } from '../../redux/actions'
+import Spinner from '../spinner/Spinner'
+import { getCollection } from '../utils/firebase'
 
-import './Categories.scss';
+import './Categories.scss'
 
-import { makeUniqueGetShopCategories } from '../../redux/selectors';
-
-const Categories = ({ categories, isMobileScreen }) => {
-  const [dropdownVisibility, setDropdownVisibility] = useState(false);
-  const ref = useRef();
+const Categories = ({
+  categories,
+  isMobileScreen,
+  setMobileMenuVisiblity,
+  getCollections
+}) => {
+  const [dropdownVisibility, setDropdownVisibility] = useState(false)
+  const ref = useRef()
 
   useEffect(() => {
     const onBodyClick = e => {
-      // if element clicked is inside of ref and it's nodeName is not LI,
-      // don't do anything
+      if (ref.current.contains(e.target) && e.target.nodeName !== 'LI') return
 
-      if (ref.current.contains(e.target) && e.target.nodeName !== 'LI') return;
+      setDropdownVisibility(false)
+    }
 
-      setDropdownVisibility(false);
-    };
+    if (!dropdownVisibility) return
 
-    if (!dropdownVisibility) return;
+    document.body.addEventListener('click', onBodyClick)
 
-    document.body.addEventListener('click', onBodyClick);
+    return () => document.body.removeEventListener('click', onBodyClick)
+  }, [dropdownVisibility])
 
-    return () => document.body.removeEventListener('click', onBodyClick);
-  }, [dropdownVisibility]);
+  useEffect(() => {
+    getCollections()
+  }, [getCollections])
 
-  const renderCategories = categories.map(category => {
-    return <li key={category}>{category}</li>;
-  });
+  const onClick = e => {
+    if (e.target.nodeName === 'A' || e.target.nodeName === 'LI')
+      setMobileMenuVisiblity()
+  }
+
+  const renderCategories = Object.keys(categories).length ? (
+    Object.keys(categories).map(category => {
+      return (
+        <Link
+          key={category}
+          to={`/shop/collection?field=category&q=${category
+            .toLowerCase()
+            .replace(/ /g, '+')}`}>
+          <li key={category}>{category}</li>
+        </Link>
+      )
+    })
+  ) : (
+    <Spinner />
+  )
 
   return (
     <>
@@ -42,24 +67,20 @@ const Categories = ({ categories, isMobileScreen }) => {
         className={`categories-wrapper ${!isMobileScreen ? 'not-mobile' : ''} ${
           dropdownVisibility ? 'visible' : ''
         }`}>
-        <ul className="categories-list">{renderCategories}</ul>
+        <ul className="categories-list" onClick={onClick}>
+          {renderCategories}
+        </ul>
       </div>
     </>
-  );
-};
+  )
+}
 
-// mapMapState is needed for correct memoization if ownProps is used
+const mapState = state => {
+  return {
+    categories: state.shop.categories
+  }
+}
 
-const makeMapState = state => {
-  const getShopCategories = makeUniqueGetShopCategories(state);
-
-  // if a func is returned from mapState connect automatically calls it
-
-  const mapState = () => ({
-    categories: getShopCategories(state),
-  });
-
-  return mapState;
-};
-
-export default connect(makeMapState)(Categories);
+export default connect(mapState, { setMobileMenuVisiblity, getCollections })(
+  Categories
+)

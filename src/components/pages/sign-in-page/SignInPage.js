@@ -68,7 +68,7 @@ const SignIn = ({ user }) => {
       </button>
       <div
         style={{
-          margin: 'var(--element-margin) auto',
+          margin: '2rem auto .3rem',
           height: '1px',
           width: '90%',
           maxWidth: '17rem',
@@ -94,6 +94,7 @@ const SignIn = ({ user }) => {
         onFormSubmit={onSubmit}
         fieldProps={fieldProps}
         loading={loading}
+        buttonText="Login"
         formFooterComponent={formFooterComponent}
       />
     </div>

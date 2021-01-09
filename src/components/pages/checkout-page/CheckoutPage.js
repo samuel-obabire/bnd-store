@@ -63,6 +63,7 @@ const formHeader = (
 const CheckoutPage = ({ user }) => {
   const history = useHistory()
   const [showNext, setshowNext] = useState(false)
+  const [shippingDetails, setShippingDetails] = useState(false)
 
   useEffect(() => {
     if (!user) history.push('/login')
@@ -73,7 +74,7 @@ const CheckoutPage = ({ user }) => {
   const { displayName, email, phoneNumber } = user
 
   const onFormSubmit = props => {
-    console.log(props)
+    setShippingDetails(props)
     setshowNext(true)
   }
 
@@ -87,12 +88,12 @@ const CheckoutPage = ({ user }) => {
           <Form
             buttonText="Proceed"
             formHeader={formHeader}
-            // initialValues={{
-            //   email,
-            //   'full name': displayName,
-            //   'phone number': phoneNumber
-            // }}
-            additionalStyles={{ maxWidth: '30rem' }}
+            initialValues={{
+              email,
+              'full name': displayName,
+              'phone number': phoneNumber
+            }}
+            additionalStyles={{ maxWidth: '30rem', backgroundColor: 'white' }}
             onFormSubmit={onFormSubmit}
             fieldProps={fieldProps}
           />
@@ -101,7 +102,11 @@ const CheckoutPage = ({ user }) => {
 
     return (
       <div>
-        <Paystack email="samuelobabire6@gmail.com" />
+        <Paystack
+          metadata={shippingDetails}
+          amount={50000}
+          email={shippingDetails.email}
+        />
       </div>
     )
   }

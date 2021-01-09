@@ -5,6 +5,8 @@ import './Collection.scss'
 import Product from '../product/Product'
 
 const Collection = ({ products, title, url }) => {
+  if (!products || JSON.stringify(products) === '{}') return null
+
   const renderCollections = Object.values(products).map(({ ...props }) => {
     return (
       <div className="collection-product" key={props.id}>
@@ -18,7 +20,7 @@ const Collection = ({ products, title, url }) => {
       <header className="collection-header">
         <h4>{title}</h4>
         <Link
-          to={`/shop?field=category&q=${
+          to={`/shop/collection?field=category&q=${
             url || title.toLowerCase().replace(/ /g, '+')
           }`}>
           Explore

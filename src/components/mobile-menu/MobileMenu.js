@@ -1,18 +1,18 @@
-import { createPortal } from 'react-dom';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { createPortal } from 'react-dom'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import './MobileMenu.scss';
+import './MobileMenu.scss'
 
-import { getMobileMenuVisibility } from '../../redux/selectors';
-import { setMobileMenuVisiblity } from '../../redux/actions';
-// import { ReactComponent as Logo } from '../../asset/bnd-logo.svg';
-import Categories from '../categories/Categories';
+import { getMobileMenuVisibility } from '../../redux/selectors'
+import { setMobileMenuVisiblity } from '../../redux/actions'
+import { ReactComponent as Logo } from '../../asset/bnd-logo.svg'
+import Categories from '../categories/Categories'
 
 const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
-  // const history = useHistory();
+  const history = useHistory()
 
-  const visible = visibility ? 'visible' : '';
+  const visible = visibility ? 'visible' : ''
 
   return createPortal(
     <>
@@ -20,28 +20,28 @@ const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
         className={`mobile-menu-overlay ${visible}`}
         onClick={() => setMobileMenuVisiblity()}></div>
       <div className={`mobile-menu ${visible}`}>
-        {/* <div
+        <div
           className="mobile-logo"
           onClick={() => {
-            setMobileMenuVisiblity();
+            setMobileMenuVisiblity()
 
-            history.push('/');
+            history.push('/')
           }}>
           <Logo />
-        </div> */}
-        {/* <hr /> */}
+        </div>
+        <hr />
         <Categories isMobileScreen={true} />
         <hr />
       </div>
     </>,
     document.querySelector('#mobile-menu')
-  );
-};
+  )
+}
 
 const mapState = state => {
   return {
-    visibility: getMobileMenuVisibility(state),
-  };
-};
+    visibility: getMobileMenuVisibility(state)
+  }
+}
 
-export default connect(mapState, { setMobileMenuVisiblity })(MobileMenu);
+export default connect(mapState, { setMobileMenuVisiblity })(MobileMenu)

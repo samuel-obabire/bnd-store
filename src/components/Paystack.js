@@ -2,21 +2,25 @@ import { usePaystackPayment } from 'react-paystack'
 
 const onSuccess = reference => {
   console.log(reference)
+  window.alert('payment successful')
 }
 
 const onClose = () => {
   console.log('closed')
+  window.alert('Payment cancelled')
 }
 
-const Paystack = ({ email, amount = 2000 }) => {
+const publicKey = process.env.REACT_APP_PAYSTACK_API_KEY
+
+const Paystack = ({ email, amount = 20000 }) => {
   const config = {
-    reference: new Date().getTime(),
     email,
     amount,
-    publicKey: 'pk_test_d00648b17fe2e7748862f8dca90d4d84368fcf5b'
+    publicKey
   }
 
   const initializePayment = usePaystackPayment(config)
+
   return (
     <div>
       <button

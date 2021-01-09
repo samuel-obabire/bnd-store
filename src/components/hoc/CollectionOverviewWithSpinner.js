@@ -1,46 +1,29 @@
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { connect } from 'react-redux'
+import { useEffect } from 'react'
 
-import { getCollections } from '../../redux/actions';
-import { makeGetShopCollections } from '../../redux/selectors';
-import Spinner from '../spinner/Spinner';
+import { getCollections } from '../../redux/actions'
+import Spinner from '../spinner/Spinner'
 
 const CollectionOverviewWithSpinner = ({
   Component,
   getCollections,
-  collections,
-  ...props
+  collections
 }) => {
   useEffect(() => {
-    getCollections();
-  }, [getCollections]);
+    getCollections()
+  }, [getCollections])
 
-  // console.log(JSON.stringify(Object.values(collections)[1]));
+  if (JSON.stringify(collections) === '{}') return <Spinner />
 
-  if (
-    !Object.entries(collections).length ||
-    JSON.stringify(Object.values(collections)[0]) === '{}'
-  )
-    return <Spinner />;
-
-  return <Component collections={collections} />;
-
-  //   return !Object.entries(collections).length ||
-  //     (JSON.stringify(Object.values(collections)[0]) = '{}') ? (
-  //     <Spinner />
-  //   ) : (
-  //     <Component collections={collections} />
-  //   );
-};
+  return <Component collections={collections} />
+}
 
 const makeMapState = state => {
-  const getShopCollections = makeGetShopCollections();
-
   return {
-    collections: getShopCollections(state),
-  };
-};
+    collections: state.shop.categories
+  }
+}
 
 export default connect(makeMapState, { getCollections })(
   CollectionOverviewWithSpinner
-);
+)

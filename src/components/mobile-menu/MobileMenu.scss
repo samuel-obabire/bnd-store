@@ -1,18 +1,23 @@
 .mobile-menu {
   position: fixed;
-  transform: translateX(-100%);
+  transform: ScaleX(0);
   background-color: white;
   z-index: 5;
-  padding: 5rem 2rem;
-  width: 80%;
+  padding: 2rem 1rem;
+  width: 70%;
   top: 0;
   max-width: 25rem;
   min-height: 100vh;
   transition: transform 100ms ease-in-out;
+  transform-origin: left;
 
   &.visible {
-    transform: translateX(0);
+    transform: ScaleX(1);
   }
+}
+
+.mobile-logo {
+  cursor: pointer;
 }
 
 .mobile-menu-overlay {

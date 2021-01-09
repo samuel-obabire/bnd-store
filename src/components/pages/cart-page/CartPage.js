@@ -11,8 +11,15 @@ import {
 } from '../../../redux/actions'
 import CustomBtn from '../../custom-btn/CustomBtn'
 import { useHistory } from 'react-router-dom'
+import { getUserCartTotal, getUserCart } from '../../../redux/selectors'
 
-const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
+const CartPage = ({
+  cart,
+  deleteFromCart,
+  addToCart,
+  removeFromCart,
+  total
+}) => {
   const history = useHistory()
 
   const renderCart = () => {
@@ -22,7 +29,7 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
       <div className="cart-item" key={item.id}>
         <div className="cart-wrapper">
           <div className="image-wrapper">
-            <img src={item.image} alt="product image" />
+            <img src={item.image} alt="" />
           </div>
           <div>{item.title}</div>
         </div>
@@ -54,11 +61,6 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
   }
 
   const render = () => {
-    const total = cart.reduce(
-      (acc, curr) => acc + curr.price * curr.quantity,
-      0
-    )
-
     if (!cart.length)
       return (
         <main className="container cart-page">
@@ -70,13 +72,19 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
       <main className="container cart-page">
         <h1>Your cart:</h1>
         {renderCart()}
-        <footer>
-          <h3>Total: &#8358; {total}</h3>
+        <footer className="cartpage-footer">
+          <h3 style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Total:</span> <span>&#8358; {total}</span>
+          </h3>
         </footer>
         <CustomBtn
           onClick={onClick}
-          additionalStyles={{ fontWeight: '400' }}
-          text="Buy"
+          additionalStyles={{
+            fontWeight: '400',
+            width: '80%',
+            fontSize: '1.2rem'
+          }}
+          text="Proceed to Checkout"
           className="black"
         />
       </main>
@@ -86,8 +94,11 @@ const CartPage = ({ cart, deleteFromCart, addToCart, removeFromCart }) => {
   return render()
 }
 
-const mapState = ({ cart: { cartItems: cart } }) => {
-  return { cart }
+const mapState = state => {
+  const total = getUserCartTotal(state)
+  const cart = getUserCart(state)
+
+  return { total, cart }
 }
 
 export default connect(mapState, { deleteFromCart, addToCart, removeFromCart })(

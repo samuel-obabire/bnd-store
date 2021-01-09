@@ -10,7 +10,7 @@ import {
   DELETE_PRODUCT_FROM_CART
 } from './types'
 
-import { getCollection } from '../../components/utils/firebase'
+import { firestore, getCollection } from '../../components/utils/firebase'
 
 export const setUser = user => {
   return {
@@ -26,36 +26,30 @@ export const setMobileMenuVisiblity = () => {
 }
 
 export const getCollections = () => async dispatch => {
-  const limit = 4
-  const [electronics, menClothing, womenClothing, footWear] = await Promise.all(
-    [
+  const categories = await firestore
+    .collection('categories')
+    .get()
+    .then(querySnapshot => querySnapshot.docs.map(doc => doc.data().category))
+
+  const promises = []
+
+  categories.forEach(category =>
+    promises.push(
       getCollection({
         field: 'category',
         operator: '==',
-        value: 'electronics'
-      }),
-      getCollection({
-        field: 'category',
-        operator: '==',
-        value: 'men clothing'
-      }),
-      getCollection({
-        field: 'category',
-        operator: '==',
-        value: 'women clothing'
-      }),
-      getCollection({ field: 'category', operator: '==', value: 'footwear' })
-    ]
+        value: category
+      })
+    )
   )
 
-  dispatch({
-    type: SET_CATEGORIES,
-    payload: {
-      electronics,
-      menClothing,
-      womenClothing,
-      footWear
-    }
+  const products = await Promise.all(promises)
+
+  categories.forEach((category, i) => {
+    dispatch({
+      type: SET_CATEGORIES,
+      payload: { [category]: products[i], category }
+    })
   })
 }
 

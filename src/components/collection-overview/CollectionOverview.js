@@ -1,18 +1,20 @@
-import './CollectionOverview.scss';
+import './CollectionOverview.scss'
 
-import Collection from '../collection/Collection';
+import Collection from '../collection/Collection'
+import { generateId } from '../utils/generateId'
 
 const CollectionOverview = ({ collections }) => {
-  const { electronics, menClothing, womenClothing, footWear } = collections;
+  const render = Object.values(collections).map(collection => {
+    return (
+      <Collection
+        key={generateId()}
+        products={collection}
+        title={Object.values(collection)[0]?.category}
+      />
+    )
+  })
 
-  return (
-    <main className="collection-overview container">
-      <Collection products={electronics} title={'Electronics'} />
-      <Collection products={menClothing} title={'Men Clothing'} />
-      <Collection products={womenClothing} title={'Women Clothing'} />
-      <Collection products={footWear} title={'Footwear'} />
-    </main>
-  );
-};
+  return <main className="collection-overview container">{render}</main>
+}
 
-export default CollectionOverview;
+export default CollectionOverview

@@ -15,6 +15,7 @@ import Jimp from 'jimp/es'
 import MobileNav from './mobile-nav/MobileNav'
 import { Breakpoint } from 'react-socks'
 import Spinner from './spinner/Spinner'
+import ScrollToTop from './ScrollToTop'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
@@ -25,9 +26,19 @@ const Error = lazy(() => import('./404'))
 
 const App = ({ setUser }) => {
   useEffect(() => {
-    // window.addEventListener('error', console.log)
+    window.addEventListener('error', console.log)
 
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // return [
+      //   'women clothing',
+      //   'fabrics',
+      //   'bags',
+      //   'slippers',
+      //   'electronics'
+      // ].forEach(category => {
+      //   firestore.collection('categories').doc().set({ category })
+      // })
+
       // Jimp.read('https://i.imgur.com/6u9kO9d.jpg')
       //   .then(image => Jimp.intToRGBA(image.getPixelColor(10, 10)))
       //   .then(
@@ -86,6 +97,7 @@ const App = ({ setUser }) => {
   return (
     <BrowserRouter>
       <Header />
+      <ScrollToTop />
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/" component={HomePage} />

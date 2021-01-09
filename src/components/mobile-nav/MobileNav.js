@@ -34,12 +34,12 @@ const MobileNav = () => {
       threshold: buildThresholdList()
     }
 
-    const intersectionCallback = (entries, observer) => {
+    const intersectionCallback = entries => {
       const { y } = entries[0].boundingClientRect
 
       if (
         y < prevScrollValue &&
-        y < -100 &&
+        y < -70 &&
         ref.current.classList.contains('visible')
       ) {
         setshouldShow(false)
