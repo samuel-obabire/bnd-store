@@ -9,6 +9,7 @@ import SigninPage from './pages/sign-in-page/SignInPage'
 import { auth, createUserProfileDoc, firestore } from './utils/firebase'
 import { setUser } from '../redux/actions'
 import Header from './header/Header'
+import Footer from '../components/footer/Footer'
 import shopdata from './pages/shop-page/shop-data'
 import { generateId } from './utils/generateId'
 import Jimp from 'jimp/es'
@@ -83,7 +84,7 @@ const App = ({ setUser }) => {
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth)
 
-        userRef.onSnapshot(snapshot => console.log(snapshot.data()))
+        // userRef.onSnapshot(snapshot => console.log(snapshot.data()))
 
         return setUser(userAuth)
       }
@@ -112,6 +113,7 @@ const App = ({ setUser }) => {
       <Breakpoint small down>
         <MobileNav />
       </Breakpoint>
+      <Footer />
     </BrowserRouter>
   )
 }

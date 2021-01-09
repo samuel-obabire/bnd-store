@@ -1,0 +1,47 @@
+$color: #949494;
+
+.footer {
+  color: $color;
+  background-color: black;
+  padding: 3rem var(--container-padding) 5rem;
+  line-height: 1.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  section {
+    width: 90%;
+  }
+
+  @media screen and (min-width: 700px) {
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    section {
+      max-width: 40%;
+    }
+  }
+
+  @media screen and (min-width: 1048px) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    section {
+      max-width: 20%;
+    }
+  }
+
+  header {
+    color: #fff;
+  }
+
+  a {
+    color: $color;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
