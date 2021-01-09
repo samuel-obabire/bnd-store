@@ -8,7 +8,6 @@ import Product from '../product/Product'
 import Spinner from '../spinner/Spinner'
 
 const ShopCollection = ({ getProducts, products, params }) => {
-  console.log(products)
   useEffect(() => {
     if (!params.field) return
 

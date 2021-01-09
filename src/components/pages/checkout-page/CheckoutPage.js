@@ -1,11 +1,14 @@
 import './CheckoutPage.scss'
 
-import Form from '../../../components/form/Form'
+import NaijaStates from 'naija-state-local-government'
 import { connect } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import NaijaStates from 'naija-state-local-government'
+
+import Form from '../../../components/form/Form'
 import Paystack from '../../Paystack'
+import Cart from '../../cart/Cart'
+import { getUserCart } from '../../../redux/selectors'
 
 const fieldProps = [
   {
@@ -60,7 +63,7 @@ const formHeader = (
   </header>
 )
 
-const CheckoutPage = ({ user }) => {
+const CheckoutPage = ({ user, cart }) => {
   const history = useHistory()
   const [showNext, setshowNext] = useState(false)
   const [shippingDetails, setShippingDetails] = useState(false)
@@ -102,6 +105,28 @@ const CheckoutPage = ({ user }) => {
 
     return (
       <div>
+        <header>
+          <h2>Order Summary</h2>
+        </header>
+        <Cart cart={cart} />
+        <div className="order-summary-fee">
+          <div>
+            <span>Starting Subtotal</span>
+            <span>0000</span>
+          </div>
+          <div>
+            <span>Subtotal</span>
+            <span>0000</span>
+          </div>
+          <div>
+            <span>Shipping Fee</span>
+            <span>0000</span>
+          </div>
+          <h3>
+            <span>Order Total</span>
+            <span>0000</span>
+          </h3>
+        </div>
         <Paystack
           metadata={shippingDetails}
           amount={50000}
@@ -114,6 +139,9 @@ const CheckoutPage = ({ user }) => {
   return <div className="checkout-page">{render()}</div>
 }
 
-const mapState = ({ user }) => ({ user: user.currentUser })
+const mapState = state => ({
+  user: state.user.currentUser,
+  cart: getUserCart(state)
+})
 
 export default connect(mapState)(CheckoutPage)

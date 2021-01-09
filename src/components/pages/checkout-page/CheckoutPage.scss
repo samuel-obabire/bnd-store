@@ -1,6 +1,9 @@
 .checkout-page {
-  margin: 8rem var(--container-padding);
+  margin: 8rem auto;
+  width: 90%;
+  max-width: 38rem;
 
+  h2,
   h3 {
     text-align: center;
   }
@@ -11,5 +14,29 @@
     -moz-appearance: none;
     appearance: none;
     width: 50%;
+  }
+
+  .order-summary-fee {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    color: rgb(78, 79, 80);
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+
+    > div,
+    h3 {
+      margin: 0.34rem 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    h3 {
+      font-size: 1.12rem;
+    }
   }
 }

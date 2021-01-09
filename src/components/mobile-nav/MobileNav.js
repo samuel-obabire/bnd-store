@@ -6,6 +6,8 @@ import { ReactComponent as ShopIcon } from '../../asset/shop.svg'
 import { ReactComponent as CategoryIcon } from '../../asset/category.svg'
 import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
+import { setMobileMenuVisiblity } from '../../redux/actions'
+import { connect } from 'react-redux'
 
 const buildThresholdList = () => {
   let thresholds = []
@@ -22,7 +24,7 @@ const buildThresholdList = () => {
 
 let prevScrollValue = 0
 
-const MobileNav = () => {
+const MobileNav = ({ setMobileMenuVisiblity }) => {
   const ref = useRef()
   const [shouldShow, setshouldShow] = useState(true)
 
@@ -57,7 +59,6 @@ const MobileNav = () => {
     observer.observe(document.querySelector('#root'))
 
     return () => {
-      console.log('ran')
       observer.disconnect()
     }
   }, [])
@@ -82,7 +83,7 @@ const MobileNav = () => {
         </div>
         Shop
       </Link>
-      <div className="icon-wrapper">
+      <div className="icon-wrapper" onClick={setMobileMenuVisiblity}>
         <div className="icon">
           <CategoryIcon />
         </div>
@@ -93,4 +94,4 @@ const MobileNav = () => {
   )
 }
 
-export default MobileNav
+export default connect(null, { setMobileMenuVisiblity })(MobileNav)

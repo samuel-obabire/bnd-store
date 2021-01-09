@@ -1,4 +1,5 @@
 import { usePaystackPayment } from 'react-paystack'
+import CustomBtn from '../components/custom-btn/CustomBtn'
 
 const onSuccess = reference => {
   console.log(reference)
@@ -21,14 +22,13 @@ const Paystack = ({ email, amount = 20000 }) => {
 
   const initializePayment = usePaystackPayment(config)
 
+  const onClick = () => {
+    initializePayment(onSuccess, onClose)
+  }
+
   return (
     <div>
-      <button
-        onClick={() => {
-          initializePayment(onSuccess, onClose)
-        }}>
-        PayNow
-      </button>
+      <CustomBtn onClick={onClick} text="Pay Now" />
     </div>
   )
 }
