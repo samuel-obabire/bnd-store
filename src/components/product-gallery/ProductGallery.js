@@ -6,6 +6,7 @@ import { generateId } from '../utils/generateId'
 
 import './ProductGallery.scss'
 import CustomBtn from '../custom-btn/CustomBtn'
+import withMediaQuery from '../hoc/withMediaQuery'
 
 const style = {
   height: '3rem',
@@ -25,35 +26,22 @@ const clampStyle = {
   maxHeight: 'unset'
 }
 
-const ProductGallery = ({ product, addToCart }) => {
-  const [mobile, setMobile] = useState()
+const ProductGallery = ({ product, addToCart, isMobile }) => {
   const [src, setSrc] = useState()
-  const [hasMore, setHasMore] = useState(false)
-  const [show, setShow] = useState(false)
+  const [expandable, setExpandable] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const ref = useRef()
 
   const imageRef = useRef()
 
-  const mql = window.matchMedia('(max-width: 33.5rem)')
-
-  useEffect(() => {
-    const isMobile = e => {
-      setMobile(e.matches)
-    }
-
-    mql.addEventListener('change', isMobile)
-
-    return () => mql.removeEventListener('change', isMobile)
-  })
-
   useEffect(() => {
     if (ref.current && ref.current.scrollHeight > ref.current.clientHeight + 3)
-      setHasMore(true)
+      setExpandable(true)
   }, [])
 
   const onClick = (e, image) => {
-    if (!mobile && !mql.matches) {
-      return setSrc(image)
+    if (!isMobile) {
+      return image && setSrc(image)
     }
 
     if (!document.fullscreenElement) {
@@ -67,6 +55,33 @@ const ProductGallery = ({ product, addToCart }) => {
     }
   }
 
+  const renderDescription = () => {
+    return (
+      <div className="product-description-container">
+        <h3>Description</h3>
+        <hr />
+        <div
+          style={expanded ? clampStyle : {}}
+          ref={ref}
+          className="product-description">
+          {product.description}
+        </div>
+        <div className="show-more">
+          <span
+            onClick={() => setExpanded(!expanded)}
+            style={{
+              color: 'rgb(24, 162, 187)',
+              marginTop: '.5rem',
+              marginLeft: 'auto',
+              cursor: 'pointer'
+            }}>
+            {expandable && 'read more'}
+          </span>
+        </div>
+      </div>
+    )
+  }
+
   const onButtonClick = () => {
     addToCart(product)
   }
@@ -78,12 +93,10 @@ const ProductGallery = ({ product, addToCart }) => {
       <div
         key={generateId()}
         className="preview-images"
-        style={!mobile && !mql.matches ? { ...style, marginBottom: 4 } : {}}
+        style={!isMobile ? { ...style, marginBottom: 4 } : {}}
         onClick={e => onClick(e, image)}>
         <img
-          style={
-            !mobile && !mql.matches ? { width: '100%', height: '100%' } : {}
-          }
+          style={isMobile ? { width: '200px', height: '200px' } : {}}
           src={image}
           alt=""
         />
@@ -91,72 +104,50 @@ const ProductGallery = ({ product, addToCart }) => {
     )
   })
 
-  const renderDescription = () => {
-    return (
-      <div className="product-description-container">
-        <h3>Description</h3>
-        <hr />
-        <div
-          style={show ? clampStyle : {}}
-          ref={ref}
-          className="product-description">
-          {product.description}
-        </div>
-        <div className="show-more">
-          <span
-            onClick={() => setShow(!show)}
-            style={{
-              color: 'rgb(24, 162, 187)',
-              marginTop: '.5rem',
-              marginLeft: 'auto',
-              cursor: 'pointer'
-            }}>
-            {hasMore && 'read more'}
-          </span>
+  return isMobile ? (
+    <section>
+      <div className={`product-detail`}>
+        <figure className="product-gallery">
+          <div className="preview-images" onClick={onClick}>
+            <img src={product.image} alt={product.description} />
+          </div>
+          {renderImages}
+        </figure>
+        <div className="product-header-wrapper">
+          <header className="product-header l">
+            <h1
+              className="product-title"
+              style={{ fontSize: '1.5rem', fontWeight: '400' }}>
+              {product.title}
+            </h1>
+
+            <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
+            <div className="product-header_info">
+              <div className="material-type">Fabric - crepe</div>
+              <div className="custom-select">
+                <select className="dropdown" defaultValue="Size">
+                  <option value="" disabled>
+                    Select Size
+                  </option>
+                  <option value="1">20</option>
+                  <option value="0">30</option>
+                </select>
+              </div>
+            </div>
+            <div className="link ">Add to wishlist</div>
+            <CustomBtn
+              onClick={onButtonClick}
+              additionalStyles={additionalStyles}
+              text="Add to cart"
+            />
+          </header>
         </div>
       </div>
-    )
-  }
-
-  return mobile || mql.matches ? (
-    <section className="product-detail">
-      <figure className="product-gallery">
-        <div className="preview-images" onClick={onClick}>
-          <img src={product.image} alt={product.description} />
-        </div>
-        {renderImages}
-      </figure>
-      <header className="product-header">
-        <h1
-          className="product-title"
-          style={{ marginTop: 0, fontWeight: 'normal' }}>
-          {product.title}
-        </h1>
-        <b style={{ fontSize: '1.1rem' }}>&#8358; {product.price}</b>
-        <div className="product-header_info">
-          <div className="material-type">Fabric - crepe</div>
-          <div className="custom-select">
-            <select className="dropdown" defaultValue="">
-              <option value="" disabled>
-                Select Size
-              </option>
-              <option value="1">20</option>
-              <option value="0">30</option>
-            </select>
-          </div>
-        </div>
-        <div className="link">Add to wishlist</div>
-        <CustomBtn
-          onClick={onButtonClick}
-          additionalStyles={additionalStyles}
-          text="Add to cart"
-        />
-      </header>
-      {renderDescription()}
+      {renderDescription(expanded, expandable)}
     </section>
   ) : (
     <section>
-      <div className="product-detail not-mobile">
+      <div className={`product-detail not-mobile`}>
         <figure className="product-gallery not-mobile">
           <div className="product-thumbnails">{renderImages}</div>
           <div
@@ -172,7 +163,7 @@ const ProductGallery = ({ product, addToCart }) => {
             />
           </div>
         </figure>
-        <div>
+        <div className="product-header-wrapper">
           <header className="product-header">
             <h1
               className="product-title"
@@ -212,4 +203,7 @@ const mapState = state => {
     product: getUserSelectedProduct(state)
   }
 }
-export default connect(mapState, { addToCart })(ProductGallery)
+
+export default connect(mapState, { addToCart })(
+  withMediaQuery(ProductGallery, '(max-width: 33.5rem)')
+)

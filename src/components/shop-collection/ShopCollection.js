@@ -61,32 +61,11 @@ const ShopCollection = ({ setProducts, clearProducts, products, params }) => {
     // return () => setLastVisible(null)
   }, [params, pageNo])
 
-  // useEffect(() => {
-  //   const paginate = async () => {
-  //     const items = {}
-  //     const pageRef = firestore.collection('products').limit(20)
+  const onClick = () => {
+    window.scroll(0, 0)
 
-  //     const documentSnapshots = await pageRef.get()
-  //     documentSnapshots.forEach(doc => {
-  //       items[doc.id] = doc.data()
-  //     })
-
-  //     console.log(items)
-
-  //     setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
-  //     // console.log('last', lastVisible.data())
-
-  //     // const next = db
-  //     //   .collection('cities')
-  //     //   .where(params.field, 'array-contains', params.q)
-  //     //   .startAfter(lastVisible)
-  //     //   .limit(20)
-  //   }
-
-  //   paginate()
-  // }, [])
-
-  const onClick = () => setPageNo(pageNo + 1)
+    setPageNo(pageNo + 1)
+  }
 
   const shopProducts = Object.values(products).map(({ ...props }) => {
     return (

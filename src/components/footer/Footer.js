@@ -17,7 +17,7 @@ const Footer = () => {
           <h4>Contact Us</h4>
         </header>
         <address>
-          <div>Adress @adress</div>
+          <div>09 lorem ispusm street, Lagoss, Ntl</div>
           <a href="mailto:bnd@email.com">bnd@rock.com</a>
           <br />
           <a href="tel:+2349048938429">+2349048938429</a>

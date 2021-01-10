@@ -21,6 +21,11 @@ hr {
   border-color: rgba(216, 214, 214, 0.24);
 }
 
+.fallback {
+  position: relative;
+  margin-top: 8rem;
+}
+
 html {
   --c-black_100: #{$black};
   --default_padding: #{$default-padding};
@@ -53,6 +58,9 @@ body {
 
 #root {
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 button {

@@ -26,6 +26,23 @@ const ShopPage = ({ setQuery, match, location }) => {
       <Switch>
         <Route exact path="/shop">
           <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
+          <div>Collections</div>
         </Route>
         <Route exact path="/shop/collection" component={ShopCollection} />
         <Route

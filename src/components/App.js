@@ -99,7 +99,12 @@ const App = ({ setUser }) => {
     <BrowserRouter>
       <Header />
       <ScrollToTop />
-      <Suspense fallback={<Spinner />}>
+      <Suspense
+        fallback={
+          <div className="fallback">
+            <Spinner />
+          </div>
+        }>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />

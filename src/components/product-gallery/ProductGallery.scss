@@ -19,6 +19,10 @@
   &.not-mobile {
     display: flex;
 
+    .product-header-wrapper {
+      flex-grow: 1;
+    }
+
     @media screen and (max-width: 920px) {
       flex-direction: column;
     }
@@ -41,10 +45,11 @@
     &.not-mobile {
       overflow: unset;
       display: grid;
-      grid-template-columns: 3rem 400px;
+      align-self: center;
+      grid-template-columns: 3rem 20.625rem;
       grid-column-gap: 0.5rem;
-      height: 400px;
-      width: max-content;
+      height: 20.625rem;
+      width: min-content;
       margin-right: 2rem;
 
       .product-thumbnails {
@@ -63,7 +68,7 @@
 
       > img {
         height: 100%;
-        width: auto;
+        width: 100%;
       }
     }
   }
