@@ -13,7 +13,7 @@ const withMediaQuery = (Component, media) => ({ ...props }) => {
     mql.addEventListener('change', isMobile)
 
     return () => mql.removeEventListener('change', isMobile)
-  })
+  }, [])
 
   return <Component {...props} isMobile={isMobile ?? mql.matches} />
 }

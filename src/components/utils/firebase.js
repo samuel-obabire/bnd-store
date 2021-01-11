@@ -53,7 +53,7 @@ export const createUserProfileDoc = async userAuth => {
   return userRef
 }
 
-export const getCollection = async ({ field, operator, value, limit = 5 }) => {
+export const getCollection = async ({ field, operator, value, limit }) => {
   const items = {}
 
   await firestore

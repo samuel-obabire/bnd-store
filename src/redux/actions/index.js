@@ -25,7 +25,7 @@ export const setMobileMenuVisiblity = () => {
   }
 }
 
-export const getCollections = () => async dispatch => {
+export const getCollections = (limit = 5) => async dispatch => {
   const categories = await firestore
     .collection('categories')
     .get()
@@ -33,15 +33,16 @@ export const getCollections = () => async dispatch => {
 
   const promises = []
 
-  categories.forEach(category =>
+  categories.forEach(category => {
     promises.push(
       getCollection({
         field: 'category',
         operator: '==',
-        value: category
+        value: category,
+        limit
       })
     )
-  )
+  })
 
   const products = await Promise.all(promises)
 
