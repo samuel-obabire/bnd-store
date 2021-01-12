@@ -7,8 +7,13 @@ import { useHistory } from 'react-router-dom'
 
 import Form from '../../../components/form/Form'
 import Paystack from '../../Paystack'
-import Cart from '../../cart/Cart'
 import { getUserCart } from '../../../redux/selectors'
+import ItemsCollection from '../../items-collection/ItemsCollection'
+import {
+  deleteFromCart,
+  addToCart,
+  removeFromCart
+} from '../../../redux/actions'
 
 const fieldProps = [
   {
@@ -63,7 +68,7 @@ const formHeader = (
   </header>
 )
 
-const CheckoutPage = ({ user, cart }) => {
+const CheckoutPage = ({ user, cart, ...otherProps }) => {
   const history = useHistory()
   const [showNext, setshowNext] = useState(false)
   const [shippingDetails, setShippingDetails] = useState(false)
@@ -108,7 +113,7 @@ const CheckoutPage = ({ user, cart }) => {
         <header>
           <h2>Order Summary</h2>
         </header>
-        <Cart cart={cart} />
+        <ItemsCollection items={cart} {...otherProps} />
         <div className="order-summary-fee">
           <div>
             <span>Starting Subtotal</span>
@@ -144,4 +149,8 @@ const mapState = state => ({
   cart: getUserCart(state)
 })
 
-export default connect(mapState)(CheckoutPage)
+export default connect(mapState, {
+  remove: deleteFromCart,
+  decrement: removeFromCart,
+  increment: addToCart
+})(CheckoutPage)

@@ -8,19 +8,21 @@ const Footer = () => {
         <header>
           <h3>About</h3>
         </header>
-        Beulah & Daniel Fashion Palaace is an independent online retailer
+        Beulah & Daniel Fashion Palace is an independent online retailer
         offering variety of products ranging from branded products, stock from
-        other retailers to its own label
+        other retailers to its own label.
       </section>
       <section>
         <header>
           <h4>Contact Us</h4>
         </header>
         <address>
-          <div>09 lorem ispusm street, Lagoss, Ntl</div>
-          <a href="mailto:bnd@email.com">bnd@rock.com</a>
+          <div>easy but time waster</div>
+          <a href="aProfessionalEmail@email.com">
+            aProfessionalEmail@email.com
+          </a>
           <br />
-          <a href="tel:+2349048938429">+2349048938429</a>
+          <a href="tel:+23481">+234..number</a>
           <div>bndclothings.com</div>
         </address>
       </section>

@@ -20,7 +20,7 @@ const ShopCollection = ({
   const [totalProd, setTotalProd] = useState(null)
   const [pageNum, setPageNum] = useState(1)
 
-  const pageSize = 17
+  const pageSize = 18
   const filter = 'price'
 
   let pageRef = firestore.collection('products')
@@ -71,7 +71,6 @@ const ShopCollection = ({
     window.scrollTo(0, 0)
 
     const q = pageRef.orderBy(filter).startAfter(lastVisible).limit(pageSize)
-
     setItems(await transformItems(q))
   }
 

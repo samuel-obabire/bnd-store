@@ -4,16 +4,22 @@ import './CartPage.scss'
 import CustomBtn from '../../custom-btn/CustomBtn'
 import { useHistory } from 'react-router-dom'
 import { getUserCartTotal, getUserCart } from '../../../redux/selectors'
-import Cart from '../../cart/Cart'
-import { Helmet } from 'react-helmet'
+import {
+  deleteFromCart,
+  addToCart,
+  removeFromCart
+} from '../../../redux/actions'
 
-const CartPage = ({ cart, total }) => {
+import { Helmet } from 'react-helmet'
+import ItemsCollection from '../../items-collection/ItemsCollection'
+
+const CartPage = ({ total, cart, ...otherProps }) => {
   const history = useHistory()
 
   const renderCart = () => {
     if (!cart.length) return null
 
-    return <Cart cart={cart} />
+    return <ItemsCollection items={cart} {...otherProps} />
   }
 
   const onClick = () => {
@@ -66,4 +72,8 @@ const mapState = state => {
   return { total, cart }
 }
 
-export default connect(mapState)(CartPage)
+export default connect(mapState, {
+  remove: deleteFromCart,
+  decrement: removeFromCart,
+  increment: addToCart
+})(CartPage)
