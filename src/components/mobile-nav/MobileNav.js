@@ -42,7 +42,7 @@ const MobileNav = ({ setMobileMenuVisiblity }) => {
       if (
         y < prevScrollValue &&
         y < -70 &&
-        ref.current.classList.contains('visible')
+        ref.current?.classList?.contains('visible')
       ) {
         setshouldShow(false)
       } else if (

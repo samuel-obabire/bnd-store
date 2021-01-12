@@ -10,6 +10,7 @@ import ShopCollection from '../../shop-collection/ShopCollection'
 import ProductPage from '../../product-page/ProductPage'
 import useQuery from '../../../hooks/useQuery'
 import Error from '../../404'
+import { Helmet } from 'react-helmet'
 
 const ShopPage = ({ setQuery, match, location }) => {
   const query = useQuery()
@@ -25,16 +26,14 @@ const ShopPage = ({ setQuery, match, location }) => {
     <main className="shop-container container">
       <Switch>
         <Route exact path="/shop">
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
+          <Helmet>
+            <title>Shop - Bnd Store</title>
+            <meta name="description" content="Shop quality products" />
+            <meta
+              name="title"
+              content="Bnd Clothings - shop, clothings materia, accesories &amp; More!"
+            />
+          </Helmet>
           <div>Collections</div>
           <div>Collections</div>
           <div>Collections</div>

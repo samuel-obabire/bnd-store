@@ -5,6 +5,7 @@ import CustomBtn from '../../custom-btn/CustomBtn'
 import { useHistory } from 'react-router-dom'
 import { getUserCartTotal, getUserCart } from '../../../redux/selectors'
 import Cart from '../../cart/Cart'
+import { Helmet } from 'react-helmet'
 
 const CartPage = ({ cart, total }) => {
   const history = useHistory()
@@ -29,6 +30,11 @@ const CartPage = ({ cart, total }) => {
 
     return (
       <main className="container cart-page">
+        <Helmet>
+          <title>Cart - Bnd Clothings</title>
+          <meta name="description" content="Shop quality products" />
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <h1>Your cart:</h1>
         {renderCart()}
         <footer className="cartpage-footer">

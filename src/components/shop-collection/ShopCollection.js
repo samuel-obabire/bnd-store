@@ -8,64 +8,98 @@ import Product from '../product/Product'
 import Spinner from '../spinner/Spinner'
 import { firestore } from '../utils/firebase'
 
-const ShopCollection = ({ setProducts, clearProducts, products, params }) => {
-  const [beforeLastVisible, setBeforeLastVisible] = useState(null)
+const ShopCollection = ({
+  setProducts,
+  clearProducts,
+  products = {},
+  params
+}) => {
+  const [items, setItems] = useState({})
   const [lastVisible, setLastVisible] = useState(null)
-  const [pageNo, setPageNo] = useState(0)
+  const [firstVisible, setFirstVisible] = useState(null)
+  const [totalProd, setTotalProd] = useState(null)
+  const [pageNum, setPageNum] = useState(1)
 
-  const getProducts = async (field, operator, value, limit = 20) => {
-    setBeforeLastVisible(lastVisible)
+  const pageSize = 17
+  const filter = 'price'
+
+  let pageRef = firestore.collection('products')
+
+  if (params.field === 'category') {
+    pageRef = pageRef.where(params.field, '==', params.q)
+  } else if (params.field === 'indexes') {
+    pageRef = pageRef.where(params.field, 'array-contains', params.q)
+  }
+
+  const transformItems = async query => {
     const items = {}
 
-    const pageRef = !lastVisible
-      ? firestore
-          .collection('products')
-          .where(field, operator, value)
-          .limit(limit)
-      : firestore
-          .collection('products')
-          .where(field, operator, value)
-          .limit(limit)
-          .startAfter(lastVisible)
-
-    const documentSnapshots = await pageRef.get()
+    const documentSnapshots = await query.get()
     documentSnapshots.forEach(doc => {
-      items[doc.id] = doc.data()
-    })
+      items[doc.id] = doc.data(documentSnapshots.docs[0])
 
-    setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+      setFirstVisible(documentSnapshots.docs[0])
+      setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+    })
 
     return items
   }
 
-  useEffect(() => {
-    if (!params.field) return
+  const getTotalProd = async () => {
+    return pageRef.get().then(snapshot => snapshot.docs.length)
+  }
+
+  const defaultPage = async () => {
+    const q = pageRef.orderBy(filter).limit(pageSize)
+
+    const [totalProd, items] = await Promise.all([
+      getTotalProd(),
+      transformItems(q)
+    ]).catch(console.log)
+
+    setTotalProd(totalProd)
+    setItems(items)
+  }
+
+  const nextPage = async () => {
+    if (Math.floor(totalProd / (pageSize * pageNum)) <= 0) return
+
+    setPageNum(pageNum + 1)
 
     clearProducts()
 
-    const s = async () => {
-      switch (params.field) {
-        case 'indexes':
-          setProducts(
-            await getProducts(params.field, 'array-contains', params.q)
-          )
-          break
-        default:
-          setProducts(await getProducts(params.field, '==', params.q))
-          break
-      }
-    }
+    window.scrollTo(0, 0)
 
-    s()
+    const q = pageRef.orderBy(filter).startAfter(lastVisible).limit(pageSize)
 
-    // return () => setLastVisible(null)
-  }, [params, pageNo])
-
-  const onClick = () => {
-    window.scroll(0, 0)
-
-    setPageNo(pageNo + 1)
+    setItems(await transformItems(q))
   }
+
+  const previousPage = async () => {
+    console.log(pageNum)
+    if (pageNum === 1) return
+
+    clearProducts()
+
+    window.scrollTo(0, 0)
+
+    const q = pageRef
+      .orderBy(filter)
+      .endBefore(firstVisible)
+      .limitToLast(pageSize)
+
+    setItems(await transformItems(q))
+    setPageNum(pageNum - 1)
+  }
+
+  useEffect(() => {
+    setProducts(items)
+  }, [items])
+
+  useEffect(() => {
+    clearProducts()
+    defaultPage()
+  }, [params])
 
   const shopProducts = Object.values(products).map(({ ...props }) => {
     return (
@@ -76,11 +110,24 @@ const ShopCollection = ({ setProducts, clearProducts, products, params }) => {
   })
 
   const renderShopProducts = () => {
+    const hasMoreFwd =
+      Math.floor(totalProd / (pageSize * pageNum)) <= 0 ? 'disabled' : ''
+    const hasMoreBkw = pageNum === 1 ? 'disabled' : ''
+    const currentPage = `${pageNum}/${Math.ceil(totalProd / pageSize)}`
+
     return (
-      <div className="shop-collection-container">
-        {shopProducts}
-        <button onClick={onClick}>next</button>
-      </div>
+      <main className="shop-wrapper container">
+        <div className="shop-collection-container">{shopProducts}</div>
+        <div className="page-nav-btn">
+          <button className={`btn-link ${hasMoreBkw}`} onClick={previousPage}>
+            PREVIOUS PAGE
+          </button>
+          <div>{currentPage}</div>
+          <button className={`btn-link ${hasMoreFwd}`} onClick={nextPage}>
+            NEXT PAGE
+          </button>
+        </div>
+      </main>
     )
   }
 

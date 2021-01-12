@@ -10,11 +10,13 @@ const CollectionOverviewWithSpinner = ({
   getCollections,
   collections
 }) => {
-  const limit = useMediaQuery('(max-width: 500px)') ? 10 : 5
+  const { isMedia, vw } = useMediaQuery('(max-width: 697px)')
+
+  const limit = isMedia ? 10 : vw > 697 && vw < 930 ? 4 : 5
 
   useEffect(() => {
-    getCollections(limit ? 10 : 4)
-  }, [getCollections, limit])
+    getCollections(limit)
+  }, [getCollections, isMedia, vw, limit])
 
   if (JSON.stringify(collections) === '{}') return <Spinner />
 
