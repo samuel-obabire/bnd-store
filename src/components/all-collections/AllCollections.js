@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { parseString } from '../utils'
-import { firestore } from '../utils/firebase'
 
 import './AllCollections.scss'
+
+import { parseString } from '../utils'
+import { firestore } from '../utils/firebase'
+import Spinner from '../spinner/Spinner'
 
 const AllCollections = () => {
   const [allCollections, setAllCollections] = useState([])
@@ -24,6 +26,7 @@ const AllCollections = () => {
 
     return (
       <Link
+        key={category}
         to={`/shop/collection/${parseString(
           category
         )}?field=category&q=${category}`}>
@@ -52,8 +55,14 @@ const AllCollections = () => {
         />
       </Helmet>
       <main className="container all-collections-page">
-        <h1>Our Collections</h1>
-        <div className="all-collections">{renderCollections}</div>
+        {!allCollections.length ? (
+          <Spinner />
+        ) : (
+          <>
+            <h1>Our Collections</h1>
+            <div className="all-collections">{renderCollections}</div>
+          </>
+        )}
       </main>
     </>
   )

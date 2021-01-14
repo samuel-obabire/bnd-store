@@ -15,6 +15,8 @@
   border-radius: 0.5rem;
   border-top-left-radius: 0;
   transform: scale(0);
+  transform-origin: top right;
+  transition: transform 50ms ease;
 
   &.visible {
     transform: scale(1);

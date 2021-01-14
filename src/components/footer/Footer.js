@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom'
+
 import './Footer.scss'
+
+import { ReactComponent as Fb } from '../../asset/fb.svg'
+import { ReactComponent as Wa } from '../../asset/wa-icon.svg'
+import { ReactComponent as Ig } from '../../asset/ig-icon.svg'
 
 const Footer = () => {
   return (
@@ -11,6 +16,27 @@ const Footer = () => {
         Beulah & Daniel Fashion Palace is an independent online retailer
         offering variety of products ranging from branded products, stock from
         other retailers to its own label.
+        <div className="social-link">
+          <a
+            href="https://facebook.com/bndclothings"
+            rel="noopener noreferrer"
+            target="_blank">
+            <Fb />
+          </a>
+          <a
+            href="https://facebook.com"
+            rel="noopener noreferrer"
+            target="_blank">
+            <Ig />
+          </a>
+          <a
+            href="https://api.whatsapp.com/send?phone=23487570081&text=
+            Hello%2C%20I%20want%20more%20info%20about%20a%20product"
+            rel="noopener noreferrer"
+            target="_blank">
+            <Wa />
+          </a>
+        </div>
       </section>
       <section>
         <header>
@@ -45,7 +71,7 @@ const Footer = () => {
           <h4>Newsletter</h4>
         </header>
         <p>
-          Be the first to know our latest deals, and get discounts for early
+          Be the first to know our latest deals; get discounts for early
           purchase
         </p>
         <input type="email" placeholder="email" />

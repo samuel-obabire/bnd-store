@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getCollections, setMobileMenuVisiblity } from '../../redux/actions'
 import Spinner from '../spinner/Spinner'
-import { getCollection } from '../utils/firebase'
+import { parseString } from '../utils'
 
 import './Categories.scss'
 
@@ -41,12 +41,12 @@ const Categories = ({
 
   const renderCategories = Object.keys(categories).length ? (
     Object.keys(categories).map(category => {
+      const string = parseString(category)
+
       return (
         <Link
           key={category}
-          to={`/shop/collection?field=category&q=${category
-            .toLowerCase()
-            .replace(/ /g, '+')}`}>
+          to={`/shop/collection/${string}?field=category&q=${string}`}>
           <li key={category}>{category}</li>
         </Link>
       )

@@ -3,7 +3,7 @@ $color: #949494;
 .footer {
   color: $color;
   background-color: black;
-  padding: 3rem var(--container-padding) 5rem;
+  padding: 3rem var(--container-padding) 7rem;
   line-height: 1.9rem;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,24 @@ $color: #949494;
 
   section {
     width: 90%;
+
+    .social-link {
+      margin-top: 1rem;
+      width: 60%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > a {
+        width: 35px;
+        height: auto;
+      }
+    }
+
+    input,
+    button {
+      padding: 0.2rem 0.3rem;
+    }
   }
 
   @media screen and (min-width: 700px) {
