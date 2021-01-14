@@ -7,12 +7,14 @@ import { clearProducts, setProducts } from '../../redux/actions'
 import Product from '../product/Product'
 import Spinner from '../spinner/Spinner'
 import { firestore } from '../utils/firebase'
+import { unParseString } from '../utils'
 
 const ShopCollection = ({
   setProducts,
   clearProducts,
   products = {},
-  params
+  query,
+  match
 }) => {
   const [items, setItems] = useState({})
   const [lastVisible, setLastVisible] = useState(null)
@@ -23,12 +25,14 @@ const ShopCollection = ({
   const pageSize = 18
   const filter = 'price'
 
+  const pageTitle = unParseString(match.params.title)
+
   let pageRef = firestore.collection('products')
 
-  if (params.field === 'category') {
-    pageRef = pageRef.where(params.field, '==', params.q)
-  } else if (params.field === 'indexes') {
-    pageRef = pageRef.where(params.field, 'array-contains', params.q)
+  if (query.field === 'category') {
+    pageRef = pageRef.where(query.field, '==', query.q)
+  } else if (query.field === 'indexes') {
+    pageRef = pageRef.where(query.field, 'array-contains', query.q)
   }
 
   const transformItems = async query => {
@@ -98,7 +102,7 @@ const ShopCollection = ({
   useEffect(() => {
     clearProducts()
     defaultPage()
-  }, [params])
+  }, [query])
 
   const shopProducts = Object.values(products).map(({ ...props }) => {
     return (
@@ -116,6 +120,7 @@ const ShopCollection = ({
 
     return (
       <main className="shop-wrapper container">
+        <h1>{pageTitle}</h1>
         <div className="shop-collection-container">{shopProducts}</div>
         <div className="page-nav-btn">
           <button className={`btn-link ${hasMoreBkw}`} onClick={previousPage}>
@@ -136,7 +141,7 @@ const ShopCollection = ({
 const mapState = state => {
   return {
     products: state.shop.products,
-    params: state.shop.query
+    query: state.shop.query
   }
 }
 

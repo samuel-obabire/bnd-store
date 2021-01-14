@@ -42,9 +42,14 @@ const Footer = () => {
       </section>
       <section>
         <header>
-          <h4>Subscribe</h4>
+          <h4>Newsletter</h4>
         </header>
+        <p>
+          Be the first to know our latest deals, and get discounts for early
+          purchase
+        </p>
         <input type="email" placeholder="email" />
+        <button>Subscribe</button>
       </section>
     </footer>
   )

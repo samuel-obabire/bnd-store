@@ -1,16 +1,22 @@
 import { Route, Switch } from 'react-router-dom'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import './ShopPage.scss'
 
 import { setQuery } from '../../../redux/actions'
 
-import ShopCollection from '../../shop-collection/ShopCollection'
-import ProductPage from '../../product-page/ProductPage'
 import useQuery from '../../../hooks/useQuery'
 import Error from '../../404'
-import { Helmet } from 'react-helmet'
+import Spinner from '../../spinner/Spinner'
+
+const AllCollections = lazy(() =>
+  import('../../all-collections/AllCollections')
+)
+const ShopCollection = lazy(() =>
+  import('../../shop-collection/ShopCollection')
+)
+const ProductPage = lazy(() => import('../../product-page/ProductPage'))
 
 const ShopPage = ({ setQuery, match, location }) => {
   const query = useQuery()
@@ -24,33 +30,27 @@ const ShopPage = ({ setQuery, match, location }) => {
 
   return (
     <main className="shop-container container">
-      <Switch>
-        <Route exact path="/shop">
-          <Helmet>
-            <title>Shop - Bnd Store</title>
-            <meta name="description" content="Shop quality products" />
-            <meta
-              name="title"
-              content="Bnd Clothings - shop, clothings materia, accesories &amp; More!"
-            />
-          </Helmet>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-          <div>Collections</div>
-        </Route>
-        <Route exact path="/shop/collection" component={ShopCollection} />
-        <Route
-          exact
-          path={`${match.path}/:productName`}
-          component={ProductPage}
-        />
-        <Route path="*" component={Error} />
-      </Switch>
+      <Suspense
+        fallback={
+          <div className="fallback">
+            <Spinner />
+          </div>
+        }>
+        <Switch>
+          <Route exact path="/shop" component={AllCollections} />
+          <Route
+            exact
+            path="/shop/collection/:title"
+            component={ShopCollection}
+          />
+          <Route
+            exact
+            path={`${match.path}/:productName`}
+            component={ProductPage}
+          />
+          <Route path="*" component={Error} />
+        </Switch>
+      </Suspense>
     </main>
   )
 }

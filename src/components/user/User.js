@@ -1,16 +1,19 @@
+import { connect } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+
+import './User.scss'
+
 import { ReactComponent as OrderIcon } from '../../asset/orders.svg'
 import { ReactComponent as SavedIcon } from '../../asset/saved-icon.svg'
 import { ReactComponent as Settingsicon } from '../../asset/settings.svg'
 import { ReactComponent as SignoutIcon } from '../../asset/logout.svg'
 import { ReactComponent as UserIcon } from '../../asset/user-icon.svg'
 
-import './UserDropdown.scss'
-
-const Userdropdown = () => {
+const User = ({ user }) => {
   const [dropdownVisibility, setDropdownVisibility] = useState(false)
   const ref = useRef()
+  const history = useHistory()
 
   useEffect(() => {
     const onBodyClick = e => {
@@ -35,6 +38,8 @@ const Userdropdown = () => {
   }, [dropdownVisibility])
 
   const onClick = () => {
+    // if (!user) return history.push('/login')
+
     setDropdownVisibility(true)
   }
 
@@ -80,4 +85,10 @@ const Userdropdown = () => {
   )
 }
 
-export default Userdropdown
+const mapState = state => {
+  return {
+    user: state.user.currentUser
+  }
+}
+
+export default connect(mapState)(User)

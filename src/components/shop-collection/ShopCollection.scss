@@ -1,4 +1,10 @@
 .shop-wrapper {
+  h1 {
+    color: var(--heading-color, gray);
+    text-transform: capitalize;
+    font-size: 1.5rem;
+  }
+
   .shop-collection-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import { getUserSelectedProduct } from '../../redux/selectors'
 import { addToCart } from '../../redux/actions'
-import { generateId } from '../utils/generateId'
+import { generateId } from '../utils/'
 
 import './ProductGallery.scss'
 import CustomBtn from '../custom-btn/CustomBtn'

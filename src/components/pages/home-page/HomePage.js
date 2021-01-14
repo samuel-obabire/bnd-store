@@ -27,12 +27,16 @@ const HomePage = () => {
         />
         <h1 className="shop-name">
           Beulah & Daniel
-          <span>Fashion Palaace</span>
+          <span>Fashion Palace</span>
         </h1>
 
         <h2 className="shop-now">
-          <em>...shop quality products</em>
-          <CustomBtn onClick={onClick} text="Shop Now" />
+          <em>...shop our collections</em>
+          <CustomBtn
+            onClick={onClick}
+            text="Shop Now"
+            additionalStyles={{ marginTop: 5 }}
+          />
         </h2>
       </div>
       <CollectionOverviewErrorBoundary key={Math.random() + 0.5345639}>

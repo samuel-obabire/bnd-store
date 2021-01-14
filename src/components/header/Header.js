@@ -6,13 +6,12 @@ import './Header.scss'
 
 import { ReactComponent as MenuBar } from '../../asset/3-bars.svg'
 import { ReactComponent as CartIcon } from '../../asset/cart-icon.svg'
-// import { ReactComponent as UserIcon } from '../../asset/user-icon.svg'
 import { ReactComponent as Logo } from '../../asset/bnd-logo.svg'
 import SearchBar from '../../components/search-bar/SearchBar'
 import { setMobileMenuVisiblity } from '../../redux/actions'
 import MobileMenu from '../../components/mobile-menu/MobileMenu'
 import Categories from '../categories/Categories'
-import User from '../user-dropdown/UserDropdown'
+import User from '../user/User'
 
 const Header = ({ setMobileMenuVisiblity, productCount }) => {
   const history = useHistory()
@@ -52,10 +51,6 @@ const Header = ({ setMobileMenuVisiblity, productCount }) => {
             ) : null}
           </div>
           <User />
-          {/* <div className="nav-item  user-icon">
-            <UserIcon className="icon" />
-            <Userdropdown />
-          </div> */}
         </div>
       </nav>
     </div>

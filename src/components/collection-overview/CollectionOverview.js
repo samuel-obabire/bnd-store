@@ -1,7 +1,7 @@
 import './CollectionOverview.scss'
 
 import Collection from '../collection/Collection'
-import { generateId } from '../utils/generateId'
+import { generateId } from '../utils'
 
 const CollectionOverview = ({ collections }) => {
   const render = Object.values(collections).map(collection => {
