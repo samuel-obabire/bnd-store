@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as GoogleIcon } from '../../../asset/google.svg'
+import useQuery from '../../../hooks/useQuery'
 
 import Form from '../../form/Form'
 
@@ -32,8 +33,14 @@ const SignIn = ({ user }) => {
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
+  const query = useQuery()
+
   useEffect(() => {
-    if (user) history.push('/')
+    if (!user) return
+
+    const next = query.get('next')
+
+    history.push(next ?? '/')
   }, [user])
 
   const onSubmit = ({ email, password }) => {

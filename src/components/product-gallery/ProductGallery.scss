@@ -16,6 +16,15 @@
   padding: 1rem;
   border-radius: 0.5rem;
 
+  > i {
+    font-size: 0.8rem;
+    display: inline-block;
+    color: rgba(59, 56, 56, 0.63);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0.4rem;
+  }
+
   &.not-mobile {
     display: flex;
 

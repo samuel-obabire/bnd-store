@@ -107,6 +107,7 @@ const ProductGallery = ({ product, addToCart, isMobile }) => {
   return isMobile ? (
     <section>
       <div className={`product-detail`}>
+        <i>Click image to toogle fullscreen</i>
         <figure className="product-gallery">
           <div className="preview-images" onClick={onClick}>
             <img src={product.image} alt={product.description} />

@@ -74,7 +74,7 @@ const CheckoutPage = ({ user, cart, ...otherProps }) => {
   const [shippingDetails, setShippingDetails] = useState(false)
 
   useEffect(() => {
-    if (!user) history.push('/login')
+    if (!user) history.push('/login?next=/checkout')
   }, [user])
 
   if (!user) return null
