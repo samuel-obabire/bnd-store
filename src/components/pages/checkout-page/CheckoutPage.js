@@ -134,7 +134,7 @@ const CheckoutPage = ({ user, cart, ...otherProps }) => {
         </div>
         <Paystack
           metadata={shippingDetails}
-          amount={50000}
+          // amount={50000}
           email={shippingDetails.email}
         />
       </div>

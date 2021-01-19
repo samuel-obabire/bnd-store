@@ -130,6 +130,25 @@
 
 .show-more {
   display: flex;
+  color: rgb(24, 162, 187);
+  margin-top: 0.5rem;
+  justify-content: flex-end;
+
+  > span {
+    cursor: pointer;
+
+    &::after {
+      content: ' \2193';
+    }
+  }
+
+  &.rotation {
+    > span {
+      &::after {
+        content: ' \2191';
+      }
+    }
+  }
 }
 
 select {

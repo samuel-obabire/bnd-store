@@ -24,6 +24,7 @@ const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
 const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'))
 const CartPage = lazy(() => import('./pages/cart-page/CartPage'))
 const CheckoutPage = lazy(() => import('./pages/checkout-page/CheckoutPage'))
+const AboutPage = lazy(() => import('./pages/about-page/AboutPage'))
 const Error = lazy(() => import('./404'))
 
 const App = ({ setUser }) => {
@@ -119,6 +120,7 @@ const App = ({ setUser }) => {
           <Route path="/sign-up" component={SignupPage} />
           <Route path="/login" component={SigninPage} />
           <Route path="/checkout" component={CheckoutPage} />
+          <Route exact path="/about" component={AboutPage} />
           <Route path="*" component={Error} />
         </Switch>
       </Suspense>

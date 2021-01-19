@@ -23,7 +23,6 @@ const ProductPage = ({ setSelectedProduct }) => {
     if (!id) return
     const productRef = firestore.collection('products').doc(id)
 
-    setLoading(true)
     const unsubscribeFromListener = productRef.onSnapshot(
       doc => {
         setProduct(doc.data())

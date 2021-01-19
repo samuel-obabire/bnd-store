@@ -9,26 +9,23 @@ const Error = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'absolute',
-        padding: '1rem',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-        margin: 'auto'
+        marginTop: '8rem',
+        marginBottom: '2rem',
+        padding: '1rem'
       }}>
-      <h1
+      <div
         style={{
-          width: '50%',
-          maxWidth: '20rem',
+          width: '30%',
+          maxWidth: '14rem',
           height: 'auto',
           margin: '0 auto'
         }}>
         <ErrorImage />
-      </h1>
-      <h2
+      </div>
+      <div
         style={{ fontSize: '1.13rem', fontWeight: '500', textAlign: 'center' }}>
         Not the page you are looking for? Go to <Link to="/shop">shop</Link>
-      </h2>
+      </div>
     </div>
   )
 }

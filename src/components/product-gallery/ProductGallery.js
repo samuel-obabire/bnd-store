@@ -66,17 +66,13 @@ const ProductGallery = ({ product, addToCart, isMobile }) => {
           className="product-description">
           {product.description}
         </div>
-        <div className="show-more">
-          <span
-            onClick={() => setExpanded(!expanded)}
-            style={{
-              color: 'rgb(24, 162, 187)',
-              marginTop: '.5rem',
-              marginLeft: 'auto',
-              cursor: 'pointer'
-            }}>
-            {expandable && 'read more'}
-          </span>
+        <div
+          className="show-more"
+          onClick={e => {
+            e.currentTarget.classList.toggle('rotation')
+            setExpanded(!expanded)
+          }}>
+          <span>{`${expandable && isMobile ? 'read more' : ''}`}</span>
         </div>
       </div>
     )

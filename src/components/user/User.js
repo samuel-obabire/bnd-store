@@ -38,7 +38,7 @@ const User = ({ user }) => {
   }, [dropdownVisibility])
 
   const onClick = () => {
-    // if (!user) return history.push('/login')
+    if (!user) return history.push('/login')
 
     setDropdownVisibility(true)
   }

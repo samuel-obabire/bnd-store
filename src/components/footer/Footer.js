@@ -24,13 +24,13 @@ const Footer = () => {
             <Fb />
           </a>
           <a
-            href="https://facebook.com"
+            href="https://www.instagram.com/bndclothings/"
             rel="noopener noreferrer"
             target="_blank">
             <Ig />
           </a>
           <a
-            href="https://api.whatsapp.com/send?phone=23487570081&text=
+            href="https://api.whatsapp.com/send?phone=2348087570081&text=
             Hello%2C%20I%20want%20more%20info%20about%20a%20product"
             rel="noopener noreferrer"
             target="_blank">
@@ -57,13 +57,24 @@ const Footer = () => {
           <h4>Help & Support</h4>
         </header>
         <div>
-          <Link to="/">Frequently asked questions </Link>
+          <Link className="link" to="/">
+            Frequently asked questions{' '}
+          </Link>
         </div>
         <div>
-          <Link to="/">delivery & returns </Link>
+          <Link className="link" to="/">
+            Delivery & returns{' '}
+          </Link>
         </div>
         <div>
-          <Link to="/">Size guide </Link>
+          <Link className="link" to="/">
+            Size guide
+          </Link>
+        </div>
+        <div>
+          <Link className="link" to="/about">
+            About us
+          </Link>
         </div>
       </section>
       <section>
