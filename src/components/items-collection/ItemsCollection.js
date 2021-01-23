@@ -11,7 +11,12 @@ const ItemsCollection = ({ items, decrement, increment, remove }) => {
         <div className="image-wrapper">
           <img src={item.image} alt="" />
         </div>
-        <div>{item.title}</div>
+        <div className="item-info">
+          <h2>{item.title}</h2>
+          <div>Price: {item.price * item.quantity}</div>
+          <div>Quantity: {item.quantity}</div>
+          <div>Size: {'oneFits'}</div>
+        </div>
       </div>
       <div className="item-controls">
         <div className="icon" onClick={() => remove(item)}>

@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import { getUserSelectedProduct } from '../../redux/selectors'
-import { addToCart } from '../../redux/actions'
+import { addToCart, displayNoticationModal } from '../../redux/actions'
 import { generateId } from '../utils/'
 
 import './ProductGallery.scss'
 import CustomBtn from '../custom-btn/CustomBtn'
 import withMediaQuery from '../hoc/withMediaQuery'
+import NotificationModal from '../notification-modal/NotificationModal'
 
 const style = {
   height: '3rem',
@@ -26,7 +27,12 @@ const clampStyle = {
   maxHeight: 'unset'
 }
 
-const ProductGallery = ({ product, addToCart, isMobile }) => {
+const ProductGallery = ({
+  product,
+  addToCart,
+  isMobile,
+  displayNoticationModal
+}) => {
   const [src, setSrc] = useState()
   const [expandable, setExpandable] = useState(false)
   const [expanded, setExpanded] = useState(false)
@@ -80,6 +86,7 @@ const ProductGallery = ({ product, addToCart, isMobile }) => {
 
   const onButtonClick = () => {
     addToCart(product)
+    displayNoticationModal(`${product.title} has been added to your cart`)
   }
 
   if (!product) return null
@@ -102,6 +109,7 @@ const ProductGallery = ({ product, addToCart, isMobile }) => {
 
   return isMobile ? (
     <section>
+      <NotificationModal />
       <div className={`product-detail`}>
         <i>Click image to toogle fullscreen</i>
         <figure className="product-gallery">
@@ -144,6 +152,7 @@ const ProductGallery = ({ product, addToCart, isMobile }) => {
     </section>
   ) : (
     <section>
+      <NotificationModal />
       <div className={`product-detail not-mobile`}>
         <figure className="product-gallery not-mobile">
           <div className="product-thumbnails">{renderImages}</div>
@@ -201,6 +210,6 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState, { addToCart })(
+export default connect(mapState, { addToCart, displayNoticationModal })(
   withMediaQuery(ProductGallery, '(max-width: 33.5rem)')
 )

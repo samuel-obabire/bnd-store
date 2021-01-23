@@ -44,11 +44,9 @@ const Footer = () => {
         </header>
         <address>
           <div>easy but time waster</div>
-          <a href="aProfessionalEmail@email.com">
-            aProfessionalEmail@email.com
-          </a>
+          <a href="beulahndaniel@gmail.com">beulahndaniel@gmail.com</a>
           <br />
-          <a href="tel:+23481">+234..number</a>
+          <a href="tel:+2348087570081">+2348087570081</a>
           <div>bndclothings.com</div>
         </address>
       </section>

@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 import Form from '../../../components/form/Form'
 import Paystack from '../../Paystack'
-import { getUserCart } from '../../../redux/selectors'
+import { getUserCart, getUserCartTotal } from '../../../redux/selectors'
 import ItemsCollection from '../../items-collection/ItemsCollection'
 import {
   deleteFromCart,
@@ -68,7 +68,7 @@ const formHeader = (
   </header>
 )
 
-const CheckoutPage = ({ user, cart, ...otherProps }) => {
+const CheckoutPage = ({ user, cart, total, ...otherProps }) => {
   const history = useHistory()
   const [showNext, setshowNext] = useState(false)
   const [shippingDetails, setShippingDetails] = useState(false)
@@ -111,25 +111,21 @@ const CheckoutPage = ({ user, cart, ...otherProps }) => {
     return (
       <div>
         <header>
-          <h2>Order Summary</h2>
+          <h1>Order Summary</h1>
         </header>
         <ItemsCollection items={cart} {...otherProps} />
         <div className="order-summary-fee">
           <div>
             <span>Starting Subtotal</span>
-            <span>0000</span>
-          </div>
-          <div>
-            <span>Subtotal</span>
-            <span>0000</span>
+            <span>&#8358; {total}</span>
           </div>
           <div>
             <span>Shipping Fee</span>
-            <span>0000</span>
+            <span>&#8358; 0000</span>
           </div>
           <h3>
             <span>Order Total</span>
-            <span>0000</span>
+            <span>&#8358; {total}</span>
           </h3>
         </div>
         <Paystack
@@ -146,7 +142,8 @@ const CheckoutPage = ({ user, cart, ...otherProps }) => {
 
 const mapState = state => ({
   user: state.user.currentUser,
-  cart: getUserCart(state)
+  cart: getUserCart(state),
+  total: getUserCartTotal(state)
 })
 
 export default connect(mapState, {

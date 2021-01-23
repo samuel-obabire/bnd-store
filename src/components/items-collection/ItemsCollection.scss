@@ -48,3 +48,23 @@
     cursor: pointer;
   }
 }
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.86rem;
+  line-height: 1.2rem;
+  max-width: calc(100% - 100px);
+  color: rgb(53, 49, 49);
+
+  h2 {
+    width: 100%;
+    text-transform: uppercase;
+    margin: 0;
+    color: black;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

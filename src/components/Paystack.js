@@ -7,7 +7,6 @@ const onSuccess = reference => {
 }
 
 const onClose = () => {
-  console.log('closed')
   window.alert('Payment cancelled')
 }
 

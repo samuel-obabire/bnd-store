@@ -1,0 +1,13 @@
+.notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  max-width: 100%;
+  z-index: 60;
+  padding: 1rem;
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+  text-align: center;
+}

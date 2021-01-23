@@ -11,8 +11,9 @@ const AboutPage = () => {
           Beulah & Daniel Fashion Palace is an independent online retailer
           offering variety of products ranging from branded products, stock from
           other retailers to its own label. Beulah and Daniel Palace is located
-          at ... Lagos State, Nigeria. We are always available to provide you
-          with latest trends of fashion with the sole aim of covering your
+          at 25, Akinsanya Street, Ojodu Berger. Opposite Solid Rock Hospital
+          Ojodu Berger, Lagos State, Nigeria. We are always available to provide
+          you with latest trends of fashion with the sole aim of covering your
           nakedness
         </p>
 
@@ -30,7 +31,7 @@ const AboutPage = () => {
 
         <p>
           We deliver nationwide and you can call on{' '}
-          <a href="tel:+23487570081">+23487570081</a> or
+          <a href="tel:+2348087570081">+2348087570081</a> or
           <a href="tel:+2349085993277">+2349085993277</a>
         </p>
         <p>

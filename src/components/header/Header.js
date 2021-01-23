@@ -17,7 +17,9 @@ const Header = ({ setMobileMenuVisiblity, productCount }) => {
   const history = useHistory()
 
   const onSearchSubmit = term => {
-    history.push(`/shop/collection?field=indexes&q=${term.toUpperCase()}`)
+    history.push(
+      `/shop/collection/${term}?field=indexes&q=${term.toUpperCase()}`
+    )
   }
 
   return (

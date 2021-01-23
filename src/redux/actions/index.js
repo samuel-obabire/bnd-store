@@ -7,7 +7,8 @@ import {
   CLEAR_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
-  DELETE_PRODUCT_FROM_CART
+  DELETE_PRODUCT_FROM_CART,
+  DISPLAY_NOTI_MODAL
 } from './types'
 
 import { firestore, getCollection } from '../../components/utils/firebase'
@@ -100,4 +101,24 @@ export const removeFromCart = item => {
     type: REMOVE_PRODUCT_FROM_CART,
     payload: product
   }
+}
+
+export const displayNoticationModal = (msg, type = 'success') => dispatch => {
+  dispatch({
+    type: DISPLAY_NOTI_MODAL,
+    payload: {
+      msg,
+      type
+    }
+  })
+
+  setTimeout(() => {
+    dispatch({
+      type: DISPLAY_NOTI_MODAL,
+      payload: {
+        msg: '',
+        type
+      }
+    })
+  }, 2500)
 }

@@ -31,7 +31,7 @@ export const getUserSelectedState = createSelector(
 )
 
 export const getUserCartTotal = createSelector(selectCart, cart =>
-  cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+  cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0).toFixed(2)
 )
 
 export const getUserCart = createSelector(selectCart, cart => cart)
