@@ -7,12 +7,15 @@ import { useHistory } from 'react-router-dom'
 
 import Form from '../../../components/form/Form'
 import Paystack from '../../Paystack'
+import NoticationModal from '../../../components/notification-modal/NotificationModal'
+
 import { getUserCart, getUserCartTotal } from '../../../redux/selectors'
 import ItemsCollection from '../../items-collection/ItemsCollection'
 import {
   deleteFromCart,
   addToCart,
-  removeFromCart
+  removeFromCart,
+  displayNoticationModal
 } from '../../../redux/actions'
 
 const fieldProps = [
@@ -68,14 +71,20 @@ const formHeader = (
   </header>
 )
 
-const CheckoutPage = ({ user, cart, total, ...otherProps }) => {
+const CheckoutPage = ({
+  user,
+  cart,
+  total,
+  displayNoticationModal,
+  ...otherProps
+}) => {
   const history = useHistory()
   const [showNext, setshowNext] = useState(false)
   const [shippingDetails, setShippingDetails] = useState(false)
 
   useEffect(() => {
     if (!user) history.push('/login?next=/checkout')
-  }, [user])
+  }, [user, history])
 
   if (!user) return null
 
@@ -86,10 +95,21 @@ const CheckoutPage = ({ user, cart, total, ...otherProps }) => {
     setshowNext(true)
   }
 
+  const getShippingFee = () => {
+    // if (shippingDetails.state === 'Lagos') {
+    //   displayNoticationModal(`free shipping`)
+
+    //   return 0
+    // }
+
+    return 1500
+  }
+
   const render = () => {
     if (!showNext)
       return (
         <>
+          <NoticationModal />
           <header>
             <h3>You're almost there! Complete your order</h3>
           </header>
@@ -121,16 +141,19 @@ const CheckoutPage = ({ user, cart, total, ...otherProps }) => {
           </div>
           <div>
             <span>Shipping Fee</span>
-            <span>&#8358; 0000</span>
+            <span>
+              &#8358;
+              {getShippingFee()}
+            </span>
           </div>
           <h3>
             <span>Order Total</span>
-            <span>&#8358; {total}</span>
+            <span>&#8358; {parseFloat(total) + getShippingFee()}</span>
           </h3>
         </div>
         <Paystack
           metadata={shippingDetails}
-          // amount={50000}
+          amount={total * 100}
           email={shippingDetails.email}
         />
       </div>
@@ -149,5 +172,6 @@ const mapState = state => ({
 export default connect(mapState, {
   remove: deleteFromCart,
   decrement: removeFromCart,
-  increment: addToCart
+  increment: addToCart,
+  displayNoticationModal
 })(CheckoutPage)

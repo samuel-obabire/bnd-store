@@ -12,7 +12,7 @@ const onClose = () => {
 
 const publicKey = process.env.REACT_APP_PAYSTACK_API_KEY
 
-const Paystack = ({ email, amount = 20000 }) => {
+const Paystack = ({ email, amount = 2500 }) => {
   const config = {
     email,
     amount,

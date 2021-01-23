@@ -3,14 +3,17 @@ import './ItemsCollection.scss'
 import { ReactComponent as DeleteIcon } from '../../asset/delete.svg'
 import { ReactComponent as PlusIcon } from '../../asset/plus.svg'
 import { ReactComponent as MinusIcon } from '../../asset/minus.svg'
+import { Link } from 'react-router-dom'
 
 const ItemsCollection = ({ items, decrement, increment, remove }) => {
   const collection = items.map(item => (
     <div className="item-collection" key={item.id}>
       <div className="item-wrapper">
-        <div className="image-wrapper">
+        <Link
+          to={`/shop/${item.title}?id=${item.id}`}
+          className="image-wrapper">
           <img src={item.image} alt="" />
-        </div>
+        </Link>
         <div className="item-info">
           <h2>{item.title}</h2>
           <div>Price: {item.price * item.quantity}</div>
