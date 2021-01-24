@@ -104,7 +104,6 @@ export const removeFromCart = item => {
 }
 
 export const displayNoticationModal = (msg, type = 'success') => dispatch => {
-  // setTimeout(() => {
   dispatch({
     type: DISPLAY_NOTI_MODAL,
     payload: {
@@ -112,7 +111,6 @@ export const displayNoticationModal = (msg, type = 'success') => dispatch => {
       type
     }
   })
-  // }, 200)
 
   setTimeout(() => {
     dispatch({

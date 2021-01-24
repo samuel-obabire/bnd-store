@@ -16,9 +16,9 @@ const ItemsCollection = ({ items, decrement, increment, remove }) => {
         </Link>
         <div className="item-info">
           <h2>{item.title}</h2>
-          <div>Price: {item.price * item.quantity}</div>
+          <div>Price: {(item.price * item.quantity).toFixed(2)}</div>
           <div>Quantity: {item.quantity}</div>
-          <div>Size: {'oneFits'}</div>
+          <div>Size: {item.size}</div>
         </div>
       </div>
       <div className="item-controls">

@@ -1,5 +1,7 @@
 import './CheckoutPage.scss'
 
+// REACT_APP_PAYSTACK_API_KE=pk_live_b8ecf748f55e056e3e5465c8f0ebc7ef9712d487
+
 import NaijaStates from 'naija-state-local-government'
 import { connect } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -80,11 +82,19 @@ const CheckoutPage = ({
 }) => {
   const history = useHistory()
   const [showNext, setshowNext] = useState(false)
-  const [shippingDetails, setShippingDetails] = useState(false)
+  const [shippingDetails, setShippingDetails] = useState()
+  const [shippingFee, setShippingFee] = useState(1500)
 
   useEffect(() => {
     if (!user) history.push('/login?next=/checkout')
   }, [user, history])
+
+  useEffect(() => {
+    if (!shippingDetails) return
+    if (shippingDetails.state !== 'Lagos' || total < 50) return
+    setShippingFee(0)
+    displayNoticationModal(`Congrats, you have free a shipping`)
+  }, [shippingDetails, total])
 
   if (!user) return null
 
@@ -95,21 +105,10 @@ const CheckoutPage = ({
     setshowNext(true)
   }
 
-  const getShippingFee = () => {
-    // if (shippingDetails.state === 'Lagos') {
-    //   displayNoticationModal(`free shipping`)
-
-    //   return 0
-    // }
-
-    return 1500
-  }
-
   const render = () => {
     if (!showNext)
       return (
         <>
-          <NoticationModal />
           <header>
             <h3>You're almost there! Complete your order</h3>
           </header>
@@ -130,6 +129,7 @@ const CheckoutPage = ({
 
     return (
       <div>
+        <NoticationModal />
         <header>
           <h1>Order Summary</h1>
         </header>
@@ -141,14 +141,11 @@ const CheckoutPage = ({
           </div>
           <div>
             <span>Shipping Fee</span>
-            <span>
-              &#8358;
-              {getShippingFee()}
-            </span>
+            <span>&#8358; {shippingFee}</span>
           </div>
           <h3>
             <span>Order Total</span>
-            <span>&#8358; {parseFloat(total) + getShippingFee()}</span>
+            <span>&#8358; {parseFloat(total) + shippingFee}</span>
           </h3>
         </div>
         <Paystack

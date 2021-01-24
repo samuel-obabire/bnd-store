@@ -8,6 +8,7 @@ import './ProductGallery.scss'
 import CustomBtn from '../custom-btn/CustomBtn'
 import withMediaQuery from '../hoc/withMediaQuery'
 import NotificationModal from '../notification-modal/NotificationModal'
+import { Link } from 'react-router-dom'
 
 const style = {
   height: '3rem',
@@ -36,6 +37,7 @@ const ProductGallery = ({
   const [src, setSrc] = useState()
   const [expandable, setExpandable] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0])
   const ref = useRef()
 
   const imageRef = useRef()
@@ -75,17 +77,18 @@ const ProductGallery = ({
         <div
           className="show-more"
           onClick={e => {
-            e.currentTarget.classList.toggle('rotation')
             setExpanded(!expanded)
           }}>
-          <span>{`${expandable && isMobile ? 'read more' : ''}`}</span>
+          <span>{`${
+            expandable && isMobile ? 'read more' : expanded ? 'hide more' : ''
+          }`}</span>
         </div>
       </div>
     )
   }
 
   const onButtonClick = () => {
-    addToCart(product)
+    addToCart({ ...product, size: selectedSize })
     displayNoticationModal(`${product.title} has been added to your cart`)
   }
 
@@ -125,26 +128,44 @@ const ProductGallery = ({
               style={{ fontSize: '1.5rem', fontWeight: '400' }}>
               {product.title}
             </h1>
-
             <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
             <div className="product-header_info">
-              <div className="material-type">Fabric - crepe</div>
+              <div className="material-type">Fabric: {product.material}</div>
               <div className="custom-select">
-                <select className="dropdown" defaultValue="Size">
+                <select
+                  onChange={e => setSelectedSize(e.target.value)}
+                  className="dropdown"
+                  defaultValue="Size">
                   <option value="" disabled>
                     Select Size
                   </option>
-                  <option value="1">20</option>
-                  <option value="0">30</option>
+                  {product.sizes.map(size => (
+                    <option value={size} key={generateId()}>
+                      {size}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
-            <div className="link ">Add to wishlist</div>
+            {/* <div className="link ">Add to wishlist</div> */}
             <CustomBtn
               onClick={onButtonClick}
               additionalStyles={additionalStyles}
               text="Add to cart"
             />
+            <a
+              href="https://api.whatsapp.com/send?phone=2348087570081&text=
+            Hello%2C%20I%20am%20intrested%20in%20your%20a%20product"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="custom-btn"
+              style={{
+                ...additionalStyles,
+                margin: '2rem auto',
+                background: '#06d755'
+              }}>
+              Order on WhatsApp
+            </a>
           </header>
         </div>
       </div>
@@ -179,23 +200,42 @@ const ProductGallery = ({
 
             <b style={{ fontSize: '1.7rem' }}>&#8358; {product.price}</b>
             <div className="product-header_info">
-              <div className="material-type">Fabric - crepe</div>
+              <div className="material-type">Fabric: {product.material}</div>
               <div className="custom-select">
-                <select className="dropdown" defaultValue="Size">
+                <select
+                  onChange={e => setSelectedSize(e.target.value)}
+                  className="dropdown"
+                  defaultValue="Size">
                   <option value="" disabled>
                     Select Size
                   </option>
-                  <option value="1">20</option>
-                  <option value="0">30</option>
+                  {product.sizes.map(size => (
+                    <option value={size} key={generateId()}>
+                      {size}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
-            <div className="link ">Add to wishlist</div>
+            {/* <div className="link ">Add to wishlist</div> */}
             <CustomBtn
               onClick={onButtonClick}
               additionalStyles={additionalStyles}
               text="Add to cart"
             />
+            <a
+              href="https://api.whatsapp.com/send?phone=2348087570081&text=
+            Hello%2C%20I%20am%20intrested%20in%20your%20product"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="custom-btn"
+              style={{
+                ...additionalStyles,
+                margin: '2rem auto',
+                background: '#06d755'
+              }}>
+              Order on WhatsApp
+            </a>
           </header>
         </div>
       </div>

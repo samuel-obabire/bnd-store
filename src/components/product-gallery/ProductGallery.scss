@@ -136,18 +136,6 @@
 
   > span {
     cursor: pointer;
-
-    &::after {
-      content: ' \2193';
-    }
-  }
-
-  &.rotation {
-    > span {
-      &::after {
-        content: ' \2191';
-      }
-    }
   }
 }
 

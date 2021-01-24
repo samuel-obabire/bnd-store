@@ -8,7 +8,7 @@ import { ReactComponent as Ig } from '../../asset/ig-icon.svg'
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="footer">
       <section>
         <header>
           <h3>About</h3>
@@ -43,11 +43,15 @@ const Footer = () => {
           <h4>Contact Us</h4>
         </header>
         <address>
-          <div>easy but time waster</div>
+          <p>
+            25, Akinsanya Street, Ojodu Berger. Opposite Solid Rock Hospital
+            Ojodu Berger, Lagos State, Nigeria.
+          </p>
           <a href="beulahndaniel@gmail.com">beulahndaniel@gmail.com</a>
           <br />
           <a href="tel:+2348087570081">+2348087570081</a>
-          <div>bndclothings.com</div>
+          <br />
+          <Link to="/">bndclothings.com</Link>
         </address>
       </section>
       <section>
@@ -61,7 +65,7 @@ const Footer = () => {
         </div>
         <div>
           <Link className="link" to="/">
-            Delivery & returns{' '}
+            Delivery & returns
           </Link>
         </div>
         <div>

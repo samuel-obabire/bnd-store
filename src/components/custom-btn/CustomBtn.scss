@@ -1,5 +1,6 @@
 .custom-btn {
   width: 50%;
+  position: relative;
   cursor: pointer;
   max-width: 25rem;
   line-height: 18.4px;
@@ -31,5 +32,9 @@
   &:hover,
   &:active {
     background-color: darken(rgb(255, 129, 0), 5);
+  }
+
+  &:active {
+    top: 1px;
   }
 }

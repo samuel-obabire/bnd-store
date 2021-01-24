@@ -20,6 +20,7 @@ a,
 .link {
   text-decoration: none;
   color: rgb(24, 162, 187);
+  cursor: pointer;
 
   &:hover {
     color: darken(rgb(24, 162, 187), 20);

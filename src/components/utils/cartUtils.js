@@ -8,7 +8,7 @@ export const reduceCartItems = (state, productToAdd) => {
 
   const cartItems = state.cartItems.map(product =>
     productToAdd.id === product.id
-      ? { ...product, quantity: product.quantity + 1 }
+      ? { ...productToAdd, quantity: product.quantity + 1 }
       : product
   )
 

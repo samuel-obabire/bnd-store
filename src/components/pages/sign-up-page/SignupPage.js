@@ -27,7 +27,7 @@ const fieldProps = [
 
 const formFooterComponent = (
   <div className="field footer">
-    Already have an account? <Link to="/sign-in">Sign in</Link>
+    Already have an account? <Link to="/login">login</Link>
   </div>
 )
 
@@ -40,12 +40,14 @@ const SignUp = () => {
   }
 
   return (
-    <Form
-      onFormSubmit={onSubmit}
-      fieldProps={fieldProps}
-      buttonText="Sign up"
-      formFooterComponent={formFooterComponent}
-    />
+    <div style={{ margin: '8rem' }}>
+      <Form
+        onFormSubmit={onSubmit}
+        fieldProps={fieldProps}
+        buttonText="Sign up"
+        formFooterComponent={formFooterComponent}
+      />
+    </div>
   )
 }
 

@@ -2,7 +2,7 @@ import './AboutPage.scss'
 
 const AboutPage = () => {
   return (
-    <main className="about container">
+    <main className="about container" id="about-bnd-clothings">
       <header>
         <h1>About Us</h1>
       </header>

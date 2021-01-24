@@ -9,6 +9,7 @@ import { ReactComponent as SavedIcon } from '../../asset/saved-icon.svg'
 import { ReactComponent as Settingsicon } from '../../asset/settings.svg'
 import { ReactComponent as SignoutIcon } from '../../asset/logout.svg'
 import { ReactComponent as UserIcon } from '../../asset/user-icon.svg'
+import { auth } from '../utils/firebase'
 
 const User = ({ user }) => {
   const [dropdownVisibility, setDropdownVisibility] = useState(false)
@@ -51,31 +52,36 @@ const User = ({ user }) => {
           ref={ref}
           className={`user-dropdown ${dropdownVisibility ? 'visible' : ''}`}>
           <div className="dropdown-menu">
-            <div className="dropdown-option">
-              <div>
-                <OrderIcon />
-              </div>
-              <Link to="/user/orders">Orders</Link>
-            </div>
-            <div className="dropdown-option">
+            {/* <div className="dropdown-option"> */}
+            {/* <div> */}
+            {/* <OrderIcon /> */}
+            {/* </div> */}
+            {/* <Link to="/user/orders">Orders</Link> */}
+            {/* </div> */}
+            {/* <div className="dropdown-option">
               <div>
                 <SavedIcon />
               </div>
               <Link to="/user/saved">Saved</Link>
-            </div>
-            <hr />
+            </div> */}
+            {/* <hr /> */}
             <div className="dropdown-footer">
-              <div className="dropdown-option">
+              {/* <div className="dropdown-option">
                 <div>
                   <Settingsicon />
                 </div>
                 <Link to="/user/settings">Settings</Link>
-              </div>
+              </div> */}
               <div className="dropdown-option">
                 <div>
                   <SignoutIcon />
                 </div>
-                <div data-role="sign out">Sign Out</div>
+                <div
+                  className="link"
+                  onClick={() => auth.signOut()}
+                  data-role="sign out">
+                  Sign Out
+                </div>
               </div>
             </div>
           </div>

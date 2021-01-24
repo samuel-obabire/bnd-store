@@ -1,22 +1,25 @@
 import { usePaystackPayment } from 'react-paystack'
+import { connect } from 'react-redux'
 import CustomBtn from '../components/custom-btn/CustomBtn'
-
-const onSuccess = reference => {
-  console.log(reference)
-  window.alert('payment successful')
-}
-
-const onClose = () => {
-  window.alert('Payment cancelled')
-}
+import NotificationModal from '../components/notification-modal/NotificationModal'
+import { displayNoticationModal } from '../redux/actions'
 
 const publicKey = process.env.REACT_APP_PAYSTACK_API_KEY
 
-const Paystack = ({ email, amount = 2500 }) => {
+const Paystack = ({ email, amount }) => {
   const config = {
     email,
     amount,
     publicKey
+  }
+
+  const onSuccess = reference => {
+    console.log(reference)
+    displayNoticationModal('Payment Sucessful')
+  }
+
+  const onClose = () => {
+    window.alert('Payment cancelled')
   }
 
   const initializePayment = usePaystackPayment(config)
@@ -27,9 +30,10 @@ const Paystack = ({ email, amount = 2500 }) => {
 
   return (
     <div>
+      <NotificationModal />
       <CustomBtn onClick={onClick} text="Pay Now" />
     </div>
   )
 }
 
-export default Paystack
+export default connect(null, { displayNoticationModal })(Paystack)
