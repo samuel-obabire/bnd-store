@@ -1,8 +1,12 @@
+import { Helmet } from 'react-helmet'
 import './AboutPage.scss'
 
 const AboutPage = () => {
   return (
     <main className="about container" id="about-bnd-clothings">
+      <Helmet>
+        <title>About - Bnd Clothings</title>
+      </Helmet>
       <header>
         <h1>About Us</h1>
       </header>

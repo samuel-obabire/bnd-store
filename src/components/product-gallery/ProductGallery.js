@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
+import { Helmet } from 'react-helmet'
+
 import { getUserSelectedProduct } from '../../redux/selectors'
 import { addToCart, displayNoticationModal } from '../../redux/actions'
 import { generateId } from '../utils/'
@@ -8,7 +10,6 @@ import './ProductGallery.scss'
 import CustomBtn from '../custom-btn/CustomBtn'
 import withMediaQuery from '../hoc/withMediaQuery'
 import NotificationModal from '../notification-modal/NotificationModal'
-import { Link } from 'react-router-dom'
 
 const style = {
   height: '3rem',
@@ -110,8 +111,15 @@ const ProductGallery = ({
     )
   })
 
+  const renderHeader = (
+    <Helmet>
+      <title>{product.title} - Bnd Clothings</title>
+    </Helmet>
+  )
+
   return isMobile ? (
     <section>
+      {renderHeader}
       <NotificationModal />
       <div className={`product-detail`}>
         <i>Click image to toogle fullscreen</i>
@@ -173,6 +181,7 @@ const ProductGallery = ({
     </section>
   ) : (
     <section>
+      {renderHeader}
       <NotificationModal />
       <div className={`product-detail not-mobile`}>
         <figure className="product-gallery not-mobile">
@@ -225,14 +234,16 @@ const ProductGallery = ({
             />
             <a
               href="https://api.whatsapp.com/send?phone=2348087570081&text=
-            Hello%2C%20I%20am%20intrested%20in%20your%20product"
+            Hello%2C%20I%20am%20interested%20in%20your%20product"
               rel="noopener noreferrer"
               target="_blank"
               className="custom-btn"
               style={{
                 ...additionalStyles,
                 margin: '2rem auto',
-                background: '#06d755'
+                background: '#06d755',
+                fontWeight: '500',
+                color: '#edeaea'
               }}>
               Order on WhatsApp
             </a>

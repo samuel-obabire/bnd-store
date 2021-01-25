@@ -44,8 +44,8 @@ const Footer = () => {
         </header>
         <address>
           <p>
-            25, Akinsanya Street, Ojodu Berger. Opposite Solid Rock Hospital
-            Ojodu Berger, Lagos State, Nigeria.
+            25, Akinsanya Street, Opposite Solid Rock Hospital, Ojodu Berger,
+            Lagos State, Nigeria.
           </p>
           <a href="beulahndaniel@gmail.com">beulahndaniel@gmail.com</a>
           <br />
