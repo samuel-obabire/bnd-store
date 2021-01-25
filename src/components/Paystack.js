@@ -6,7 +6,7 @@ import { displayNoticationModal } from '../redux/actions'
 
 const publicKey = process.env.REACT_APP_PAYSTACK_API_KEY
 
-const Paystack = ({ email, amount }) => {
+const Paystack = ({ email, amount, displayNoticationModal }) => {
   const config = {
     email,
     amount,

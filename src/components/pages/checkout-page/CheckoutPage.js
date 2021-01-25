@@ -1,6 +1,6 @@
-import './CheckoutPage.scss'
+import { Helmet } from 'react-helmet'
 
-// REACT_APP_PAYSTACK_API_KE=pk_live_b8ecf748f55e056e3e5465c8f0ebc7ef9712d487
+import './CheckoutPage.scss'
 
 import NaijaStates from 'naija-state-local-government'
 import { connect } from 'react-redux'
@@ -105,7 +105,16 @@ const CheckoutPage = ({
     setshowNext(true)
   }
 
-  const render = () => {
+  const renderPage = () => {
+    if (!cart.length)
+      return (
+        <>
+          <header>
+            <h3>You have no item in cart</h3>
+          </header>
+        </>
+      )
+
     if (!showNext)
       return (
         <>
@@ -126,6 +135,8 @@ const CheckoutPage = ({
           />
         </>
       )
+
+    window.scrollTo(0, 0)
 
     return (
       <div>
@@ -154,6 +165,17 @@ const CheckoutPage = ({
           email={shippingDetails.email}
         />
       </div>
+    )
+  }
+
+  const render = () => {
+    return (
+      <>
+        <Helmet>
+          <title>Checkout - Bnd Clothings</title>
+        </Helmet>
+        {renderPage()}
+      </>
     )
   }
 
