@@ -40,7 +40,7 @@ const SignUp = () => {
   }
 
   return (
-    <div style={{ margin: '8rem' }}>
+    <div style={{ margin: '8rem 0' }}>
       <Form
         onFormSubmit={onSubmit}
         fieldProps={fieldProps}
