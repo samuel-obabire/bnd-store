@@ -17,7 +17,6 @@ import { Breakpoint } from 'react-socks'
 import Spinner from './spinner/Spinner'
 import ScrollToTop from './ScrollToTop'
 import { Helmet } from 'react-helmet'
-import img from '../asset/bnd-images/400098000701_322969.jpg'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
