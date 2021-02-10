@@ -110,6 +110,32 @@ export const validate = values => {
   if (!values.lga) {
     errors.lga = 'LGA is required'
   }
+  if (!values.title) {
+    errors.title = 'Title is required'
+  }
+  if (!values.price) {
+    errors.price = 'Price is required'
+  }
+  if (!values.category) {
+    errors.category = 'Category is required'
+  }
+  if (
+    !values['product-description'] ||
+    values['product-description']?.length < 100
+  ) {
+    errors['product-description'] = 'Description is required'
+  }
 
+  if (!values.material) {
+    errors.material = 'Material is required'
+  }
+
+  if (values?.keywords?.includes(' ') || !values.keywords) {
+    errors.keywords = 'Format not correct'
+  }
+
+  if (values?.sizes?.includes(' ') || !values.sizes) {
+    errors.sizes = 'Format not correct'
+  }
   return errors
 }

@@ -15,7 +15,7 @@ const AdminPage = ({ match }) => {
     <div className="container admin-page">
       <Route exact path={`${match.path}`}>
         <Link to={`${match.path}/products`}>All Products</Link>
-        <Link to="/new-product">Create new Product</Link>
+        <Link to={`${match.path}/product/new`}>Create new Product</Link>
       </Route>
       <Suspense
         fallback={
@@ -29,7 +29,16 @@ const AdminPage = ({ match }) => {
             path={`${match.path}/products`}
             component={AllProducts}
           />
-          <Route path={`${match.path}/edit/:id`} component={EditProduct} />
+          <Route
+            exact
+            path={`${match.path}/product/:type/:id`}
+            component={EditProduct}
+          />
+          <Route
+            exact
+            path={`${match.path}/product/:type`}
+            component={EditProduct}
+          />
           {/* <Route path="*" component={Error} /> */}
         </Switch>
       </Suspense>

@@ -10,7 +10,7 @@ const Product = ({ uri, image, title, price, id, onClick }) => {
 
   const onProductClick = () => {
     if (match.path === '/admin/products')
-      return history.push(`/admin/edit/${id}`)
+      return history.push(`/admin/product/edit/${id}`)
     history.push(`/shop/${title.replace(/ /g, '+')}?id=${id}`)
   }
 
