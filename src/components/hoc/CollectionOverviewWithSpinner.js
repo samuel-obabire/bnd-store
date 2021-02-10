@@ -12,7 +12,7 @@ const CollectionOverviewWithSpinner = ({
 }) => {
   const { isMedia, vw } = useMediaQuery('(max-width: 697px)')
 
-  const limit = isMedia ? 10 : vw > 697 && vw < 930 ? 4 : 5
+  const limit = isMedia ? 10 : vw > 697 && vw < 930 ? 4 : 4
 
   useEffect(() => {
     getCollections(limit)

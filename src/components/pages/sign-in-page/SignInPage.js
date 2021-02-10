@@ -4,7 +4,10 @@ import { Link, useHistory } from 'react-router-dom'
 import { ReactComponent as GoogleIcon } from '../../../asset/google.svg'
 import useQuery from '../../../hooks/useQuery'
 
+import { displayNoticationModal } from '../../../redux/actions'
+
 import Form from '../../form/Form'
+import NotificationModal from '../../notification-modal/NotificationModal'
 
 import { auth, signInWithGoogle } from '../../utils/firebase'
 
@@ -29,7 +32,7 @@ const formFooterComponent = (
   </div>
 )
 
-const SignIn = ({ user }) => {
+const SignIn = ({ user, displayNoticationModal }) => {
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
@@ -48,11 +51,16 @@ const SignIn = ({ user }) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => setLoading(false))
-      .catch(e => console.log(e))
+      .catch(e => {
+        console.log(e)
+        displayNoticationModal(e.message ?? 'something went wrong', 'error')
+        setLoading(false)
+      })
   }
 
   return (
     <div className="container sign-in" style={{ marginTop: '8rem' }}>
+      <NotificationModal />
       <h1 style={{ textAlign: 'center' }}>Login!</h1>
       <button
         onClick={signInWithGoogle}
@@ -112,4 +120,4 @@ const mapState = state => {
   return { user: state.user.currentUser }
 }
 
-export default connect(mapState)(SignIn)
+export default connect(mapState, { displayNoticationModal })(SignIn)

@@ -1,24 +1,28 @@
-import './Product.scss';
+import './Product.scss'
 
-import LazyImage from '../lazy-image/LazyImage';
-import { useHistory } from 'react-router-dom';
+import LazyImage from '../lazy-image/LazyImage'
+import { useHistory, useRouteMatch } from 'react-router-dom'
+import { formatPrice } from '../utils'
 
-const Product = ({ uri, image, title, price, id }) => {
-  const history = useHistory();
+const Product = ({ uri, image, title, price, id, onClick }) => {
+  const history = useHistory()
+  const match = useRouteMatch()
 
   const onProductClick = () => {
-    history.push(`/shop/${title.replace(/ /g, '+')}?id=${id}`);
-  };
+    if (match.path === '/admin/products')
+      return history.push(`/admin/edit/${id}`)
+    history.push(`/shop/${title.replace(/ /g, '+')}?id=${id}`)
+  }
 
   return (
-    <div className="product" onClick={onProductClick}>
+    <div className="product" onClick={onClick ?? onProductClick}>
       <LazyImage uri={uri} src={image} height={'70%'} />
       <div style={{ height: '30%' }}>
         <div className="product-title">{title}</div>
-        <b>&#8358;{price}</b>
+        <b>{formatPrice(price)}</b>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Product;
+export default Product

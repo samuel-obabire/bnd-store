@@ -20,6 +20,10 @@ const ProductPage = ({ setSelectedProduct }) => {
   const search = useLocation().search
 
   useEffect(() => {
+    setLoading(true)
+  }, [search])
+
+  useEffect(() => {
     if (!id) return
     const productRef = firestore.collection('products').doc(id)
 
@@ -70,7 +74,7 @@ const ProductPage = ({ setSelectedProduct }) => {
         <Collection
           products={similarProd}
           title="Similar Products"
-          url="electronics"
+          url={similarProd[0].category}
         />
       </div>
     ) : null

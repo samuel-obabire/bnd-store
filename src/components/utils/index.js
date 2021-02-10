@@ -18,3 +18,11 @@ export const parseString = string => {
 export const unParseString = string => {
   return string.toLowerCase().replace(/[+]/g, ' ')
 }
+
+export const formatPrice = price => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'NGN',
+    maximumSignificantDigits: 3
+  }).format(price)
+}

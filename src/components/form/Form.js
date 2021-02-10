@@ -40,6 +40,7 @@ const Form = ({
       {formHeader}
       <form className="form container" onSubmit={handleSubmit(onSubmit)}>
         {renderFormFields(fieldProps)}
+        {formFooterComponent}
         <button
           className={`${
             otherProps.invalid
@@ -52,7 +53,6 @@ const Form = ({
           disabled={otherProps.invalid || otherProps.pristine}>
           {loading ? '...' : buttonText}
         </button>
-        {formFooterComponent}
       </form>
     </div>
   )

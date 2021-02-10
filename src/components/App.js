@@ -10,7 +10,6 @@ import { auth, createUserProfileDoc, firestore } from './utils/firebase'
 import { setUser } from '../redux/actions'
 import Header from './header/Header'
 import Footer from '../components/footer/Footer'
-import shopdata from './pages/shop-page/shop-data'
 import { generateId } from './utils'
 import Jimp from 'jimp/es'
 import MobileNav from './mobile-nav/MobileNav'
@@ -18,6 +17,7 @@ import { Breakpoint } from 'react-socks'
 import Spinner from './spinner/Spinner'
 import ScrollToTop from './ScrollToTop'
 import { Helmet } from 'react-helmet'
+import img from '../asset/bnd-images/400098000701_322969.jpg'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
@@ -25,23 +25,44 @@ const SignupPage = lazy(() => import('./pages/sign-up-page/SignupPage'))
 const CartPage = lazy(() => import('./pages/cart-page/CartPage'))
 const CheckoutPage = lazy(() => import('./pages/checkout-page/CheckoutPage'))
 const AboutPage = lazy(() => import('./pages/about-page/AboutPage'))
+const AdminPage = lazy(() => import('./pages/admin-page/AdminPage'))
 const Error = lazy(() => import('./404'))
 
 const App = ({ setUser }) => {
   useEffect(() => {
-    window.addEventListener('error', console.log)
+    // async function c() {
+    //   const image = new Jimp(400, 400, '#ffffff', (err, image) => {
+    //     return image
+    //   })
+
+    //   const { width, height } = await Jimp.read(img)
+    //     .then(image => image.resize(Jimp.AUTO, 400))
+    //     .then(img => ({
+    //       width: img.bitmap.width,
+    //       height: img.bitmap.height
+    //     }))
+
+    //   const x = Math.floor((400 - width) / 2)
+    //   const y = Math.floor((400 - height) / 2)
+
+    //   console.log(x, y)
+
+    //   const m = await Jimp.read(img).then(image => image.resize(Jimp.AUTO, 400))
+
+    //   const compositeImage = image.composite(m, x, y, {
+    //     mode: Jimp.BLEND_SOURCE_OVER
+    //   })
+
+    //   compositeImage.getBase64Async(Jimp.AUTO).then(console.log)
+    // }
+
+    // c()
+
+    // Jimp.read(img)
+    //   .then(image => image.resize(20, 20).blur(2))
+    //   .then(image => image.getBase64Async(Jimp.AUTO).then(console.log))
 
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      // return [
-      //   'women clothing',
-      //   'fabrics',
-      //   'bags',
-      //   'slippers',
-      //   'electronics'
-      // ].forEach(category => {
-      //   firestore.collection('categories').doc().set({ category })
-      // })
-
       // Jimp.read('https://i.imgur.com/6u9kO9d.jpg')
       //   .then(image => Jimp.intToRGBA(image.getPixelColor(10, 10)))
       //   .then(
@@ -49,44 +70,8 @@ const App = ({ setUser }) => {
       //       (document.body.style.background = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`)
       //   );
 
-      // const batch = firestore.batch();
-      // const fun = async () => {
-      //   // map will return a promise
-      //   const promises = shopdata.map(async product => {
-      //     const image = product.image;
-      //     const p = { ...product };
-
-      //     const img = await Jimp.read(image);
-
-      //     const uri = await img
-      //       .resize(10, Jimp.AUTO)
-      //       .blur(2)
-      //       .getBase64Async(Jimp.AUTO);
-
-      //     p.uri = uri;
-      //     p.indexes = product.title.toUpperCase().split(' ');
-      //     p.id = generateId();
-      //     p.imageCollection = Array.from({ length: 5 }, _ => image);
-
-      //     return p;
-      //   });
-
-      //   Promise.all(promises).then(arr => {
-      //     arr.forEach(product => {
-      //       const ref = firestore.collection('products').doc(product.id);
-      //       batch.set(ref, product);
-      //     });
-
-      //     batch.commit().then(console.log);
-      //   });
-      // };
-
-      // fun();
-
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth)
-
-        // userRef.onSnapshot(snapshot => console.log(snapshot.data()))
 
         return setUser(userAuth)
       }
@@ -121,6 +106,7 @@ const App = ({ setUser }) => {
           <Route path="/login" component={SigninPage} />
           <Route path="/checkout" component={CheckoutPage} />
           <Route exact path="/about" component={AboutPage} />
+          <Route path="/admin" component={AdminPage} />
           <Route path="*" component={Error} />
         </Switch>
       </Suspense>

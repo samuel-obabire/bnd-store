@@ -8,14 +8,16 @@ import Product from '../product/Product'
 import Spinner from '../spinner/Spinner'
 import { firestore } from '../utils/firebase'
 import { unParseString } from '../utils'
+import { useRouteMatch } from 'react-router-dom'
 
 const ShopCollection = ({
   setProducts,
   clearProducts,
   products = {},
-  query,
-  match
+  query
 }) => {
+  const match = useRouteMatch()
+
   const [items, setItems] = useState({})
   const [lastVisible, setLastVisible] = useState(null)
   const [firstVisible, setFirstVisible] = useState(null)
@@ -25,7 +27,7 @@ const ShopCollection = ({
   const pageSize = 18
   const filter = 'price'
 
-  const pageTitle = unParseString(match.params.title)
+  const pageTitle = unParseString(match?.params?.title ?? 'All Products')
 
   let pageRef = firestore.collection('products')
 

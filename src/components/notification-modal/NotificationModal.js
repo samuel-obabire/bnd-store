@@ -6,7 +6,7 @@ const NotificationModal = ({ msg, type, visible }) => {
   if (!visible) return null
 
   const style =
-    type === 'danger'
+    type === 'error'
       ? {
           color: '#842029',
           backgroundColor: '#f8d7da',

@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/analytics'
+import 'firebase/storage'
 
 const apiKey = process.env.REACT_APP_FIREBASE_API_KEY
 
@@ -29,6 +30,7 @@ export const signInWithGoogle = () =>
 
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
+export const storage = firebase.app().storage('gs://bnd-images')
 
 export const createUserProfileDoc = async userAuth => {
   const userRef = firestore.doc(`users/${userAuth.uid}`)
