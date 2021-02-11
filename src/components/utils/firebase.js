@@ -38,8 +38,7 @@ export const createUserProfileDoc = async userAuth => {
   const snapshot = await userRef.get()
 
   if (snapshot.exists) {
-    console.log(snapshot.data().isAdmin)
-    return { isAdmin: false || snapshot.data().isAdmin, ...userRef }
+    return { isAdmin: Boolean(snapshot.data().isAdmin), ...userRef }
   }
 
   const { email } = userAuth
@@ -47,6 +46,7 @@ export const createUserProfileDoc = async userAuth => {
 
   try {
     await userRef.set({
+      isAdmin: false,
       email,
       createdAt
     })
@@ -54,7 +54,7 @@ export const createUserProfileDoc = async userAuth => {
     console.log(error)
   }
 
-  return userRef
+  return { ...userRef, isAdmin: false }
 }
 
 export const getCollection = async ({ field, operator, value, limit }) => {

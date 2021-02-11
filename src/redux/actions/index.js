@@ -14,7 +14,6 @@ import {
 import { firestore, getCollection } from '../../components/utils/firebase'
 
 export const setUser = user => {
-  console.log(user)
   return {
     type: SET_USER,
     payload: user

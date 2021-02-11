@@ -11,7 +11,6 @@ import { displayNoticationModal } from '../../redux/actions'
 import './EditProduct.scss'
 
 import NotificationModal from '../notification-modal/NotificationModal'
-import { Link } from 'react-router-dom'
 
 const fieldProps = [
   {
@@ -31,7 +30,7 @@ const fieldProps = [
     type: 'select',
     id: 'product-category',
     label: 'Category',
-    options: ['Select State', 'women clothing']
+    options: ['Select Category', 'women clothing']
   },
   {
     name: 'description',

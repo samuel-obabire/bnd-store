@@ -29,38 +29,6 @@ const Error = lazy(() => import('./404'))
 
 const App = ({ setUser }) => {
   useEffect(() => {
-    // async function c() {
-    //   const image = new Jimp(400, 400, '#ffffff', (err, image) => {
-    //     return image
-    //   })
-
-    //   const { width, height } = await Jimp.read(img)
-    //     .then(image => image.resize(Jimp.AUTO, 400))
-    //     .then(img => ({
-    //       width: img.bitmap.width,
-    //       height: img.bitmap.height
-    //     }))
-
-    //   const x = Math.floor((400 - width) / 2)
-    //   const y = Math.floor((400 - height) / 2)
-
-    //   console.log(x, y)
-
-    //   const m = await Jimp.read(img).then(image => image.resize(Jimp.AUTO, 400))
-
-    //   const compositeImage = image.composite(m, x, y, {
-    //     mode: Jimp.BLEND_SOURCE_OVER
-    //   })
-
-    //   compositeImage.getBase64Async(Jimp.AUTO).then(console.log)
-    // }
-
-    // c()
-
-    // Jimp.read(img)
-    //   .then(image => image.resize(20, 20).blur(2))
-    //   .then(image => image.getBase64Async(Jimp.AUTO).then(console.log))
-
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       // Jimp.read('https://i.imgur.com/6u9kO9d.jpg')
       //   .then(image => Jimp.intToRGBA(image.getPixelColor(10, 10)))

@@ -43,8 +43,8 @@ const SignIn = ({ user, displayNoticationModal }) => {
 
     const next = query.get('next')
 
-    history.push(next ?? '/')
-  }, [user])
+    history.push(next ? '/' + next : '/')
+  }, [user, history])
 
   const onSubmit = ({ email, password }) => {
     setLoading(true)

@@ -1,6 +1,6 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch, useHistory } from 'react-router-dom'
 import Error from '../../404'
 import EditProduct from '../../edit-product/EditProduct'
 import Spinner from '../../spinner/Spinner'
@@ -10,10 +10,13 @@ const AllProducts = lazy(() =>
   import('../../../components/all-products/AllProducts')
 )
 
-const AdminPage = ({ match }) => {
-  // useEffect(() => {
-  //        2
-  // })
+const AdminPage = ({ match, user }) => {
+  const history = useHistory()
+
+  useEffect(() => {
+    console.log(!user?.isAdmin)
+    if (!user?.isAdmin) history.push('/login?next=admin')
+  }, [history])
 
   return (
     <div className="container admin-page">
@@ -50,4 +53,10 @@ const AdminPage = ({ match }) => {
   )
 }
 
-export default connect(null)(AdminPage)
+const mapState = state => {
+  return {
+    user: state.user.currentUser
+  }
+}
+
+export default connect(mapState)(AdminPage)
