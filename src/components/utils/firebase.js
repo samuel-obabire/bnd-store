@@ -37,7 +37,10 @@ export const createUserProfileDoc = async userAuth => {
 
   const snapshot = await userRef.get()
 
-  if (snapshot.exists) return userRef
+  if (snapshot.exists) {
+    console.log(snapshot.data().isAdmin)
+    return { isAdmin: false || snapshot.data().isAdmin, ...userRef }
+  }
 
   const { email } = userAuth
   const createdAt = new Date()
@@ -50,7 +53,6 @@ export const createUserProfileDoc = async userAuth => {
   } catch (error) {
     console.log(error)
   }
-  console.log(userRef)
 
   return userRef
 }

@@ -66,12 +66,11 @@ const User = ({ user }) => {
             </div> */}
             {/* <hr /> */}
             <div className="dropdown-footer">
-              {/* <div className="dropdown-option">
-                <div>
-                  <Settingsicon />
+              {user?.isAdmin ? (
+                <div className="dropdown-option">
+                  <Link to="/admin">Admin</Link>
                 </div>
-                <Link to="/user/settings">Settings</Link>
-              </div> */}
+              ) : null}
               <div className="dropdown-option">
                 <div>
                   <SignoutIcon />

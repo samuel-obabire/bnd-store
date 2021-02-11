@@ -28,7 +28,7 @@ const fieldProps = [
 
 const formFooterComponent = (
   <div className="field footer">
-    Don't have an account? <Link to="/sign-up">Sign up</Link>
+    Don't have an account? <Link to="/sign-up">&nbsp; Sign up</Link>
   </div>
 )
 

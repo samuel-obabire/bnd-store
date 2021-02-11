@@ -42,15 +42,16 @@ const Form = ({
         {renderFormFields(fieldProps)}
         {formFooterComponent}
         <button
-          className={`${
-            otherProps.invalid
-              ? 'disabled'
-              : otherProps.pristine
-              ? 'disabled'
-              : ''
-          }`}
+          // className={`${
+          //   otherProps.invalid
+          //     ? 'disabled'
+          //     : otherProps.pristine
+          //     ? 'disabled'
+          //     : ''
+          // }`}
           type="submit"
-          disabled={otherProps.invalid || otherProps.pristine}>
+          // disabled={otherProps.invalid || otherProps.pristine}
+        >
           {loading ? '...' : buttonText}
         </button>
       </form>

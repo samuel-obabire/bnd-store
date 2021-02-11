@@ -129,7 +129,7 @@ const CheckoutPage = ({
               'full name': displayName,
               'phone number': phoneNumber
             }}
-            additionalStyles={{ maxWidth: '30rem', backgroundColor: 'white' }}
+            additionalStyles={{ maxWidth: '30rem' }}
             onFormSubmit={onFormSubmit}
             fieldProps={fieldProps}
           />

@@ -11,6 +11,10 @@ const AllProducts = lazy(() =>
 )
 
 const AdminPage = ({ match }) => {
+  // useEffect(() => {
+  //        2
+  // })
+
   return (
     <div className="container admin-page">
       <Route exact path={`${match.path}`}>

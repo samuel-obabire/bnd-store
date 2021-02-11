@@ -119,11 +119,12 @@ export const validate = values => {
   if (!values.category) {
     errors.category = 'Category is required'
   }
-  if (
-    !values['product-description'] ||
-    values['product-description']?.length < 100
-  ) {
-    errors['product-description'] = 'Description is required'
+  if (!values['description']) {
+    errors.description = 'Description is required'
+  }
+
+  if (values?.description?.length < 80) {
+    errors.description = 'Description too short'
   }
 
   if (!values.material) {

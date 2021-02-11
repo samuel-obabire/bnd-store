@@ -72,10 +72,10 @@ const App = ({ setUser }) => {
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth)
 
-        return setUser(userAuth)
+        return setUser(userRef)
       }
 
-      return setUser(userAuth)
+      return setUser(null)
     })
 
     return () => unsubscribeFromAuth()

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import Form from '../form/Form'
 import Spinner from '../spinner/Spinner'
-import { generateId } from '../utils'
+import { generateId, parseString } from '../utils'
 import { firestore, storage } from '../utils/firebase'
 
 import { displayNoticationModal } from '../../redux/actions'
@@ -11,6 +11,7 @@ import { displayNoticationModal } from '../../redux/actions'
 import './EditProduct.scss'
 
 import NotificationModal from '../notification-modal/NotificationModal'
+import { Link } from 'react-router-dom'
 
 const fieldProps = [
   {
@@ -27,12 +28,13 @@ const fieldProps = [
   },
   {
     name: 'category',
-    type: 'text',
+    type: 'select',
     id: 'product-category',
-    label: 'Category'
+    label: 'Category',
+    options: ['Select State', 'women clothing']
   },
   {
-    name: 'product-description',
+    name: 'description',
     type: 'textarea',
     id: 'product-description',
     label: 'Description'
@@ -68,6 +70,8 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
 
   const imageLinks = []
 
+  const { type } = match.params
+
   useEffect(() => {
     firestore
       .collection('products')
@@ -78,6 +82,8 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
   }, [])
 
   const readProductImage = async () => {
+    if (!productImage.length) return
+
     const reader = new FileReader()
 
     reader.readAsDataURL(productImage[0])
@@ -93,45 +99,42 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
     })
   }
 
-  const uploadProduct = async ({ values, uri, imageLinks }) => {
+  const uploadProduct = async ({ values, ...otherProps }) => {
     console.log(values)
+
     const p = {
+      ...otherProps,
       ...values,
       sizes: values?.sizes?.split(','),
       price: Number(values.price),
       indexes: [
         ...values?.keywords?.split(',')?.map(word => word?.toUpperCase())
-      ],
-      uri,
-      imageCollections: imageLinks,
-      description: values['product-description'],
-      image: imageLinks[0]
+      ]
     }
 
     const ref = firestore.collection('products').doc(values.id)
 
     const { keywords, ...product } = p
     console.log(product)
-    console.log(7)
 
     await ref
       .set(product, { merge: true })
-      .then(displayNoticationModal('Product sucessfully uploaded'))
+      .catch(e => displayNoticationModal('An error occured'))
   }
 
   const uploadImages = async () => {
     const ref = storage.ref()
-
-    console.log(7)
 
     const promises = []
 
     const images = Object.values(imageCollections)
     images.unshift(productImage[0])
 
+    if (!images.filter(Boolean).length) return
+
     images.forEach((image, i) => {
       if (i === 0) {
-        const uploadTask = ref.child(`${image.name}`).put(image)
+        const uploadTask = ref.child(`${generateId() + image.name}`).put(image)
 
         uploadTask.on(
           'state_changed',
@@ -141,7 +144,9 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
             setProgress(progress)
           },
           error => {
-            window.alert('unsucessful')
+            console.log(error.message)
+            displayNoticationModal('An error occured', 'error')
+            return setLoading(false)
           },
           () => {
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
@@ -162,7 +167,7 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
             setProgress(progress)
           },
           error => {
-            window.alert('unsucessful')
+            console.log(error.message)
           },
           () => {
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
@@ -179,18 +184,32 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
   }
 
   const onSubmit = async () => {
-    console.log('running')
-    if (!productImage.length)
+    if (!productImage.length && type === 'new')
       return displayNoticationModal('Images not selected', 'error')
-    console.log(productImage.length)
 
     setLoading(true)
 
     await Promise.all([uploadImages(), readProductImage()])
 
     setTimeout(() => {
-      uploadProduct({ values, uri, imageLinks }).then(() => {
+      const product = {
+        values
+      }
+
+      if (uri) product.uri = uri
+      if (imageLinks.length) {
+        product.image = imageLinks[0]
+        product.imageCollection = imageLinks
+      }
+
+      const renderMessage = () => {
+        if (type === 'edit') return <div>Product sucessfully updated</div>
+        return <div>Product sucessfully created</div>
+      }
+
+      uploadProduct(product).then(() => {
         setLoading(false)
+        displayNoticationModal(renderMessage())
       })
     }, 2000)
   }
@@ -226,15 +245,13 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
   }
 
   try {
-    const { type } = match.params
-
     if (!product && type === 'edit') return <Spinner />
     if (type === 'new') {
       const id = generateId()
       return (
-        <>
+        <div className="create-product">
           {render()}
-          <h1>Create New Product</h1>
+          <h1>Create A Product</h1>
           <Form
             onFormSubmit={onSubmit}
             loading={loading}
@@ -243,7 +260,7 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
             formFooterComponent={formFooterComponent}
             initialValues={{ id }}
           />
-        </>
+        </div>
       )
     }
 
@@ -265,12 +282,13 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
       <>
         <NotificationModal />
         {render()}
-        <h1>Edit {product.title}Product</h1>
+        <h1>{product.title}</h1>
         <Form
           loading={loading}
           onFormSubmit={onSubmit}
           fieldProps={fieldProps}
-          buttonText="Create Product"
+          buttonText={(() =>
+            type === 'new' ? 'Create Product' : 'Update Product')()}
           formFooterComponent={formFooterComponent}
           initialValues={{
             title,
