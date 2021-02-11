@@ -14,7 +14,6 @@ const AdminPage = ({ match, user }) => {
   const history = useHistory()
 
   useEffect(() => {
-    console.log(!user?.isAdmin)
     if (!user?.isAdmin) history.push('/login?next=admin')
   }, [history])
 

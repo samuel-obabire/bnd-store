@@ -11,6 +11,7 @@ import { displayNoticationModal } from '../../redux/actions'
 import './EditProduct.scss'
 
 import NotificationModal from '../notification-modal/NotificationModal'
+import { useHistory } from 'react-router-dom'
 
 const fieldProps = [
   {
@@ -64,6 +65,7 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
   const [progress, setProgress] = useState(null)
   const [imageCollections, setImageCollections] = useState([])
   const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
   let uri = ''
 
@@ -99,8 +101,6 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
   }
 
   const uploadProduct = async ({ values, ...otherProps }) => {
-    console.log(values)
-
     const p = {
       ...otherProps,
       ...values,
@@ -114,7 +114,6 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
     const ref = firestore.collection('products').doc(values.id)
 
     const { keywords, ...product } = p
-    console.log(product)
 
     await ref
       .set(product, { merge: true })
@@ -208,6 +207,11 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
 
       uploadProduct(product).then(() => {
         setLoading(false)
+        setTimeout(() => {
+          history.push(
+            `/shop/${parseString(product.values.title)}?id=${product.values.id}`
+          )
+        }, 5000)
         displayNoticationModal(renderMessage())
       })
     }, 2000)
