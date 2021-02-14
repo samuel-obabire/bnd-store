@@ -17,6 +17,7 @@ import { Breakpoint } from 'react-socks'
 import Spinner from './spinner/Spinner'
 import ScrollToTop from './ScrollToTop'
 import { Helmet } from 'react-helmet'
+import Back from './Back'
 
 const HomePage = lazy(() => import('./pages/home-page/HomePage'))
 const ShopPage = lazy(() => import('./pages/shop-page/ShopPage'))
@@ -52,12 +53,10 @@ const App = ({ setUser }) => {
   return (
     <BrowserRouter>
       <Helmet>
-        <title>
-          Bnd Clothings - an online shopping for whatever clothings material you
-          want
-        </title>
+        <title>Bnd Clothings - Born to cover nakednesss</title>
       </Helmet>
       <Header />
+      <Back />
       <ScrollToTop />
       <Suspense
         fallback={

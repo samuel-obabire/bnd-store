@@ -12,6 +12,7 @@ import {
 
 import { Helmet } from 'react-helmet'
 import ItemsCollection from '../../items-collection/ItemsCollection'
+import { formatPrice } from '../../utils'
 
 const CartPage = ({ total, cart, ...otherProps }) => {
   const history = useHistory()
@@ -45,7 +46,7 @@ const CartPage = ({ total, cart, ...otherProps }) => {
         {renderCart()}
         <footer className="cartpage-footer">
           <h3 style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>Total:</span> <span>&#8358; {total}</span>
+            <span>Total:</span> <span>{formatPrice(total)}</span>
           </h3>
         </footer>
         <CustomBtn

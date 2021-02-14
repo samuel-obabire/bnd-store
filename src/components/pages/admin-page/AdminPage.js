@@ -1,8 +1,9 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link, Route, Switch, useHistory } from 'react-router-dom'
+import { Link, Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import Error from '../../404'
 import EditProduct from '../../edit-product/EditProduct'
+import ItemsCollection from '../../items-collection/ItemsCollection'
 import Spinner from '../../spinner/Spinner'
 import './AdminPage.scss'
 
@@ -14,12 +15,13 @@ const AdminPage = ({ match, user }) => {
   const history = useHistory()
 
   useEffect(() => {
-    if (!user?.isAdmin) history.push('/login?next=admin')
-  }, [history])
+    if (!user?.isAdmin) history.push('/login')
+  }, [])
 
   return (
     <div className="container admin-page">
       <Route exact path={`${match.path}`}>
+        <Link to={`${match.path}/orders`}>Orders</Link>
         <Link to={`${match.path}/products`}>All Products</Link>
         <Link to={`${match.path}/product/new`}>Create new Product</Link>
       </Route>
@@ -45,7 +47,12 @@ const AdminPage = ({ match, user }) => {
             path={`${match.path}/product/:type`}
             component={EditProduct}
           />
-          {/* <Route path="*" component={Error} /> */}
+          <Route exact path={`${match.path}/orders`}>
+            Page will be ready soon.
+            <br />
+            Paystack should send a receipt of payment containing details of any
+            order
+          </Route>
         </Switch>
       </Suspense>
     </div>

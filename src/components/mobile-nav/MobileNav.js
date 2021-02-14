@@ -71,12 +71,12 @@ const MobileNav = ({ setMobileMenuVisiblity }) => {
         </div>
         Home
       </Link>
-      <div className="icon-wrapper">
+      {/* <div className="icon-wrapper">
         <div className="icon">
           <SavedIcon />
         </div>
         Saved
-      </div>
+      </div> */}
       <Link to="/shop" className="icon-wrapper">
         <div className="icon">
           <ShopIcon />

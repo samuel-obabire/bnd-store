@@ -15,8 +15,7 @@ const Form = ({
   loading,
   handleSubmit,
   formFooterComponent,
-  selectedState = '',
-  ...otherProps
+  selectedState = ''
 }) => {
   const renderFormFields = fieldProps =>
     fieldProps.map(({ ...props }) => {

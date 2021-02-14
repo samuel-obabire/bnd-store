@@ -34,6 +34,14 @@ const fieldProps = [
     options: ['Select Category', 'women clothing']
   },
   {
+    name: 'sizes',
+    type: 'select',
+    id: 'sizes',
+    label: 'Sizes',
+    options: [14, 16, 18, 20, 22, 24, 26, 28, 30],
+    multiple: true
+  },
+  {
     name: 'description',
     type: 'textarea',
     id: 'product-description',
@@ -50,12 +58,6 @@ const fieldProps = [
     type: 'text',
     id: 'material',
     label: 'Material'
-  },
-  {
-    name: 'sizes',
-    type: 'text',
-    id: 'sizes',
-    label: 'Sizes'
   }
 ]
 
@@ -104,7 +106,7 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
     const p = {
       ...otherProps,
       ...values,
-      sizes: values?.sizes?.split(','),
+      sizes: values?.sizes,
       price: Number(values.price),
       indexes: [
         ...values?.keywords?.split(',')?.map(word => word?.toUpperCase())
@@ -274,12 +276,11 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
       description,
       indexes: ind,
       material,
-      sizes: s,
+      sizes,
       id
     } = product
 
-    const indexes = ind.join(','),
-      sizes = s.join(',')
+    const indexes = ind.join(',')
 
     return (
       <>

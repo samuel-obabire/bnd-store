@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useRef } from 'react'
 
 import './Footer.scss'
 
@@ -6,9 +7,28 @@ import { ReactComponent as Fb } from '../../asset/fb.svg'
 import { ReactComponent as Wa } from '../../asset/wa-icon.svg'
 import { ReactComponent as Ig } from '../../asset/ig-icon.svg'
 
-const Footer = () => {
+import NotificationModal from '../notification-modal/NotificationModal'
+import { displayNoticationModal } from '../../redux/actions'
+import { firestore } from '../utils/firebase'
+import { connect } from 'react-redux'
+
+const Footer = ({ displayNoticationModal }) => {
+  const ref = useRef()
+
+  const onSubmit = async e => {
+    e.preventDefault()
+    if (!ref?.current?.value) return
+
+    await firestore.collection('mailing-list').doc().set({
+      email: ref.current.value
+    })
+
+    displayNoticationModal('Subcribed sucessfully')
+  }
+
   return (
     <footer className="footer" id="footer">
+      <NotificationModal />
       <section>
         <header>
           <h3>About</h3>
@@ -87,11 +107,13 @@ const Footer = () => {
           Be the first to know our latest deals; get discounts for early
           purchase
         </p>
-        <input type="email" placeholder="email" />
-        <button>Subscribe</button>
+        <form onSubmit={onSubmit}>
+          <input ref={ref} type="email" placeholder="email" />
+          <button type="submit">Subscribe</button>
+        </form>
       </section>
     </footer>
   )
 }
 
-export default Footer
+export default connect(null, { displayNoticationModal })(Footer)

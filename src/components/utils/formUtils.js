@@ -29,7 +29,8 @@ export const renderFormComponent = ({
   input,
   meta,
   options,
-  selectedState
+  selectedState,
+  multiple
 }) => {
   if (type === 'select' && label === 'Local Government') {
     return (
@@ -51,7 +52,7 @@ export const renderFormComponent = ({
     return (
       <>
         <label htmlFor={type}>{label}</label>
-        <select {...input} id={id}>
+        <select {...input} id={id} multiple={multiple || false}>
           {renderOptions(options)}
         </select>
         {renderError(meta)}
@@ -120,10 +121,8 @@ export const validate = values => {
     errors.category = 'Category is required'
   }
   if (!values['description']) {
-    errors.description = 'Description is required'
-  }
-
-  if (values?.description?.length < 80) {
+    errors.description = 'Enter Product Description'
+  } else if (values?.description?.trim()?.length < 80) {
     errors.description = 'Description too short'
   }
 
@@ -135,8 +134,8 @@ export const validate = values => {
     errors.keywords = 'Format not correct'
   }
 
-  if (values?.sizes?.includes(' ') || !values.sizes) {
-    errors.sizes = 'Format not correct'
+  if (!values?.sizes?.length) {
+    errors.sizes = 'Select Sizes'
   }
   return errors
 }

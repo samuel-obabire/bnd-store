@@ -19,6 +19,8 @@ import {
   removeFromCart,
   displayNoticationModal
 } from '../../../redux/actions'
+import { firestore } from '../../utils/firebase'
+import { formatPrice } from '../../utils'
 
 const fieldProps = [
   {
@@ -105,6 +107,15 @@ const CheckoutPage = ({
     setshowNext(true)
   }
 
+  const onPaymentSuccess = async ref => {
+    await firestore
+      .collection('orders')
+      .doc()
+      .set({ ...shippingDetails, cart, total, ...ref, createdAt: new Date() })
+
+    history.push('/shop')
+  }
+
   const renderPage = () => {
     if (!cart.length)
       return (
@@ -148,21 +159,22 @@ const CheckoutPage = ({
         <div className="order-summary-fee">
           <div>
             <span>Starting Subtotal</span>
-            <span>&#8358; {total}</span>
+            <span>{formatPrice(total)}</span>
           </div>
           <div>
             <span>Shipping Fee</span>
-            <span>&#8358; {shippingFee}</span>
+            <span>{formatPrice(shippingFee)}</span>
           </div>
           <h3>
             <span>Order Total</span>
-            <span>&#8358; {parseFloat(total) + shippingFee}</span>
+            <span>{formatPrice(parseFloat(total) + shippingFee)}</span>
           </h3>
         </div>
         <Paystack
           metadata={shippingDetails}
           amount={total * 100}
           email={shippingDetails.email}
+          onPaymentSuccess={onPaymentSuccess}
         />
       </div>
     )

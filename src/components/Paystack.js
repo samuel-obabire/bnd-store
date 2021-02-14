@@ -6,7 +6,12 @@ import { displayNoticationModal } from '../redux/actions'
 
 const publicKey = process.env.REACT_APP_PAYSTACK_API_KEY
 
-const Paystack = ({ email, amount, displayNoticationModal }) => {
+const Paystack = ({
+  email,
+  amount,
+  displayNoticationModal,
+  onPaymentSuccess
+}) => {
   const config = {
     email,
     amount,
@@ -14,7 +19,7 @@ const Paystack = ({ email, amount, displayNoticationModal }) => {
   }
 
   const onSuccess = reference => {
-    console.log(reference)
+    onPaymentSuccess(reference)
     displayNoticationModal('Payment Sucessful')
   }
 

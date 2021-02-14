@@ -51,7 +51,7 @@ const AllCollections = () => {
         />
         <meta
           name="title"
-          content="Bnd Clothings - shop, clothings materia, accesories &amp; More!"
+          content="Bnd Clothings - shop, clothings material, accesories &amp; More!"
         />
       </Helmet>
       <main className="container all-collections-page">
