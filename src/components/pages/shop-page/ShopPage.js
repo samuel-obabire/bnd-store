@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import { connect } from 'react-redux'
 
@@ -7,7 +7,7 @@ import './ShopPage.scss'
 import { setQuery } from '../../../redux/actions'
 
 import useQuery from '../../../hooks/useQuery'
-import Error from '../../404'
+// import Error from '../../404'
 import Spinner from '../../spinner/Spinner'
 
 const AllCollections = lazy(() =>
@@ -48,7 +48,8 @@ const ShopPage = ({ setQuery, match, location }) => {
             path={`${match.path}/:productName`}
             component={ProductPage}
           />
-          <Route path="*" component={Error} />
+          {/* <Route path="*" component={Error} /> */}
+          <Redirect to="/shop" />
         </Switch>
       </Suspense>
     </main>

@@ -199,7 +199,7 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
       if (uri) product.uri = uri
       if (imageLinks.length) {
         product.image = imageLinks[0]
-        product.imageCollection = imageLinks
+        product.imageCollection = imageLinks.slice(1)
       }
 
       const renderMessage = () => {
