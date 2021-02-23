@@ -6,8 +6,9 @@ import './Header.scss'
 
 import { ReactComponent as MenuBar } from '../../asset/3-bars.svg'
 import { ReactComponent as CartIcon } from '../../asset/cart-icon.svg'
-import { ReactComponent as Logo } from '../../asset/bnd-logo.svg'
 import SearchBar from '../../components/search-bar/SearchBar'
+
+import logo from '../../asset/logo.jpg'
 import { setMobileMenuVisiblity } from '../../redux/actions'
 import MobileMenu from '../../components/mobile-menu/MobileMenu'
 import Categories from '../categories/Categories'
@@ -34,8 +35,10 @@ const Header = ({ setMobileMenuVisiblity, productCount }) => {
             <MobileMenu />
           </div>
         </Breakpoint>
-        <Breakpoint medium up>
-          <Logo className="store-logo" onClick={() => history.push('/')} />
+        <Breakpoint medium up className="store-logo">
+          <div className="store-logo" onClick={() => history.push('/')}>
+            <img src={logo} alt="bnd clothings logo" />
+          </div>
         </Breakpoint>
         <SearchBar className="icon" onSearchSubmit={onSearchSubmit} />
         <div className="right-sided-nav-items">

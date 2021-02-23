@@ -126,6 +126,12 @@ const ProductGallery = ({
   const renderHeader = (
     <Helmet>
       <title>{product.title} - Bnd Clothings</title>
+      <meta property="og:description" content={product.description} />
+      <meta name="description" content={product.description} />
+      <meta name="title" content={product.title} />
+      <meta property="og:title" content={product.title} />
+      <meta property="og:url" content={window.location.href} />
+      <meta property="og:image" content={product.image} />
     </Helmet>
   )
 
@@ -160,7 +166,7 @@ const ProductGallery = ({
                   onChange={e => setSelectedSize(e.target.value)}
                   className="dropdown"
                   defaultValue="Size">
-                  <option value="" disabled>
+                  <option value="Size" disabled>
                     Select Size
                   </option>
                   {product.sizes.map(size => (
@@ -234,7 +240,7 @@ const ProductGallery = ({
                   onChange={e => setSelectedSize(e.target.value)}
                   className="dropdown"
                   defaultValue="Size">
-                  <option value="" disabled>
+                  <option value="Size" disabled>
                     Select Size
                   </option>
                   {product.sizes.map(size => (

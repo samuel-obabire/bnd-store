@@ -9,6 +9,7 @@ import Spinner from '../spinner/Spinner'
 import { firestore } from '../utils/firebase'
 import { unParseString } from '../utils'
 import { useRouteMatch } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const ShopCollection = ({
   setProducts,
@@ -23,6 +24,7 @@ const ShopCollection = ({
   const [firstVisible, setFirstVisible] = useState(null)
   const [totalProd, setTotalProd] = useState(null)
   const [pageNum, setPageNum] = useState(1)
+  const [hasError, setHasError] = useState(false)
 
   const pageSize = 18
   const filter = 'price'
@@ -41,6 +43,7 @@ const ShopCollection = ({
     const items = {}
 
     const documentSnapshots = await query.get()
+    if (!documentSnapshots.docs.length) setHasError(true)
     documentSnapshots.forEach(doc => {
       items[doc.id] = doc.data(documentSnapshots.docs[0])
 
@@ -122,6 +125,14 @@ const ShopCollection = ({
 
     return (
       <main className="shop-wrapper container">
+        <Helmet>
+          <title>{pageTitle} - Bnd Clothings</title>
+          <meta property="og:description" content={`shop ${pageTitle}`} />
+          <meta name="description" content={`shop ${pageTitle}`} />
+          <meta name="title" content={pageTitle} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:url" content={window.location.href} />
+        </Helmet>
         <h1>{pageTitle}</h1>
         <div className="shop-collection-container">{shopProducts}</div>
         <div className="page-nav-btn">
@@ -137,7 +148,15 @@ const ShopCollection = ({
     )
   }
 
-  return shopProducts.length ? renderShopProducts() : <Spinner />
+  return shopProducts.length ? (
+    renderShopProducts()
+  ) : hasError ? (
+    <div style={{ marginBottom: '3rem' }}>
+      Products might not exist or you don't have an internet connection
+    </div>
+  ) : (
+    <Spinner />
+  )
 }
 
 const mapState = state => {

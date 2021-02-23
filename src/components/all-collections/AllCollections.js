@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import './AllCollections.scss'
 
@@ -8,18 +9,39 @@ import { parseString } from '../utils'
 import { firestore } from '../utils/firebase'
 import Spinner from '../spinner/Spinner'
 
-const AllCollections = () => {
+const AllCollections = ({ cat }) => {
   const [allCollections, setAllCollections] = useState([])
+  const [categories, setCategories] = useState([])
+  const c = Object.keys(cat)
+
+  const category = categories[0]?.category
 
   useEffect(() => {
-    firestore
-      .collection('categories')
-      .get()
-      .then(querySnapshot => querySnapshot.docs.map(doc => doc.data()))
-      .then(setAllCollections)
-  }, [])
+    const func = async () => {
+      await firestore
+        .collection('categories')
+        .get()
+        .then(result => {
+          setAllCollections([...result.docs.map(doc => doc.data())])
+        })
+    }
 
-  const renderCollections = allCollections.map(({ coverImage, category }) => {
+    func()
+  }, [cat])
+
+  useEffect(() => {
+    if (!allCollections.length) return
+
+    const categories = allCollections.filter(collection =>
+      c.includes(collection.category)
+    )
+
+    setCategories(categories)
+  }, [allCollections])
+
+  if (!categories.length) return <Spinner />
+
+  const renderCollections = categories.map(({ coverImage, category }) => {
     const style = {
       backgroundImage: `url(${coverImage})`
     }
@@ -45,14 +67,13 @@ const AllCollections = () => {
     <>
       <Helmet>
         <title>All Collections - Bnd Clothings</title>
-        <meta
-          name="description"
-          content="Bnd clothings - born to cover nakedness"
-        />
+        <meta name="description" content="Shop our collections" />
+        <meta property="og:description" content="Shop our collections" />
         <meta
           name="title"
           content="Bnd Clothings - shop, clothings material, accesories &amp; More!"
         />
+        <meta property="og:title" content={category} />
       </Helmet>
       <main className="container all-collections-page">
         {!allCollections.length ? (
@@ -68,4 +89,10 @@ const AllCollections = () => {
   )
 }
 
-export default AllCollections
+const mapState = state => {
+  return {
+    cat: state.shop.categories
+  }
+}
+
+export default connect(mapState)(AllCollections)

@@ -7,6 +7,7 @@ import CollectionOverviewWithSpinner from '../../hoc/CollectionOverviewWithSpinn
 import LazyImage from '../../lazy-image/LazyImage'
 import CollectionOverviewErrorBoundary from '../../error-boundaries/CollectionOverviewErrorBoundary'
 import CustomBtn from '../../custom-btn/CustomBtn'
+import { Helmet } from 'react-helmet'
 
 const HomePage = () => {
   const history = useHistory()
@@ -17,6 +18,27 @@ const HomePage = () => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          property="og:title"
+          content="Bnd Clothings - Born to cover nakedness"
+        />
+        <meta property="og:type" content="product" />
+        <meta
+          property="og:site_name"
+          content="Beulah &amp; Daniel Fashion Palace"
+        />
+        <meta
+          property="og:image"
+          content="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fjibike4nice%2F&psig=AOvVaw2yK8yKapYOgMC-PwerFvoR&ust=1613367694062000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNj-pKDV6O4CFQAAAAAdAAAAABAD"
+        />
+        <meta
+          property="og:description"
+          content="Beulah & Daniel Fashion Palaace is an independent online retailer offering variety
+       of products ranging from branded products, stock from other retailers to its 
+       own label - Enjoy quality products at great prices | Secure Payments - Fast Delivery - Free Returns"
+        />
+      </Helmet>
       <div className="home-background">
         <LazyImage
           uri={uri}

@@ -10,8 +10,9 @@ import { setSelectedProduct } from '../../redux/actions'
 import Collection from '../collection/Collection'
 import { useLocation } from 'react-router-dom'
 import Spinner from '../spinner/Spinner'
+import { getUserSelectedProduct } from '../../redux/selectors'
 
-const ProductPage = ({ setSelectedProduct }) => {
+const ProductPage = ({ setSelectedProduct, product: prod }) => {
   const id = useQuery().get('id')
   const [product, setProduct] = useState(null)
   const [similarProd, setSimilarProd] = useState([])
@@ -83,6 +84,13 @@ const ProductPage = ({ setSelectedProduct }) => {
   const render = () => {
     if (loading) return <Spinner />
 
+    if (!prod)
+      return (
+        <div style={{ marginBottom: '3rem' }}>
+          Product(s) might not exist or you don't have an internet connection
+        </div>
+      )
+
     return (
       <>
         <ProductGallery />
@@ -94,4 +102,10 @@ const ProductPage = ({ setSelectedProduct }) => {
   return <main className="product-page">{render()}</main>
 }
 
-export default connect(null, { setSelectedProduct })(ProductPage)
+const mapState = state => {
+  return {
+    product: getUserSelectedProduct(state)
+  }
+}
+
+export default connect(mapState, { setSelectedProduct })(ProductPage)

@@ -48,10 +48,12 @@ export const getCollections = (limit = 5) => async dispatch => {
   const products = await Promise.all(promises)
 
   categories.forEach((category, i) => {
-    dispatch({
-      type: SET_CATEGORIES,
-      payload: { [category]: products[i], category }
-    })
+    if (JSON.stringify(products[i]) != '{}') {
+      dispatch({
+        type: SET_CATEGORIES,
+        payload: { [category]: products[i], category }
+      })
+    }
   })
 }
 

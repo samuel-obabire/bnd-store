@@ -6,8 +6,8 @@ import './MobileMenu.scss'
 
 import { getMobileMenuVisibility } from '../../redux/selectors'
 import { setMobileMenuVisiblity } from '../../redux/actions'
-import { ReactComponent as Logo } from '../../asset/bnd-logo.svg'
 import Categories from '../categories/Categories'
+import logo from '../../asset/logo.jpg'
 
 const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
   const history = useHistory()
@@ -27,7 +27,7 @@ const MobileMenu = ({ visibility, setMobileMenuVisiblity }) => {
 
             history.push('/')
           }}>
-          <Logo />
+          <img src={logo} alt="bnd clothings logo" />
         </div>
         <hr />
         <Categories isMobileScreen={true} />

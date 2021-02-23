@@ -31,14 +31,43 @@ const fieldProps = [
     type: 'select',
     id: 'product-category',
     label: 'Category',
-    options: ['Select Category', 'women clothing']
+    options: [
+      'Select Category',
+      'women clothing',
+      'shoes',
+      'bags',
+      'wigs',
+      'undies',
+      'footwears',
+      'night wears'
+    ]
   },
   {
     name: 'sizes',
     type: 'select',
     id: 'sizes',
     label: 'Sizes',
-    options: [14, 16, 18, 20, 22, 24, 26, 28, 30],
+    options: [
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
     multiple: true
   },
   {
@@ -313,9 +342,11 @@ const EditProduct = ({ match, values, displayNoticationModal }) => {
 }
 const mapState = state => {
   const values = state?.form?.form?.values
+  const categories = state.shop.categories
 
   return {
-    values
+    values,
+    categories
   }
 }
 

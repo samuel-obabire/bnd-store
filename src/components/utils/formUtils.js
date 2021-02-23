@@ -1,4 +1,5 @@
 import NaijaStates from 'naija-state-local-government'
+import { firestore } from '../utils/firebase'
 
 const renderError = ({ error, touched }) => {
   if (touched && error) {
@@ -47,6 +48,24 @@ export const renderFormComponent = ({
       </>
     )
   }
+
+  // if (type === 'select' && label === 'Category') {
+  //   const categories = await firestore
+  //     .collection('categories')
+  //     .get()
+  //     .then(querySnapshot => querySnapshot.docs.map(doc => doc.data().category))
+  //   console.log(categories)
+
+  //   // return (
+  //   //   <>
+  //   //     <label htmlFor={type}>{label}</label>
+  //   //     <select {...input} id={id} multiple={multiple || false}>
+  //   //       {renderOptions(options)}
+  //   //     </select>
+  //   //     {renderError(meta)}
+  //   //   </>
+  //   // )
+  // }
 
   if (type === 'select')
     return (
